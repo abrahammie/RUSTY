@@ -11,8 +11,8 @@ class App extends React.Component {
       todos: []
     }
 
-    this.handleCreation = this.handleCreation.bind(this)
-    this.handleCompletion = this.handleToggleCompletion.bind(this)
+    this.handleCreation = this.handleCreation.bind(this);
+    this.handleCompletion = this.handleToggleCompletion.bind(this);
   }
 
   componentDidMount() {
@@ -39,7 +39,7 @@ class App extends React.Component {
 
     return (
       <div>
-        <h1>RUSTY</h1>
+        <h1>HELLO N!</h1>
 
         <div>
           <div>

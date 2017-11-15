@@ -6,7 +6,7 @@
   "scripts": {
     "server": "nodemon server/index.js --inspect",
     "start": "webpack-dev-server",
-    "build": ""
+    "build": "webpack"
   },
   "author": "all that",
   "liscence": "MIT",
@@ -22,7 +22,6 @@
     "prop-types": "^15.6.0",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.4"
-
   },
   "dependencies": {
     "body-parser": "^1.17.0",
