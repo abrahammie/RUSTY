@@ -17,7 +17,7 @@ db.once('open', function() {
 //   body:   String,
 //   comments: [{ body: String, date: Date }],
 //   date: { type: Date, default: Date.now },
-//   hidden: Boolean,
+//   hidde: Boolean,
 //   meta: {
 //     votes: Number,
 //     favs:  Number
