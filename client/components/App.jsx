@@ -38,7 +38,7 @@ class App extends React.Component {
     const { todos } = this.state
 
     return (
-      <div>
+      <div><div>
         <h1>HELLO N!</h1>
 
         <div>
