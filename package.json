@@ -10,7 +10,6 @@
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "prod": "NODE_ENV=production webpack --config webpack.config.js",
     "server": "nodemon server/index.js --inspect",
-    "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress",
     "dev": "webpack-dev-server",
     "build": "webpack"
   },
