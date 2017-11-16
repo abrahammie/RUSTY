@@ -1,9 +1,10 @@
-const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/rustydb", { useMongoClient: true });
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/rustydb', { useMongoClient: true }); // not heroku-friendly
+// double quotes and single quotes
 
 var db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", function() {
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
   //leave open
   console.log('Connected to database!');
 });
