@@ -18,7 +18,7 @@ class App extends React.Component {
   componentDidMount() {
     $.get("http://localhost:3000/todos", function(response) {
       console.log(response)
-    })
+    });
   }
 
   handleToggleCompletion(id) {
@@ -57,4 +57,7 @@ class App extends React.Component {
   }
 }
 
-export default App
+export default App;
+
+
+
