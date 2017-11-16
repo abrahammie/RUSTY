@@ -1,32 +1,32 @@
-import React from "react"
-import $ from "jquery"
-import NewTodo from "./NewTodo.jsx"
-import TodoList from "./TodoList.jsx"
+import React from 'react';
+import $ from 'jquery';
+import NewTodo from './NewTodo.jsx';
+import TodoList from './TodoList.jsx';
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
-      todos: []
-    }
+      todos: [],
+    };
 
     this.handleCreation = this.handleCreation.bind(this);
     this.handleCompletion = this.handleToggleCompletion.bind(this);
   }
 
   componentDidMount() {
-    $.get("http://localhost:3000/todos", function(response) {
-      console.log(response)
+    $.get('http://localhost:3000/todos', (response) => {
+      console.log(response);
     });
   }
 
   handleToggleCompletion(id) {
     $.ajax({
-      method: "POST",
+      method: 'POST',
       url: `/todos/${id}`
     }).then(data => {
-      console.log("TOGGLE:", data)
+      console.log('TOGGLE:', data);
       // Find the item and update its state
       // this.setState({ todos: data })
     })
@@ -35,11 +35,11 @@ class App extends React.Component {
   handleCreation(item) {}
 
   render() {
-    const { todos } = this.state
+    const { todos } = this.state;
 
     return (
-      <div><div>
-        <h1>HELLO N!</h1>
+      <div>
+        <h1>RUSTY test</h1>
 
         <div>
           <div>
@@ -48,16 +48,12 @@ class App extends React.Component {
         </div>
 
         <div>
-          <div>
-            <TodoList todos={todos} />
-          </div>
+          <TodoList todos={todos} handleToggleCompletion={this.handleToggleCompletion} />
         </div>
       </div>
-    )
+
+    );
   }
 }
 
 export default App;
-
-
-
