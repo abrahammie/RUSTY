@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/rustydb', { useMongoClient: true }); // not heroku-friendly
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/rustydb', { useMongoClient: true }); // not heroku-friendly
 // double quotes and single quotes
 
 var db = mongoose.connection;
