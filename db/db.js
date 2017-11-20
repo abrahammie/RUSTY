@@ -68,7 +68,7 @@ let Rating = mongoose.model('Rating', ratingSchema);
 //methods
 let fetchProfileData = function() {
 
-}
+};
 
 let createUser = function(formData, cb) {
   let userData = {
