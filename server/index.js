@@ -26,6 +26,7 @@ app.use(bodyParser.json());
    next();
  });
 
+/*
 // duplicate accordingly for user
 app.post('/api/business/signup', bodyParser(), (req, res) => {
   // if username corresponding to req.body already exists, don't save to db; notify user
@@ -53,7 +54,7 @@ app.post('/api/business/signup', bodyParser(), (req, res) => {
     }
   });
 });
-
+*/
 app.post('/api/business/login', bodyParser(), (req, res) => {
   // if user/password pair corresponding to req.body does not match anything in db, notify user and keep them at login page
   // else regenerate session and send appropriate response
