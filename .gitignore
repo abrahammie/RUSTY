@@ -63,3 +63,4 @@ typings/
 .eslintrc
 .eslintrc.js
 .DS_Store
+dist/index_bundle.js

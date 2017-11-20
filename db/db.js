@@ -1,52 +1,44 @@
 const mongoose = require('mongoose');
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/rustydb', { useMongoClient: true }); // not heroku-friendly
-// double quotes and single quotes
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/rustydb', { useMongoClient: true });
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  //leave open
+db.once('open', function () {
   console.log('Connected to database!');
 });
-// var mongoose = require('mongoose');
-// var Schema = mongoose.Schema;
 
-// var blogSchema = new Schema({
-//   title:  String,
-//   author: String,
-//   body:   String,
-//   comments: [{ body: String, date: Date }],
-//   date: { type: Date, default: Date.now },
-//   hidde: Boolean
-//   meta: {
-//     votes: Number,
-//     favs:  Number
-//   }
-// });
 let userSchema = mongoose.Schema({
   // _id: auto-gen
   pet: String,
-  userAddress: mongoose.Schema.Types.Mixed, // ???
   email: String,
-  username: String,
+  username: {
+    type: String,
+    unique: true,
+  },
   password: String,
+  profileImg: String,
+// https://gist.github.com/aheckmann/2408370
+  street: String,
+  city: String,
+  state: String,
+  zip: Number,
   // rating_ids: [Number] // need to discuss
   // checkPasswordLength() // for checking password length... but how to stick functions in schema?
   // verifyPassword() //verifying password against db
 });
 
+
 let businessSchema = mongoose.Schema({
   // _id: auto-gen
-  name: String,
-  businessAddress: mongoose.Schema.Types.Mixed, // ???
+  username: {
+    type: String,
+    unique: true,
+  },
   email: String,
   password: String,
   phone: String,
   businessCategory: String,
   // rating_ids: [Number] // need to discuss
-});
-
-let addressSchema = mongoose.Schema({
   street: String,
   city: String,
   state: String,
@@ -69,14 +61,43 @@ let ratingSchema = mongoose.Schema({
 });
 // schema
 
+let User = mongoose.model('User', userSchema);
+let Business = mongoose.model('Business', businessSchema);
+let Rating = mongoose.model('Rating', ratingSchema);
 
 //methods
+let fetchProfileData = function() {
 
-let User = mongoose.model('User', userSchema);
+}
 
-let Business = mongoose.model('Business', businessSchema);
+let createUser = function(formData, cb) {
+  let userData = {
 
+  };
+
+  let newUser = new User(userData);
+
+
+  newUser.save(function(err, user) {
+    if (err) {
+      console.log('USER CREATION ERROR:', err);
+    } else {
+      console.log('SUCCESS: USER CREATED:', user);
+    }
+    cb(user)
+  });
+
+
+}
+
+let createBusiness = function() {
+  let newBusiness = new Business(businessData);
+
+}
 // let updateRustyUser = (){};
+let createRating = function() {
+}
 
-let Rating = mongoose.model('Rating', ratingSchema);
-// module.exports.fetchTodos = fetchTodos
+module.exports.createUser = createUser;
+module.exports.createBusiness = createBusiness;
+module.exports.createRating = createRating;
