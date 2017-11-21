@@ -7,11 +7,11 @@
     "node": "6.11.1"
   },
   "scripts": {
-    "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
-    "prod": "NODE_ENV=production webpack --config webpack.config.js",
-    "server": "nodemon server/index.js --inspect",
+    "start": "nodemon server/index.js --inspect",
+    "heroku-postbuild": "webpack",
     "dev": "webpack-dev-server",
-    "build": "webpack"
+    "build": "webpack",
+    "testdb": "seed"
   },
   "author": "all that",
   "license": "MIT",
@@ -28,6 +28,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",
     "material-ui": "^0.19.4",
+    "node-mongo-seeds": "^2.3.1",
     "nodemon": "^1.12.1",
     "path": "^0.12.7",
     "prop-types": "^15.6.0",

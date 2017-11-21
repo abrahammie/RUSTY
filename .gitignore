@@ -65,5 +65,5 @@ typings/
 .DS_Store
 
 
+# bundle
 dist/index_bundle.js
-
