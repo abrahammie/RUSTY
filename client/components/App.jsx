@@ -17,6 +17,7 @@ class App extends React.Component {
 
     this.onChange = this.onChange.bind(this);
     this.submitData = this.submitData.bind(this);
+    this.authenticateLogin = this.authenticateLogin.bind(this);
   }
 
 
@@ -87,6 +88,22 @@ class App extends React.Component {
 
   }
 
+  authenticateLogin(email, pw, userType) {
+    axios.post('/api/login', {
+      email: `${email}`,
+      password: `${pw}`,
+      userType: `${userType}`
+
+    })
+      .then((response) => {
+        console.log(response);
+        // change this.state.isLoggedIn to true
+      })
+      .catch((error) => {
+        // alert error
+        console.log(error);
+      });
+  }
 
   render() {
 
@@ -103,7 +120,7 @@ class App extends React.Component {
       <li><NavLink to="/signup" activeClassName="active">Sign up</NavLink></li>
       </ul>
       <Switch>
-      <Route path="/login" component={Login} />
+      <Route path="/login" render={() => (<Login authenticateLogin={this.authenticateLogin} />)} />
       <Route path="/signup" component={Signup} />
       </Switch>
       </div>
