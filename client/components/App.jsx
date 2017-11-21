@@ -3,7 +3,6 @@ import axios from 'axios';
 import { BrowserRouter, Route, NavLink, Switch, Redirect } from 'react-router-dom';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
-import HomePage from './HomePage.jsx';
 import BusinessProfile from './BusinessProfile.jsx';
 import UserProfile from './UserProfile.jsx';
 import PrimaryHeader from './PrimaryHeader.jsx';
