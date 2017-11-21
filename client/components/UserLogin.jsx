@@ -7,10 +7,11 @@ const UserLogin = ({ loginType, authenticateLogin }) => {
     const password = ev.target.elements.password.value;
     alert(`You submitted email=${email} password=${password} loginType=${loginType}`);
     authenticateLogin(email, password, loginType);
+    document.getElementById("loginForm").reset();
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form id="loginForm" onSubmit={onSubmit}>
       <p>Email: <input name="email" type="email" /></p>
       <p>Password: <input name="password" type="password" /></p>
       <button type="submit">Sign In</button>
