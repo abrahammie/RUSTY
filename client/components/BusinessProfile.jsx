@@ -9,7 +9,7 @@ const BusinessProfile = (props) => {
         <h1>Business PROFILE</h1>
         <p>{props.username}</p>
         <p>{props.promotion}</p>
-        <img src={props.image}>
+        <img src={props.image}></img>
       </div>
     </div>
   );

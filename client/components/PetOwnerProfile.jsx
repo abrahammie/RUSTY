@@ -15,7 +15,7 @@ class PetOwnerProfile extends React.Component {
         <div>
           <h1>Pet Owner PROFILE</h1>
           <p>{props.username}</p>
-          <img src={props.image}>
+          <img src={props.image}></img>
           <SearchMenu />
         </div>
       </div>

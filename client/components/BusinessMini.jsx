@@ -15,7 +15,7 @@ class BusinessMini extends React.Component {
     /* this.handleClick = this.handleClick.bind(this);*/
   }
 
-  /* state contains: selected number of wags; review description*/
+  /* state contains: selected number of wags; review description */
 
   handleChange(event) {
     this.setState({ reviewText: event.target.value });
