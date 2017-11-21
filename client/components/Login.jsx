@@ -1,14 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Route, NavLink, Switch } from 'react-router-dom';
-import BusinessLogin from './BusinessLogin.jsx';
-import PetOwnerLogin from './PetOwnerLogin.jsx';
+import UserLogin from './UserLogin.jsx';
 
-const Login = (props) => {
-  // props will be a function to submit form data
-  // props should be passed down to each form
+const Login = ({ authenticateLogin }) => {
   const buttonStyle = {
     fontSize: '15px',
   };
+
   return (
     <BrowserRouter>
       <div>
@@ -27,8 +25,8 @@ const Login = (props) => {
           </NavLink>
         </button>
         <Switch>
-          <Route path="/login/business" component={BusinessLogin} />
-          <Route path="/login/petOwner" component={PetOwnerLogin} />
+          <Route path="/login/business" render={() => (<UserLogin loginType="business" authenticateLogin={authenticateLogin} />)} />
+          <Route path="/login/petOwner" render={() => (<UserLogin loginType="petOwner" authenticateLogin={authenticateLogin} />)} />
         </Switch>
       </div>
     </BrowserRouter>
