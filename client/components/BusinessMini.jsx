@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import PrimaryHeader from './PrimaryHeader.jsx';
+import Wag from './Wag.jsx';
 
 class BusinessMini extends React.Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class BusinessMini extends React.Component {
       wags: Array(5).fill(null),
       reviewText: '',
     };
-    this.handleChange = this.handleChange.bind(this);
+    /* this.handleChange = this.handleChange.bind(this);*/
     /* this.handleClick = this.handleClick.bind(this);*/
   }
 
@@ -38,19 +39,15 @@ class BusinessMini extends React.Component {
     return (
       <div>
         <PrimaryHeader />
-        <Card>
-          <CardHeader title={props.username} />
           <h1>Business Mini Listing</h1>
-          <p>{props.username}</p>
-          <p>{props.promotion}</p>
-          <img src={props.image} />
+          <p>{this.props.businessName}</p>
+          <img src={this.props.profileImg} />
           {this.renderWag(0)}
           {this.renderWag(1)}
           {this.renderWag(2)}
           {this.renderWag(3)}
           {this.renderWag(4)}
-          <input value={this.state.reviewText} onChange={this.handleChange} />
-        </Card>
+          <input value={this.state.reviewText} onChange={event => this.handleChange(event)}></input>
       </div>
     );
   }
