@@ -7,7 +7,6 @@ import BusinessProfile from './BusinessProfile.jsx';
 import PetOwnerProfile from './PetOwnerProfile.jsx';
 import PrimaryHeader from './PrimaryHeader.jsx';
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -135,6 +134,7 @@ class App extends React.Component {
               <Switch>
                 <Route path="/login" render={() => (<Login authenticateLogin={this.authenticateLogin} />)} />
                 <Route path="/signup" render={() => (<Signup app={this} test="eeeeee" />)} />
+                <Route path="/signup" render={() => <Signup app={this} test="eeeeee" />} />
               </Switch>
             </div>
           </BrowserRouter>
