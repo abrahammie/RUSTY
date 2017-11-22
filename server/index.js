@@ -3,6 +3,7 @@ const db = require('../db/db');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const express = require('express');
+const helpers = require('./helpers.js');
 
 const port = process.env.PORT || 3000;
 const app = express();
@@ -16,15 +17,6 @@ app.use(session({
 app.use(express.static(path.join(__dirname, '../dist')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
-  res.setHeader(
-    'Access-Control-Allow-Methods',
-    'GET, POST, OPTIONS, PUT, PATCH, DELETE'
-  );
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-  next();
-});
 
 // duplicate accordingly for user
 app.post('/api/business/signup', bodyParser(), (req, res) => {
@@ -61,27 +53,49 @@ app.post('/api/business/signup', bodyParser(), (req, res) => {
   });
 });
 
-app.post('/api/business/login', bodyParser(), (req, res) => {
-  // if user/password pair corresponding to req.body does not match anything in db, notify user and keep them at login page
-  // else regenerate session and send appropriate response
-  db.Business.findOne({ username: req.body.username }, function (err, Business) {
-    if (err) {
-      return console.error(err);
-    }
-    bcrypt.compare(req.body.password, Business.password, function (error, response) {
-      if (error) {
-        return console.error(error);
-      } else if (response) {
-        req.session.regenerate(function (error1) {
-          if (error1) {
-            return console.error(error1);
-          }
-          req.session.user = Business;
-          res.send('successful login');
-        });
+/*
+// run this to add test user
+helpers.addPetOwner({
+  pet: 'rusty',
+  username: 'krista',
+  profileImg: 'https://scontent.fewr1-1.fna.fbcdn.net/v/t1.0-9/11898737_10152912694381150_8438824989009173766_n.jpg?oh=5552c729aef988b48a95fd9585f8d8db&oe=5A9CA597',
+  email: 'abrakd@yahoo.com',
+  password: 'moo',
+  street: '22 abc street',
+  city: 'Portland',
+  state: 'OR',
+  zipcode: '97203'
+  },
+  (data) => console.log(data, 'added'));
+*/
+
+
+app.post('/api/login', (req, res) => {
+  if (req.body.userType === 'petOwner') {
+    helpers.isPetOwnerInDatabase(req.body, (petOwner) => {
+      // need to incorporate bcrypt hashing on user save and retrieval
+      // and sessions with validateLogin helper function
+      // helpers.validateLogin(petOwner, (response) => {
+
+      if (req.body.password === petOwner.password) {
+        res.send(200);
+      } else {
+        res.send(404);
       }
     });
-  });
+  } else {
+    helpers.isBusinessInDatabase(req.body, (business) => {
+      // need to incorporate bcrypt hashing on user save and retrieval
+      // and sessions with validateLogin helper function
+      // helpers.validateLogin(business, (response) => {
+
+      if (req.body.password === business.password) {
+        res.send(200);
+      } else {
+        res.send(404);
+      }
+    });
+  }
 });
 
 app.get('/api/business/profile', (req, res) => {
