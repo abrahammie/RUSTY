@@ -114,7 +114,7 @@ class App extends React.Component {
         // change this.state.isLoggedIn to true
         this.setState({
           isLoggedIn: true
-        })
+        });
       })
       .catch((error) => {
         // alert error
