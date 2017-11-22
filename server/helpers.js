@@ -80,7 +80,7 @@ const fetchProfileData = () => {
 
 module.exports.addPetOwner = addPetOwner;
 module.exports.isPetOwnerInDatabase = isPetOwnerInDatabase;
-module.exports.isPetBusinessInDatabase = isBusinessInDatabase;
+module.exports.isBusinessInDatabase = isBusinessInDatabase;
 module.exports.validateLogin = validateLogin;
 module.exports.fetchProfileData = fetchProfileData;
 module.exports.addBusiness = addBusiness;
