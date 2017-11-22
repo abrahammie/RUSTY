@@ -12,6 +12,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoggedIn: false
     };
 
     this.onChange = this.onChange.bind(this);
@@ -19,23 +20,22 @@ class App extends React.Component {
     this.authenticateLogin = this.authenticateLogin.bind(this);
   }
 
-  onChange (e) {
-    console.log('on change called')
-    var tempState={};
-    tempState[e.target.name]=e.target.value;
-    this.setState(
-      tempState
-    );
+  onChange(e) {
+    console.log('on change called');
+    let tempState = {};
+    tempState[e.target.name] = e.target.value;
+    this.setState(tempState);
   }
-
-  toggleView () {
-    //console.log('in toggle View //  showProfile = ',this.state );
-    //console.log('in toggle View //  showProfile = ',this.state.showProfile );
+  /*
+  toggleView() {
+    //  console.log('in toggle View //  showProfile = ',this.state );
+    //  console.log('in toggle View //  showProfile = ',this.state.showProfile );
     var newCondition = !this.state.showProfile;
     this.setState({ showProfile : newCondition });
   }
+  */
 
-  fetchData () {
+  fetchData() {
     console.log('inside fetch data');
     /*
        var that=this;
@@ -48,28 +48,28 @@ class App extends React.Component {
      */
   }
 
-  submitData (dataToUpstream) {
+  submitData(dataToUpstream) {
 
-    var that=this;
+    var that = this;
 
-    console.log('in app submit Data state = ',this.state)
+    console.log('in app submit Data state = ', this.state);
 
-    var dataReferencer={
+    var dataReferencer = {
       businessSignupUserInput : ['signup-business-email','signup-business-name','signup-business-password','signup-business-pet','signup-business-zip'],
       petOwnerSignupUserInput : ['signup-petowner-email','signup-petowner-name','signup-petowner-password','signup-petowner-pet','signup-petowner-zip']
     };
 
-    function CreateJSONWithUserIntendedData (dataToUpstream) {
+    function CreateJSONWithUserIntendedData(dataToUpstream) {
 
-      var userIntendedData = {}
-      dataReferencer[dataToUpstream].map(userInputedPropKey => {
-
-        userIntendedData[userInputedPropKey] = that.state[userInputedPropKey] // why are we loosing contect of this here
-      })
-      return JSON.stringify(userIntendedData)
+      var userIntendedData = {};
+      dataReferencer[dataToUpstream].map((userInputedPropKey) => {
+        // why are we loosing contect of this here
+        userIntendedData[userInputedPropKey] = that.state[userInputedPropKey]
+      });
+      return JSON.stringify(userIntendedData);
     }
 
-    console.log(CreateJSONWithUserIntendedData(dataToUpstream))
+    console.log(CreateJSONWithUserIntendedData(dataToUpstream));
 
     /*
        fetch('/api/dogowner/signup', {
@@ -87,7 +87,6 @@ class App extends React.Component {
        })
 
      */
-
     /*
        var dataz={};
 
@@ -102,8 +101,6 @@ class App extends React.Component {
        })
        //this.toggleView();
      */
-
-
   }
 
   authenticateLogin(email, pw, userType) {
@@ -111,20 +108,21 @@ class App extends React.Component {
       email: `${email}`,
       password: `${pw}`,
       userType: `${userType}`
-
     })
-         .then((response) => {
-           console.log(response);
-           // change this.state.isLoggedIn to true
-         })
-         .catch((error) => {
-           // alert error
-           console.log(error);
-         });
+      .then((response) => {
+        console.log(response);
+        // change this.state.isLoggedIn to true
+        this.setState({
+          isLoggedIn: true
+        })
+      })
+      .catch((error) => {
+        // alert error
+        console.log(error);
+      });
   }
 
   render() {
-
     return (
       <div className="primary-layout">
         <div>
@@ -133,13 +131,11 @@ class App extends React.Component {
         <div>
           <BrowserRouter>
             <div>
-              <ul>
-                <li><NavLink to="/login" activeClassName="active">Login</NavLink></li>
-                <li><NavLink to="/signup" activeClassName="active">Sign up</NavLink></li>
-              </ul>
+              <NavLink to="/login" activeClassName="active">Login</NavLink><br></br>
+              <NavLink to="/signup" activeClassName="active">Sign up</NavLink><br></br>
               <Switch>
                 <Route path="/login" render={() => (<Login authenticateLogin={this.authenticateLogin} />)} />
-                <Route path="/signup" render={()=> <Signup app={this} test="eeeeee" />} />
+                <Route path="/signup" render={() => (<Signup app={this} test="eeeeee" />)} />
               </Switch>
             </div>
           </BrowserRouter>
@@ -147,10 +143,6 @@ class App extends React.Component {
       </div>
     );
   }
-
-
 }
 
 export default App;
-
-

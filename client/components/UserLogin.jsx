@@ -5,7 +5,6 @@ const UserLogin = ({ loginType, authenticateLogin }) => {
     ev.preventDefault();
     const email = ev.target.elements.email.value;
     const password = ev.target.elements.password.value;
-    alert(`You submitted email=${email} password=${password} loginType=${loginType}`);
     authenticateLogin(email, password, loginType);
     document.getElementById("loginForm").reset();
   };
