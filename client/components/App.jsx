@@ -110,7 +110,6 @@ class App extends React.Component {
       userType: `${userType}`
     })
       .then((response) => {
-        console.log(response);
         // change this.state.isLoggedIn to true
         this.setState({
           isLoggedIn: true
