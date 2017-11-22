@@ -135,6 +135,8 @@ class App extends React.Component {
               <Switch>
                 <Route path="/login" render={() => (<Login authenticateLogin={this.authenticateLogin} />)} />
                 <Route path="/signup" render={() => (<Signup app={this} test="eeeeee" />)} />
+                <Route path="/signup" render={()=> <Signup app={this} test="eeeeee" />} />
+                <Redirect to="/" />
               </Switch>
             </div>
           </BrowserRouter>
