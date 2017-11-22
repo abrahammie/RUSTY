@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import PrimaryHeader from './PrimaryHeader.jsx';
 
@@ -43,13 +43,13 @@ class BusinessMini extends React.Component {
           <h1>Business Mini Listing</h1>
           <p>{props.username}</p>
           <p>{props.promotion}</p>
-          <img src={props.image}>
+          <img src={props.image} />
           {this.renderWag(0)}
           {this.renderWag(1)}
           {this.renderWag(2)}
           {this.renderWag(3)}
           {this.renderWag(4)}
-          <input value={this.state.reviewText} onChange={this.handleChange}>
+          <input value={this.state.reviewText} onChange={this.handleChange} />
         </Card>
       </div>
     );
