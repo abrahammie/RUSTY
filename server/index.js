@@ -107,18 +107,13 @@ app.get('/api/business/profile', (req, res) => {
   }
 });
 
-//app.post('/api/business/login')
-// app.get and validate business credentials
-
-//app.post('/api/dogowner/login')
-// app.get and validate dogowner credentials
-
-// app.get('/api/business/profile/')
-// app.get('/api/dogowner/profile/')
-
-
-
-
+app.get('/*', (req, res) => {
+  if (req.session && req.session.user) {
+    res.redirect(`/profile/${req.session.user}`);
+  } else {
+    res.redirect('/');
+  }
+});
 
 app.listen(port, function() {
   console.log(`listening on port ${port}`);
