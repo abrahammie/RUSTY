@@ -48,16 +48,11 @@ const addBusiness = (data, callback) => {
 
 const writeToDatabase = (document, callback) => {
   document.save()
-    .then(function (NewDocument) {
-      req.session.regenerate(function (err) {
-        if (err) {
-          return console.error(err);
-        }
-        req.session.user = NewDocument;
-        callback(document);
-      });
-    }).catch(function(err) {
-      res.send('user already exists');
+    .then(function (newDocument) {
+      callback(newDocument);
+    }).catch(function (err) {
+      console.log('wtf???');
+      return console.error(err);
     });
 };
 
@@ -91,13 +86,7 @@ const validateLogin = (attempt, stored, callback) => {
       return console.error('Error validating password:', err);
     }
     if (response) {
-      req.session.regenerate((err) => {
-        if (err) {
-          return console.error('Error regenerating session:', err);
-        }
-        req.session.user = response;
-        callback();
-      });
+      callback(stored);
     }
   });
 };

@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // duplicate accordingly for user
-app.post('/api/business/signup', bodyParser(), (req, res) => {
+app.post('/api/business/signup', (req, res) => {
   // if username corresponding to req.body already exists, don't save to db; notify user
   // else save to db and regenerate session; notify user with success
 
@@ -53,11 +53,19 @@ app.post('/api/business/signup', bodyParser(), (req, res) => {
   //     });
   // });
   helpers.addBusiness(req.body, (newBusiness) => {
-    console.log('added new business', newBusiness);
-    res.send('added new business');
+    // console.log('added new business', newBusiness);
+    // res.send('added new business');
+    req.session.regenerate(function (err) {
+      if (err) {
+        return console.error(err);
+      }
+      req.session.user = newBusiness;
+      console.log('hi');
+      res.send('added business');
+    });
   });
 });
-app.post('/api/petOwner/signup', bodyParser(), (req, res) => {
+app.post('/api/petOwner/signup', (req, res) => {
   helpers.addPetOwner(req.body, (newPetOwner) => {
     console.log('added new pet owner', newPetOwner);
     res.send('added new pet owner');
@@ -82,38 +90,21 @@ zipcode: '97203'
 
 
 app.post('/api/login', (req, res) => {
+  const cb = (user) => {
+    helpers.validateLogin(req.body, user, () => {
+      req.session.regenerate((err) => {
+        if (err) {
+          return console.error('Error regenerating session:', err);
+        }
+        req.session.user = user;
+        res.send('validated');
+      });
+    });
+  };
   if (req.body.userType === 'petOwner') {
-    helpers.isPetOwnerInDatabase(req.body, (petOwner) => {
-      // need to incorporate bcrypt hashing on user save and retrieval
-      // and sessions with validateLogin helper function
-      // helpers.validateLogin(petOwner, (response) => {
-
-      // if (req.body.password === petOwner.password) {
-      //   res.send(200);
-      // } else {
-      //   res.send(404);
-      // }
-
-      helpers.validateLogin(req.body, petOwner, () => {
-        res.send('pet owner validated');
-      });
-    });
+    helpers.isPetOwnerInDatabase(req.body, cb);
   } else {
-    helpers.isBusinessInDatabase(req.body, (business) => {
-      // need to incorporate bcrypt hashing on user save and retrieval
-      // and sessions with validateLogin helper function
-      // helpers.validateLogin(business, (response) => {
-
-      // if (req.body.password === business.password) {
-      //   res.send(200);
-      // } else {
-      //   res.send(404);
-      // }
-
-      helpers.validateLogin(req.body, business, () => {
-        res.send('business validated');
-      });
-    });
+    helpers.isBusinessInDatabase(req.body, cb);
   }
 });
 
