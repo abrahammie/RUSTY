@@ -8,17 +8,32 @@ import PetOwnerProfile from './PetOwnerProfile.jsx';
 import SearchResults from './SearchResults.jsx';
 import PrimaryHeader from './PrimaryHeader.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false
+      isLoggedIn: false,
+      userType: '',
+      user: {}
     };
 
     this.onChange = this.onChange.bind(this);
     this.submitData = this.submitData.bind(this);
     this.authenticateLogin = this.authenticateLogin.bind(this);
+  }
+
+  componentWillMount() {
+    // Check for session value
+    axios.get('/api/checkSession')
+      .then(function (response) {
+        console.log('response on compwillmount:', response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   onChange(e) {
@@ -119,47 +134,58 @@ class App extends React.Component {
   }
 
   authenticateLogin(email, pw, userType) {
+    // set userType
+    this.setState({userType: `${userType}`});
+    // check login
     axios.post('/api/login', {
       email: `${email}`,
       password: `${pw}`,
       userType: `${userType}`
     })
       .then((response) => {
+        console.log('login response from server', response.data);
         // change this.state.isLoggedIn to true
         this.setState({
+          user : response.data,
           isLoggedIn: true
         });
       })
       .catch((error) => {
         // alert error
-        console.log(error);
+        console.log('Please log in or sign up.');
       });
   }
 
   render() {
-    return (
-      <div className="primary-layout">
-        <div>
-          <PrimaryHeader />
+    if (this.state.isLoggedIn) {
+      return (
+        this.state.userType === 'business' ?
+          <BusinessProfile user={this.state.user} /> : <PetOwnerProfile user={this.state.user} />
+        );
+    } else {
+      return (
+        <div className="primary-layout">
+          <div>
+            <PrimaryHeader />
+          </div>
+          <div>
+            <BrowserRouter>
+              <MuiThemeProvider>
+                <div>
+                  <NavLink to="/login" activeClassName="active">Login</NavLink><br></br>
+                  <NavLink to="/signup" activeClassName="active">Sign up</NavLink><br></br>
+                  <NavLink to="/search" activeClassName="active">Search</NavLink><br></br>
+                  <Switch>
+                    <Route path="/login" render={() => (<Login authenticateLogin={this.authenticateLogin} />)} />
+                    <Route path="/signup" render={() => (<Signup app={this} test="eeeeee" />)} />
+                  </Switch>
+                </div>
+              </MuiThemeProvider>
+            </BrowserRouter>
+          </div>
         </div>
-        <div>
-          <BrowserRouter>
-            <MuiThemeProvider>
-            <div>
-              <NavLink to="/login" activeClassName="active">Login</NavLink><br></br>
-              <NavLink to="/signup" activeClassName="active">Sign up</NavLink><br></br>
-              <NavLink to="/search" activeClassName="active">Search</NavLink><br></br>
-              <Switch>
-                <Route path="/login" render={() => (<Login authenticateLogin={this.authenticateLogin} />)} />
-                <Route path="/signup" render={() => (<Signup app={this} test="eeeeee" />)} />
-                <Route path="/search" render={() => (<SearchResults app={this} test="eeeeee" />)} />
-              </Switch>
-            </div>
-            </MuiThemeProvider>
-          </BrowserRouter>
-        </div>
-      </div>
-    );
+      );
+    }
   }
 }
 
