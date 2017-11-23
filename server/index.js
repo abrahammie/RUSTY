@@ -22,34 +22,45 @@ app.use(bodyParser.json());
 app.post('/api/business/signup', bodyParser(), (req, res) => {
   // if username corresponding to req.body already exists, don't save to db; notify user
   // else save to db and regenerate session; notify user with success
-  bcrypt.hash(req.body.password, 10, function (err, hash) {
-    if (err) {
-      return console.error(err);
-    }
-    const NewBusiness = new db.Business({
-      username: req.body.username,
-      email: req.body.email,
-      password: hash,
-      phone: req.body.phone,
-      businessCategory: req.body.businessCategory,
-      street: req.body.street,
-      city: req.body.city,
-      state: req.body.state,
-      zip: req.body.zip,
-    });
-    NewBusiness.save()
-      .then(function (Business) {
-        req.session.regenerate(function (error) {
-          if (error) {
-            return console.error(error);
-          }
-          req.session.user = Business;
-          res.send('successful signup');
-        });
-      })
-      .catch(function (err) {
-        res.send('user already exists');
-      });
+
+  // bcrypt.hash(req.body.password, 10, function (err, hash) {
+  //   if (err) {
+  //     return console.error(err);
+  //   }
+  //   const NewBusiness = new db.Business({
+  //     businessName: req.body.businessName,
+  //     email: req.body.email,
+  //     password: hash,
+  //     phone: req.body.phone,
+  //     businessCategory: req.body.businessCategory,
+  //     street: req.body.street,
+  //     city: req.body.city,
+  //     state: req.body.state,
+  //     zip: req.body.zip,
+  //   });
+  //   NewBusiness.save()
+  //     .then(function (Business) {
+  //       req.session.regenerate(function (error) {
+  //         if (error) {
+  //           return console.error(error);
+  //         }
+  //         req.session.user = Business;
+  //         res.send('successful signup');
+  //       });
+  //     })
+  //     .catch(function (err) {
+  //       res.send('user already exists');
+  //     });
+  // });
+  helpers.addBusiness(req.body, (newBusiness) => {
+    console.log('added new business', newBusiness);
+    res.send('added new business');
+  });
+});
+app.post('/api/petOwner/signup', bodyParser(), (req, res) => {
+  helpers.addPetOwner(req.body, (newPetOwner) => {
+    console.log('added new pet owner', newPetOwner);
+    res.send('added new pet owner');
   });
 });
 
@@ -77,11 +88,15 @@ app.post('/api/login', (req, res) => {
       // and sessions with validateLogin helper function
       // helpers.validateLogin(petOwner, (response) => {
 
-      if (req.body.password === petOwner.password) {
-        res.send(200);
-      } else {
-        res.send(404);
-      }
+      // if (req.body.password === petOwner.password) {
+      //   res.send(200);
+      // } else {
+      //   res.send(404);
+      // }
+
+      helpers.validateLogin(req.body, petOwner, () => {
+        res.send('pet owner validated');
+      });
     });
   } else {
     helpers.isBusinessInDatabase(req.body, (business) => {
@@ -89,11 +104,15 @@ app.post('/api/login', (req, res) => {
       // and sessions with validateLogin helper function
       // helpers.validateLogin(business, (response) => {
 
-      if (req.body.password === business.password) {
-        res.send(200);
-      } else {
-        res.send(404);
-      }
+      // if (req.body.password === business.password) {
+      //   res.send(200);
+      // } else {
+      //   res.send(404);
+      // }
+
+      helpers.validateLogin(req.body, business, () => {
+        res.send('business validated');
+      });
     });
   }
 });
