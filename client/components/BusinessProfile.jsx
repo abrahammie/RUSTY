@@ -6,10 +6,10 @@ const BusinessProfile = (props) => {
     <div>
       <PrimaryHeader />
       <div>
-        <h1>Business PROFILE</h1>
+        <h1>Business Profile</h1>
         <p>{props.username}</p>
         <p>{props.promotion}</p>
-        <img src={props.image}></img>
+        <img src={props.profileImg}></img>
       </div>
     </div>
   );

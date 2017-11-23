@@ -16,16 +16,7 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
 }));
-/*
-app.get('/', function (req, res) {
-  res.sendFile(__dirname, '../dist/index.html');
-  if(req.session.user === undefined){
-    console.log("# Username not set in session yet");
-  } else {
-    console.log("# Username from session: " + req.session.user);
-  }
-});
-*/
+
 app.use(express.static(path.join(__dirname, '../dist')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -55,7 +46,7 @@ app.post('/api/petOwner/signup', (req, res) => {
 helpers.addPetOwner({
 pet: 'rusty',
 username: 'krista',
-profileImg: 'https://scontent.fewr1-1.fna.fbcdn.net/v/t1.0-9/11898737_10152912694381150_8438824989009173766_n.jpg?oh=5552c729aef988b48a95fd9585f8d8db&oe=5A9CA597',
+profileImg: 'https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/11898737_10152912694381150_8438824989009173766_n.jpg?oh=5552c729aef988b48a95fd9585f8d8db&oe=5A9CA597',
 email: 'abrakd@yahoo.com',
 password: 'moo',
 street: '22 abc street',

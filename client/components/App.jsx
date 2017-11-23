@@ -5,17 +5,16 @@ import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 import BusinessProfile from './BusinessProfile.jsx';
 import PetOwnerProfile from './PetOwnerProfile.jsx';
-import SearchResults from './SearchResults.jsx';
 import PrimaryHeader from './PrimaryHeader.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false,
+      isLoggedIn: '',
       userType: '',
       user: {}
     };
@@ -27,6 +26,7 @@ class App extends React.Component {
 
   componentWillMount() {
     // Check for session value
+    console.log('is logged in ', this.state.isLoggedIn)
     axios.get('/api/checkSession')
       .then(function (response) {
         console.log('response on compwillmount:', response);
@@ -174,7 +174,6 @@ class App extends React.Component {
                 <div>
                   <NavLink to="/login" activeClassName="active">Login</NavLink><br></br>
                   <NavLink to="/signup" activeClassName="active">Sign up</NavLink><br></br>
-                  <NavLink to="/search" activeClassName="active">Search</NavLink><br></br>
                   <Switch>
                     <Route path="/login" render={() => (<Login authenticateLogin={this.authenticateLogin} />)} />
                     <Route path="/signup" render={() => (<Signup app={this} test="eeeeee" />)} />

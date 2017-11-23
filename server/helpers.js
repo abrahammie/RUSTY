@@ -77,6 +77,7 @@ const isBusinessInDatabase = (business, callback) => {
       console.log('Error finding user in db:', err);
       callback();
     } else {
+      console.log('response in business db', result)
       callback(result);
     }
   });
