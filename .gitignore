@@ -78,3 +78,4 @@ seedql.js
 testindex.js
 models/
 controllers/
+config/
