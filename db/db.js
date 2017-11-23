@@ -11,10 +11,7 @@ db.once('open', function () {
 let userSchema = mongoose.Schema({
   // _id: auto-gen
   pet: String,
-  username: {
-    type: String,
-    unique: true,
-  },
+  username: String,
   email: {
     type: String,
     unique: true,
