@@ -5,6 +5,7 @@ import cloudinary from 'cloudinary-core';
 import CloudinaryVideoPlayer from 'cloudinary-video-player';
 
 let BusinessSignup = (props) => {
+
   console.log('propsfrom app =',props);
   console.log("in sign up before return statement");
   let onChange=props.app.onChange;
@@ -114,6 +115,7 @@ let BusinessSignup = (props) => {
       <button type="button" onClick={onSubmit}> VALIDATE </button>
     </div>
   )
+
 }
 
 
