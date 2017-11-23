@@ -20,41 +20,7 @@ app.use(bodyParser.json());
 
 // duplicate accordingly for user
 app.post('/api/business/signup', (req, res) => {
-  // if username corresponding to req.body already exists, don't save to db; notify user
-  // else save to db and regenerate session; notify user with success
-
-  // bcrypt.hash(req.body.password, 10, function (err, hash) {
-  //   if (err) {
-  //     return console.error(err);
-  //   }
-  //   const NewBusiness = new db.Business({
-  //     businessName: req.body.businessName,
-  //     email: req.body.email,
-  //     password: hash,
-  //     phone: req.body.phone,
-  //     businessCategory: req.body.businessCategory,
-  //     street: req.body.street,
-  //     city: req.body.city,
-  //     state: req.body.state,
-  //     zip: req.body.zip,
-  //   });
-  //   NewBusiness.save()
-  //     .then(function (Business) {
-  //       req.session.regenerate(function (error) {
-  //         if (error) {
-  //           return console.error(error);
-  //         }
-  //         req.session.user = Business;
-  //         res.send('successful signup');
-  //       });
-  //     })
-  //     .catch(function (err) {
-  //       res.send('user already exists');
-  //     });
-  // });
   helpers.addBusiness(req.body, (newBusiness) => {
-    // console.log('added new business', newBusiness);
-    // res.send('added new business');
     req.session.regenerate(function (err) {
       if (err) {
         return console.error(err);
