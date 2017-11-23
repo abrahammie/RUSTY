@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define('PetOwner', {
     username: { type: DataTypes.STRING, unique: true },
-    email: {type: DataTypes.STRING, unique: true},
+    email: { type: DataTypes.STRING, unique: true, validate: {isEmail: true} },
     password: DataTypes.STRING,
     profileImg: DataTypes.STRING,
     street: DataTypes.STRING,

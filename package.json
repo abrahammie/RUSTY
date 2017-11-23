@@ -27,6 +27,7 @@
     "nodemon": "^1.12.1",
     "path": "^0.12.7",
     "prop-types": "^15.6.0",
+    "sequelize-cli": "^3.1.0",
     "webpack-dev-server": "^2.9.4"
   },
   "dependencies": {
