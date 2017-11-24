@@ -9,8 +9,8 @@ const PetOwnerProfile = (props) => {
       <div>
         <h1>Welcome, {props.user.username} and {props.user.pet}!</h1>
         <p>{props.user.username}</p>
-        <img src={props.user.image}></img>
-        <SearchResults />
+        <img src={props.user.profileImg}></img>
+
       </div>
     </div>
   );
