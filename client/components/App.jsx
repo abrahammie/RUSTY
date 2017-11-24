@@ -160,7 +160,7 @@ class App extends React.Component {
     if (this.state.isLoggedIn) {
       return (
         this.state.userType === 'business' ?
-          <BusinessProfile user={this.state.user} /> : <PetOwnerProfile user={this.state.user} />
+        <MuiThemeProvider><BusinessProfile user={this.state.user} /></MuiThemeProvider> : <MuiThemeProvider><PetOwnerProfile user={this.state.user} /></MuiThemeProvider>
         );
     } else {
       return (

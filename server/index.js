@@ -149,6 +149,12 @@ app.get('/api/businessListings', (req, res) => {
   });
 });
 
+app.post('/api/rating', (req, res) => {
+  helpers.addRating(req.body, () => {
+    res.send('added rating');
+  });
+});
+
 app.get('/*', (req, res) => {
   if (req.session && req.session.user) {
     res.redirect(`/profile/${req.session.user}`);

@@ -18,6 +18,31 @@ class BusinessMini extends React.Component {
 
   /* state contains: selected number of wags; review description */
 
+  handleSubmit(event) {
+    var numWags = 0;
+    /* for (var i = 0; i < this.state.wags.length; i++) {*/
+    /* if (this.state.wags[i]) {*/
+    /* numWags++;*/
+    /* }*/
+    /* }*/
+    while (this.state.wags[numWags]) {
+      numWags++;
+    }
+    /* TODO: pass user info */
+    axios.post('/api/rating', {
+      wags: numWags,
+      description: this.state.reviewText,
+      userId: this.props.userId,
+      businessId: this.props.id
+    })
+         .then((res) => {
+           console.log(res);
+         })
+         .catch((err) => {
+           return console.error(err);
+         });
+  }
+
   handleChange(event) {
     this.setState({ reviewText: event.target.value });
   }
@@ -39,15 +64,16 @@ class BusinessMini extends React.Component {
     return (
       <div>
         <PrimaryHeader />
-          <h1>Business Mini Listing</h1>
-          <p>{this.props.businessName}</p>
-          <img src={this.props.profileImg} />
-          {this.renderWag(0)}
-          {this.renderWag(1)}
-          {this.renderWag(2)}
-          {this.renderWag(3)}
-          {this.renderWag(4)}
-          <input value={this.state.reviewText} onChange={event => this.handleChange(event)}></input>
+        <h1>Business Mini Listing</h1>
+        <p>{this.props.businessName}</p>
+        <img src={this.props.profileImg} />
+        {this.renderWag(0)}
+        {this.renderWag(1)}
+        {this.renderWag(2)}
+        {this.renderWag(3)}
+        {this.renderWag(4)}
+        <input value={this.state.reviewText} onChange={event => this.handleChange(event)}></input>
+        <button onClick={event => this.handleSubmit(event)}>Submit review</button>
       </div>
     );
   }

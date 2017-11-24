@@ -31,7 +31,7 @@ const addPetOwner = (data, callback) => {
 
 const addBusiness = (data, callback) => {
   bcrypt.hash(data.password, 10, (err, hash) => {
-    let newBusiness = new db.Business({
+    let business = new db.Business({
       businessName: data.businessName,
       email: data.email,
       password: hash,
@@ -42,13 +42,20 @@ const addBusiness = (data, callback) => {
       state: data.state,
       zip: data.zip,
     });
-    writeToDatabase(newBusiness, callback);
+    writeToDatabase(business, callback);
   });
 };
 
 const hashPassword = {};
-const addRating = function() {
-}
+const addRating = (data, callback) => {
+  let review = new db.Rating({
+    wags: data.wags,
+    description: data.description,
+    userId: data.userId,
+    businessId: data.businessId
+  });
+  writeToDatabase(review, callback);
+};
 
 const writeToDatabase = (document, callback) => {
   document.save()
