@@ -79,13 +79,13 @@ app.post('/api/login', (req, res) => {
           // user found but password not matched
           } else {
             console.log('Password not matched');
-            res.end();
+            res.sendStatus(401);
           }
         });
       // user not found
       } else {
-        console.log('Account not found, please signup');
-        res.end();
+        console.log('Account not found');
+        res.sendStatus(400);
       }
     });
   } else {
@@ -97,7 +97,7 @@ app.post('/api/login', (req, res) => {
           if (response) {
             // regen session
             req.session.regenerate((err) => {
-              // if problem regenerating session
+              // if problem regenerating session <===== Need To Fix
               if (err) {
                 console.log('problem regenerating session');
                 res.end();
@@ -109,13 +109,13 @@ app.post('/api/login', (req, res) => {
           // user found but password not matched
           } else {
             console.log('Password not matched');
-            res.end();
+            res.sendStatus(401);
           }
         });
       // user not found
       } else {
-        console.log('Account not found, please signup');
-        res.end();
+        console.log('Account not found');
+        res.sendStatus(400);
       }
     });
   }

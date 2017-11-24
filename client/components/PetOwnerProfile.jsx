@@ -8,7 +8,7 @@ const PetOwnerProfile = (props) => {
       <PrimaryHeader />
       <div>
         <h2>Welcome, {props.user.username} and {props.user.pet}!</h2>
-        <img src={props.user.profileImg} style={{maxWidth: 400}}></img>
+        <img src={props.user.profileImg} style={{maxHeight: 500}}></img>
 
       </div>
     </div>

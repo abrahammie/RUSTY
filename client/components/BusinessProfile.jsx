@@ -6,8 +6,8 @@ const BusinessProfile = (props) => {
     <div>
       <PrimaryHeader />
       <div>
-        <h2>Welcome, {props.businessName}</h2>
-        <img src={props.profileImg}></img>
+        <h2>Welcome, {props.user.businessName}</h2>
+        <img src={props.user.profileImg} style={{maxHeight: 500}}></img>
       </div>
     </div>
   );

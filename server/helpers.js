@@ -60,7 +60,6 @@ const writeToDatabase = (document, callback) => {
 };
 
 const isPetOwnerInDatabase = (petOwner, callback) => {
-  console.log('petOwner in db called');
   db.User.findOne({ email: petOwner.email }, (err, result) => {
     if (err) {
       console.log('Error finding user in db:', err);
@@ -77,21 +76,21 @@ const isBusinessInDatabase = (business, callback) => {
       console.log('Error finding user in db:', err);
       callback();
     } else {
-      console.log('response in business db', result)
       callback(result);
     }
   });
 };
 
 const validateLogin = (attempt, stored, callback) => {
-  console.log('in validate login');
-  if (attempt.password === stored.password) {
-    callback(stored);
-  } else {
-    callback();
-  }
+  bcrypt.compare(attempt.password, stored.password, (err, response) => {
+    if (response) {
+      callback(stored);
+    } else {
+      console.log('Error validating password');
+      callback();
+    }
+  });
 };
-
 
 
 const fetchProfileData = () => {

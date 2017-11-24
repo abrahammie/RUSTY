@@ -14,8 +14,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: '',
-      userType: '',
+      isLoggedIn: null,
+      userType: null,
       user: {}
     };
 
@@ -96,11 +96,11 @@ class App extends React.Component {
 
     axios.post('/api' + modifier + '/signup', {
     })
-         .then()
-         .catch((error) => {
-           // alert error
-           return console.error(error);
-         });
+      .then()
+      .catch((error) => {
+      // alert error
+      return console.error(error);
+    });
     /*
     fetch('/api/dogowner/signup', {
       method: 'POST',
@@ -152,7 +152,8 @@ class App extends React.Component {
       })
       .catch((error) => {
         // alert error
-        console.log('Please log in or sign up.');
+        console.log('error is',error);
+        alert('Incorrect login. Please log in or sign up.');
       });
   }
 
