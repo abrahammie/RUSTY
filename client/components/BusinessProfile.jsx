@@ -6,9 +6,7 @@ const BusinessProfile = (props) => {
     <div>
       <PrimaryHeader />
       <div>
-        <h1>Business Profile</h1>
-        <p>{props.username}</p>
-        <p>{props.promotion}</p>
+        <h2>Welcome, {props.businessName}</h2>
         <img src={props.profileImg}></img>
       </div>
     </div>
