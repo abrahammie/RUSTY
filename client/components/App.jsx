@@ -7,7 +7,6 @@ import BusinessProfile from './BusinessProfile.jsx';
 import PetOwnerProfile from './PetOwnerProfile.jsx';
 import PrimaryHeader from './PrimaryHeader.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 
 class App extends React.Component {
