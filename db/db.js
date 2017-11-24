@@ -47,8 +47,8 @@ let ratingSchema = mongoose.Schema({
   // _id: auto-gen
   wags: Number,
   description: String,
-  user_id: Number,
-  business_id: Number,
+  userId: String,
+  businessId: String
 });
 
 let User = mongoose.model('User', userSchema);

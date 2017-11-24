@@ -9,7 +9,7 @@ const PetOwnerProfile = (props) => {
       <div>
         <h2>Welcome, {props.user.username} and {props.user.pet}!</h2>
         <img src={props.user.profileImg} style={{maxHeight: 500}}></img>
-
+        <SearchResults userId={props.user._id} />
       </div>
     </div>
   );

@@ -36,8 +36,9 @@ class SearchResults extends React.Component {
   render() {
     const callback = (business) => {
       return (<BusinessMini
+                userId={this.props.userId}
                 business={business}
-                key={business._id}
+                id={business._id}
                 businessName={business.businessName}
                 businessCategory={business.businessCategory}
                 profileImg={business.profileImg}
