@@ -4,6 +4,9 @@ import { Image, Video, Transformation, CloudinaryContext } from 'cloudinary-reac
 import cloudinary from 'cloudinary-core';
 import CloudinaryVideoPlayer from 'cloudinary-video-player';
 
+
+
+
 let BusinessSignup = (props) => {
 
   console.log('propsfrom app =',props);
