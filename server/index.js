@@ -4,16 +4,19 @@ const bcrypt = require('bcrypt');
 const session = require('express-session');
 const express = require('express');
 const helpers = require('./helpers.js');
+const cookieParser = require('cookie-parser');
 
 const port = process.env.PORT || 3000;
 const app = express();
 const path = require('path');
 
+app.use(cookieParser());
 app.use(session({
   secret: 'meow',
-  resave: false,
-  saveUninitialized: false,
+  resave: true,
+  saveUninitialized: true,
 }));
+
 app.use(express.static(path.join(__dirname, '../dist')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -43,7 +46,7 @@ app.post('/api/petOwner/signup', (req, res) => {
 helpers.addPetOwner({
 pet: 'rusty',
 username: 'krista',
-profileImg: 'https://scontent.fewr1-1.fna.fbcdn.net/v/t1.0-9/11898737_10152912694381150_8438824989009173766_n.jpg?oh=5552c729aef988b48a95fd9585f8d8db&oe=5A9CA597',
+profileImg: 'https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/11898737_10152912694381150_8438824989009173766_n.jpg?oh=5552c729aef988b48a95fd9585f8d8db&oe=5A9CA597',
 email: 'abrakd@yahoo.com',
 password: 'moo',
 street: '22 abc street',
@@ -54,23 +57,79 @@ zipcode: '97203'
 (data) => console.log(data, 'added'));
 */
 
-
 app.post('/api/login', (req, res) => {
-  const cb = (user) => {
-    helpers.validateLogin(req.body, user, () => {
-      req.session.regenerate((err) => {
-        if (err) {
-          return console.error('Error regenerating session:', err);
-        }
-        req.session.user = user;
-        res.send('validated');
-      });
-    });
-  };
   if (req.body.userType === 'petOwner') {
-    helpers.isPetOwnerInDatabase(req.body, cb);
+    helpers.isPetOwnerInDatabase(req.body, (user) => {
+      // if user found
+      if (user) {
+        helpers.validateLogin(req.body, user, (response) => {
+          // if password matched
+          if (response) {
+            // regen session
+            req.session.regenerate((err) => {
+              // if problem regenerating session
+              if (err) {
+                console.log('problem regenerating session');
+                res.end();
+              // if all good, send user data back
+              } else {
+                res.json(user);
+              }
+            });
+          // user found but password not matched
+          } else {
+            console.log('Password not matched');
+            res.sendStatus(401);
+          }
+        });
+      // user not found
+      } else {
+        console.log('Account not found');
+        res.sendStatus(400);
+      }
+    });
   } else {
-    helpers.isBusinessInDatabase(req.body, cb);
+    helpers.isBusinessInDatabase(req.body, (user) => {
+      // if user found
+      if (user) {
+        helpers.validateLogin(req.body, user, (response) => {
+          // if password matched
+          if (response) {
+            // regen session
+            req.session.regenerate((err) => {
+              // if problem regenerating session <===== Need To Fix
+              if (err) {
+                console.log('problem regenerating session');
+                res.end();
+              // if all good, send user data back
+              } else {
+                res.json(user);
+              }
+            });
+          // user found but password not matched
+          } else {
+            console.log('Password not matched');
+            res.sendStatus(401);
+          }
+        });
+      // user not found
+      } else {
+        console.log('Account not found');
+        res.sendStatus(400);
+      }
+    });
+  }
+});
+
+// for sessions check on page load
+//Return the session value when the client checks
+app.get('/api/checkSession', (req,res) => {
+  if (req.session && req.session.user) {
+    console.log("# Client Username check "+ req.session.user);
+    //res.redirect(`/profile/${req.session.user}`);
+    res.end(req.session.user)
+  } else {
+    res.end();
   }
 });
 
@@ -99,12 +158,6 @@ app.get('/*', (req, res) => {
     res.redirect('/');
   }
 });
-
-//app.post('/api/business/login')
-// app.get and validate business credentials
-
-//app.post('/api/dogowner/login')
-// app.get and validate dogowner credentials
 
 // app.get('/api/business/profile/')
 // app.get('/api/dogowner/profile/')

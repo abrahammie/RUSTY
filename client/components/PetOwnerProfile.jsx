@@ -1,26 +1,18 @@
 import React from 'react';
-import axios from 'axios';
 import PrimaryHeader from './PrimaryHeader.jsx';
+import SearchResults from './SearchResults.jsx';
 
-class PetOwnerProfile extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  render() {
-    return (
+const PetOwnerProfile = (props) => {
+  return (
+    <div>
+      <PrimaryHeader />
       <div>
-        <PrimaryHeader />
-        <div>
-          <h1>Pet Owner PROFILE</h1>
-          <p>{props.username}</p>
-          <img src={props.image}></img>
-          <SearchResults />
-        </div>
+        <h2>Welcome, {props.user.username} and {props.user.pet}!</h2>
+        <img src={props.user.profileImg} style={{maxHeight: 500}}></img>
+
       </div>
-    );
-  }
+    </div>
+  );
 };
 
 export default PetOwnerProfile;

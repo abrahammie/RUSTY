@@ -46,23 +46,24 @@ const addBusiness = (data, callback) => {
   });
 };
 
+const hashPassword = {};
+const addRating = function() {
+}
+
 const writeToDatabase = (document, callback) => {
   document.save()
     .then(function (newDocument) {
       callback(newDocument);
     }).catch(function (err) {
-      console.log('wtf???');
       return console.error(err);
     });
 };
 
-const addRating = function() {
-}
-
 const isPetOwnerInDatabase = (petOwner, callback) => {
   db.User.findOne({ email: petOwner.email }, (err, result) => {
     if (err) {
-      return console.error('Error finding user in db:', err);
+      console.log('Error finding user in db:', err);
+      callback();
     } else {
       callback(result);
     }
@@ -72,25 +73,24 @@ const isPetOwnerInDatabase = (petOwner, callback) => {
 const isBusinessInDatabase = (business, callback) => {
   db.Business.findOne({ email: business.email }, (err, result) => {
     if (err) {
-      return console.error('Error finding user in db:', err);
+      console.log('Error finding user in db:', err);
+      callback();
     } else {
       callback(result);
     }
   });
 };
 
-
 const validateLogin = (attempt, stored, callback) => {
   bcrypt.compare(attempt.password, stored.password, (err, response) => {
-    if (err) {
-      return console.error('Error validating password:', err);
-    }
     if (response) {
       callback(stored);
+    } else {
+      console.log('Error validating password');
+      callback();
     }
   });
 };
-
 
 
 const fetchProfileData = () => {
