@@ -136,6 +136,14 @@ const getUserReviews = (petOwner) => {
     });
 };
 
+const getBusinessReviews = (business) => {
+  return db.Review.
+    find({ businessId: business._id }).
+    then((reviews) => {
+      output.push([business, reviews]);
+    });
+};
+
 module.exports.addPetOwner = addPetOwner;
 module.exports.isPetOwnerInDatabase = isPetOwnerInDatabase;
 module.exports.isBusinessInDatabase = isBusinessInDatabase;
@@ -144,3 +152,5 @@ module.exports.fetchPetOwnerProfileData = fetchPetOwnerProfileData;
 module.exports.fetchBusinessListings = fetchBusinessListings;
 module.exports.addBusiness = addBusiness;
 module.exports.addReview = addReview;
+module.exports.findAndUpdatePetOwner = findAndUpdatePetOwner;
+module.exports.getBusinessReviews = getBusinessReviews;
