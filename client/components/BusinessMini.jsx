@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-import PrimaryHeader from './PrimaryHeader.jsx';
 import Review from './Review.jsx'
 import Wag from './Wag.jsx';
 
