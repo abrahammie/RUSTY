@@ -13,7 +13,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: localStorage.getItem('status'),
+      isLoggedIn: JSON.parse(localStorage.getItem('status')) || false,
       userType: localStorage.getItem('type'),
       user: JSON.parse(localStorage.getItem('user'))
     };
@@ -140,9 +140,11 @@ class App extends React.Component {
   }
 
   onLogOut() {
+    // reset localstorage
     localStorage.setItem('user', 'null');
-    localStorage.setItem('status', 'null');
-    this.setState({user: null, isLoggedIn: false});
+    localStorage.setItem('status', 'false');
+    localStorage.setItem('type', 'null');
+    this.setState({user: null, isLoggedIn: false, userType: null});
   }
 
   render() {
