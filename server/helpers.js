@@ -137,10 +137,22 @@ const getUserReviews = (petOwner) => {
 };
 
 const getBusinessReviews = (business) => {
+  var output = [];
   return db.Review.
     find({ businessId: business._id }).
     then((reviews) => {
       output.push([business, reviews]);
+    });
+};
+
+// this prob doesn't work
+const getReviews = (doc) => {
+  var output = [];
+  const { userType } = doc;
+  return db.Review
+    .find({ [userType]: userType._id })
+    .then((reviews) => {
+      output.push([doc, reviews]);
     });
 };
 
@@ -154,3 +166,5 @@ module.exports.addBusiness = addBusiness;
 module.exports.addReview = addReview;
 module.exports.findAndUpdatePetOwner = findAndUpdatePetOwner;
 module.exports.getBusinessReviews = getBusinessReviews;
+module.exports.getUserReviews = getUserReviews;
+module.exports.getReviews = getReviews;

@@ -43,48 +43,30 @@ businessData.forEach((business) => helpers.addBusiness(business, () => console.l
 */
 
 app.post('/api/login', (req, res) => {
-  if (req.body.userType === 'petOwner') {
-    helpers.isPetOwnerInDatabase(req.body, (user) => {
-      // if user found
-      if (user) {
-        helpers.validateLogin(req.body, user, (response) => {
-          // if password matched
-          if (response) {
-            // if all good, send user data back
-            res.json(user);
-          // user found but password not matched
-          } else {
-            console.log('Password not matched');
-            res.sendStatus(401);
-          }
-        });
-      // user not found
-      } else {
-        console.log('Account not found');
-        res.sendStatus(400);
-      }
-    });
-  } else {
-    helpers.isBusinessInDatabase(req.body, (user) => {
-      // if user found
-      if (user) {
-        helpers.validateLogin(req.body, user, (response) => {
-          // if password matched
-          if (response) {
+  const callback = (user) => {
+    // if user found
+    if (user) {
+      helpers.validateLogin(req.body, user, (response) => {
+        // if password matched
+        if (response) {
           // if all good, send user data back
-            res.json(user);
+          res.json(user);
           // user found but password not matched
-          } else {
-            console.log('Password not matched');
-            res.sendStatus(401);
-          }
-        });
+        } else {
+          console.log('Password not matched');
+          res.sendStatus(401);
+        }
+      });
       // user not found
-      } else {
-        console.log('Account not found');
-        res.sendStatus(400);
-      }
-    });
+    } else {
+      console.log('Account not found');
+      res.sendStatus(400);
+    }
+  };
+  if (req.body.userType === 'petOwner') {
+    helpers.isPetOwnerInDatabase(req.body, callback);
+  } else {
+    helpers.isBusinessInDatabase(req.body, callback);
   }
 });
 
