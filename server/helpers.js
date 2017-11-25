@@ -86,6 +86,10 @@ const isBusinessInDatabase = (business, callback) => {
   });
 };
 
+const findAndUpdatePetOwner = (petOwner, callback) => {
+  db.User.findOneAndUpdate();
+};
+
 const validateLogin = (attempt, stored, callback) => {
   bcrypt.compare(attempt.password, stored.password, (err, response) => {
     if (response) {
