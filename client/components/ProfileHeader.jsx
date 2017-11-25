@@ -1,19 +1,21 @@
-import React from 'react'
+import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import Axios from 'axios';
 import IconButton from 'material-ui/IconButton';
-import RustyIcon from './RustyIcon.jsx'
 import FlatButton from 'material-ui/FlatButton';
+import RustyIcon from './RustyIcon.jsx';
 
-function handleTouchTap() {
-  Axios.get('/')
-    .then((response) =>
-      console.log('TITLE CLICK:', response)
-    )
-    .catch((error) =>
-      console.log('TITLE CLICK ERROR:', error)
-    )
-}
+// function handleTouchTap() {
+//   Axios.get('/')
+//     .then((response) =>
+//       console.log('TITLE CLICK:', response)
+//     )
+//     .catch((error) =>
+//       console.log('TITLE CLICK ERROR:', error)
+//     )
+// }
+
+// onTitleTouchTap={handleTouchTap}
 
 const styles = {
   title: {
@@ -21,13 +23,14 @@ const styles = {
   },
 };
 
-const PrimaryHeader = (props) => (
+const ProfileHeader = (props) => (
+
   <AppBar
     title={<span style={styles.title}>RUSTY</span>}
-    onTitleTouchTap={handleTouchTap}
-    iconElementLeft={}
-    iconElementRight={<FlatButton label="log out" onClick={(event) => props.onLogOut()} />}
+    iconElementLeft={<IconButton />}
+    iconElementRight={<FlatButton style={{ float: 'right' }} label="log out" onClick={props.onLogOut} />}
   />
+
 );
 
 export default ProfileHeader;

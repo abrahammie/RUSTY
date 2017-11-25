@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import Axios from 'axios';
 import IconButton from 'material-ui/IconButton';
@@ -21,12 +21,11 @@ const styles = {
   },
 };
 
-const PrimaryHeader = ({ onLogOut }) => (
+const PrimaryHeader = (props) => (
   <AppBar
     title={<span style={styles.title}>RUSTY</span>}
     onTitleTouchTap={handleTouchTap}
     iconElementLeft={<IconButton></IconButton>}
-    iconElementRight={<FlatButton label="log out" onClick={onLogOut} />}
   />
 );
 

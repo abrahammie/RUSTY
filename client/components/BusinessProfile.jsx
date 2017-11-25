@@ -1,13 +1,13 @@
 import React from 'react';
-import PrimaryHeader from './PrimaryHeader.jsx';
+import ProfileHeader from './ProfileHeader.jsx';
 
 const BusinessProfile = (props) => {
   return (
     <div>
-      <PrimaryHeader />
+      <ProfileHeader onLogOut={props.onLogOut} />
       <div>
         <h2>Welcome, {props.user.businessName}</h2>
-        <img src={props.user.profileImg} style={{maxHeight: 500}}></img>
+        <img src={props.user.profileImg} style={{ maxHeight: 500 }}></img>
       </div>
     </div>
   );
