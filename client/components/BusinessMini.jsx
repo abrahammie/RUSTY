@@ -12,23 +12,15 @@ class BusinessMini extends React.Component {
       wags: Array(5).fill(null),
       reviewText: '',
     };
-    /* this.handleChange = this.handleChange.bind(this);*/
-    /* this.handleClick = this.handleClick.bind(this);*/
   }
 
   /* state contains: selected number of wags; review description */
 
-  handleSubmit(event) {
+  handleSubmit() {
     var numWags = 0;
-    /* for (var i = 0; i < this.state.wags.length; i++) {*/
-    /* if (this.state.wags[i]) {*/
-    /* numWags++;*/
-    /* }*/
-    /* }*/
     while (this.state.wags[numWags]) {
       numWags++;
     }
-    /* TODO: pass user info */
     axios.post('/api/rating', {
       wags: numWags,
       description: this.state.reviewText,
@@ -46,8 +38,6 @@ class BusinessMini extends React.Component {
   handleChange(event) {
     this.setState({ reviewText: event.target.value });
   }
-
-  /* consulted reactjs.org tutorial */
 
   handleClick(i) {
     const wags = this.state.wags.map((wag, index) => {
@@ -73,7 +63,7 @@ class BusinessMini extends React.Component {
         {this.renderWag(3)}
         {this.renderWag(4)}
         <input value={this.state.reviewText} onChange={event => this.handleChange(event)}></input>
-        <button onClick={event => this.handleSubmit(event)}>Submit review</button>
+        <button onClick={() => this.handleSubmit()}>Submit review</button>
       </div>
     );
   }
