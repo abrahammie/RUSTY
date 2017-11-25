@@ -13,4 +13,4 @@ const Review = (props) => {
   );
 }
 
-export default Review
+export default Review;
