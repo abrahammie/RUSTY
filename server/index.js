@@ -89,32 +89,9 @@ app.post('/api/login', (req, res) => {
 });
 
 app.get('/api/businessListings', (req, res) => {
-  // db.Business.find({}, (err, businesses) => {
-  //   if (err) {
-  //     return console.error(err);
-  //   }
-  //   res.send(businesses);
-  // });
-  var output = [];
-
-  db.Business.
-    find({}).
-    cursor().
-    eachAsync((business) => {
-      return db.Rating.find({ businessId: business._id })
-        .then((ratings) => {
-          output.push([business, ratings]);
-        });
-    }).
-    then(() => {
-      res.send(output);
-    });
-
-  // // this is cleaner but does not work for some reason
-  // helpers.fetchBusinessListings((businessTuples) => {
-  //   res.send(businessTuples);
-  // });
-
+  helpers.fetchBusinessListings((businessTuples) => {
+    res.send(businessTuples);
+  });
 });
 
 app.post('/api/rating', (req, res) => {
