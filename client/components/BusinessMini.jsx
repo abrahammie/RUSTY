@@ -1,10 +1,28 @@
 import React from 'react';
 import axios from 'axios';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
+import {green500, blue500} from 'material-ui/styles/colors';
 import FlatButton from 'material-ui/FlatButton';
 import PrimaryHeader from './PrimaryHeader.jsx';
 import Review from './Review.jsx'
 import Wag from './Wag.jsx';
+
+const styles = {
+  errorStyle: {
+    color: blue500,
+  },
+  underlineStyle: {
+    borderColor: blue500,
+  },
+  floatingLabelStyle: {
+    color: green500,
+  },
+  floatingLabelFocusStyle: {
+    color: green500,
+  },
+};
+
 
 class BusinessMini extends React.Component {
   constructor(props) {
@@ -58,27 +76,41 @@ class BusinessMini extends React.Component {
     for (var i = 0; i < reviews.length; i++) {
       sumWags += reviews[i].wags;
     }
-    var avgWags = 'no reviews yet'
+    var avgWags = 'no'
     if (i > 0) {
       avgWags = (sumWags / i).toString();
     }
 
     return (
-      <div>
-        <p>{this.props.businessName}</p>
-        <p>{avgWags}</p>
-        <img src={this.props.profileImg} style={{maxHeight: 100}} />
-        {this.renderWag(0)}
-        {this.renderWag(1)}
-        {this.renderWag(2)}
-        {this.renderWag(3)}
-        {this.renderWag(4)}
-        <input value={this.state.reviewText} onChange={event => this.handleChange(event)}></input>
-        <button onClick={() => this.handleSubmit()}>Submit review</button>
-        {reviews.map((review) => {
-           return <Review description={review.description} rating={review.wags} />
-        })}
-      </div>
+      <Card>
+        <CardHeader
+          title={this.props.businessCategory}
+        />
+        <CardMedia
+          overlay={<CardTitle title={this.props.businessName} />}
+           >
+          <img src={this.props.profileImg} style={{height:200, width:200}} />
+        </CardMedia>
+        <CardTitle subtitle={avgWags + ' wags!'} />
+        <CardText>
+          {reviews.map((review) => {
+             return <Review description={review.description} />
+          })}
+        </CardText>
+        <CardActions>
+          {this.renderWag(0)}
+          {this.renderWag(1)}
+          {this.renderWag(2)}
+          {this.renderWag(3)}
+          {this.renderWag(4)}
+           <TextField
+            hintText="your review goes here"
+            value={this.state.reviewText}
+            onChange={event => this.handleChange(event)}
+            />
+          <FlatButton label="submit a review!" primary={true} onClick={() => this.handleSubmit()}></FlatButton>
+        </CardActions>
+      </Card>
     );
   }
 };
