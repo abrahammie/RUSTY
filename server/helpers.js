@@ -35,7 +35,6 @@ const addBusiness = (data, callback) => {
       password: hash,
       phone: data.phone,
       businessCategory: data.businessCategory,
-      profileImg: data.profileImg,
       street: data.street,
       city: data.city,
       state: data.state,
@@ -104,8 +103,9 @@ const fetchBusinessListings = (callback) => {
     find().
     cursor().
     eachAsync((business) => {
-      return db.Rating.find({ businessId: business._id })
-        .then((ratings) => {
+      return db.Rating.
+        find({ businessId: business._id }).
+        then((ratings) => {
           output.push([business, ratings]);
         });
     }).
