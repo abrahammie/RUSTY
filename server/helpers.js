@@ -86,8 +86,13 @@ const isBusinessInDatabase = (business, callback) => {
   });
 };
 
-const findAndUpdatePetOwner = (petOwner, callback) => {
-  db.User.findOneAndUpdate();
+const findAndUpdatePetOwner = (petOwner, update, callback) => {
+  db.User.findOneAndUpdate({ email: petOwner.email }, update, (err, result) => {
+    if (err) {
+      return console.error(err);
+    }
+    callback(result);
+  });
 };
 
 const validateLogin = (attempt, stored, callback) => {
