@@ -71,6 +71,8 @@ app.post('/api/login', (req, res) => {
         helpers.validateLogin(req.body, user, (response) => {
           // if password matched
           if (response) {
+          // if all good, send user data back
+            res.json(user);
           // user found but password not matched
           } else {
             console.log('Password not matched');
