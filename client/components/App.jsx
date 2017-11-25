@@ -139,7 +139,7 @@ class App extends React.Component {
   }
 
   onLogOut() {
-    console.log('ON_LOGOUT_FIRED!'');
+    console.log('ON_LOGOUT_FIRED!');
     localStorage.setItem('user', 'null');
     localStorage.setItem('status', 'null');
     this.setState({user: null, isLoggedIn: false});
