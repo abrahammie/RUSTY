@@ -22,7 +22,7 @@ class BusinessMini extends React.Component {
     while (this.state.wags[numWags]) {
       numWags++;
     }
-    axios.post('/api/rating', {
+    axios.post('/api/review', {
       wags: numWags,
       description: this.state.reviewText,
       userId: this.props.userId,
@@ -68,7 +68,6 @@ class BusinessMini extends React.Component {
         <PrimaryHeader />
         <h1>Business Mini Listing</h1>
         <p>{this.props.businessName}</p>
-        {/* <p>{this.props.rating}</p> */}
         <p>{avgWags}</p>
         <img src={this.props.profileImg} />
         {this.renderWag(0)}

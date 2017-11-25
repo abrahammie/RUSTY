@@ -45,8 +45,8 @@ const addBusiness = (data, callback) => {
 };
 
 const hashPassword = {};
-const addRating = (data, callback) => {
-  let review = new db.Rating({
+const addReview = (data, callback) => {
+  let review = new db.Review({
     wags: data.wags,
     description: data.description,
     userId: data.userId,
@@ -103,10 +103,10 @@ const fetchBusinessListings = (callback) => {
     find().
     cursor().
     eachAsync((business) => {
-      return db.Rating.
+      return db.Review.
         find({ businessId: business._id }).
-        then((ratings) => {
-          output.push([business, ratings]);
+        then((reviews) => {
+          output.push([business, reviews]);
         });
     }).
     then(() => {
@@ -114,15 +114,28 @@ const fetchBusinessListings = (callback) => {
     });
 };
 
-const fetchProfileData = () => {
+const fetchPetOwnerProfileData = (callback) => {
+  var output = [];
+  db.User.
+    find().
+    cursor().
+    eachAsync((petOwner) => {
+      return db.Review.
+        find({ userId: petOwner._id }).
+        then((reviews) => {
+          output.push([petOwner, reviews]);
+        });
+    }).
+    then(() => {
+      callback(output);
+    });
 };
-
 
 module.exports.addPetOwner = addPetOwner;
 module.exports.isPetOwnerInDatabase = isPetOwnerInDatabase;
 module.exports.isBusinessInDatabase = isBusinessInDatabase;
 module.exports.validateLogin = validateLogin;
-module.exports.fetchProfileData = fetchProfileData;
+module.exports.fetchProfileData = fetchPetOwnerProfileData;
 module.exports.fetchBusinessListings = fetchBusinessListings;
 module.exports.addBusiness = addBusiness;
-module.exports.addRating = addRating;
+module.exports.addReview = addReview;

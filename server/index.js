@@ -94,9 +94,9 @@ app.get('/api/businessListings', (req, res) => {
   });
 });
 
-app.post('/api/rating', (req, res) => {
-  helpers.addRating(req.body, () => {
-    res.send('added rating');
+app.post('/api/review', (req, res) => {
+  helpers.addReview(req.body, () => {
+    res.send('added review');
   });
 });
 
