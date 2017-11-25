@@ -1,4 +1,4 @@
-import React from 'react';
+  import React from 'react';
 import axios from 'axios';
 import { BrowserRouter, Route, NavLink, Switch, Redirect } from 'react-router-dom';
 import Login from './Login.jsx';
@@ -14,7 +14,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       isLoggedIn: localStorage.getItem('status'),
-      userType: null,
+      userType: localStorage.getItem('type'),
       user: JSON.parse(localStorage.getItem('user'))
     };
 
@@ -123,7 +123,7 @@ class App extends React.Component {
       password: `${pw}`,
       userType: `${userType}`
     })
-      .then((response) => this.onLogIn(response.data))
+      .then((response) => this.onLogIn(response.data, userType))
       .catch((error) => {
         // alert error
         console.log('error is',error);
@@ -131,15 +131,15 @@ class App extends React.Component {
       });
     }
 
-  onLogIn(user) {
+  onLogIn(user, userType) {
     // save user data in local storage
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('status', 'true');
-    this.setState({user: user, isLoggedIn: true});
+    localStorage.setItem('type', userType);
+    this.setState({user: user, isLoggedIn: true, userType: userType});
   }
 
   onLogOut() {
-    console.log('ON_LOGOUT_FIRED!');
     localStorage.setItem('user', 'null');
     localStorage.setItem('status', 'null');
     this.setState({user: null, isLoggedIn: false});
@@ -149,13 +149,17 @@ class App extends React.Component {
     if (this.state.isLoggedIn) {
       return (
         this.state.userType === 'business' ?
-        <MuiThemeProvider><BusinessProfile user={this.state.user} /></MuiThemeProvider> : <MuiThemeProvider><PetOwnerProfile user={this.state.user} /></MuiThemeProvider>
+        <MuiThemeProvider><BusinessProfile user={this.state.user} onLogOut={this.onLogOut} />
+        </MuiThemeProvider>
+        :
+        <MuiThemeProvider><PetOwnerProfile user={this.state.user} onLogOut={this.onLogOut} />
+        </MuiThemeProvider>
         );
     } else {
       return (
           <MuiThemeProvider>
            <div>
-            <PrimaryHeader onLogOut={this.onLogOut} />
+            <PrimaryHeader />
           </div>
           <div>
             <BrowserRouter>
