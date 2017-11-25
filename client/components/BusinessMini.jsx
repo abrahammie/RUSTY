@@ -65,10 +65,9 @@ class BusinessMini extends React.Component {
 
     return (
       <div>
-        <h1>Business Mini Listing</h1>
         <p>{this.props.businessName}</p>
         <p>{avgWags}</p>
-        <img src={this.props.profileImg} />
+        <img src={this.props.profileImg} style={{maxHeight: 100}} />
         {this.renderWag(0)}
         {this.renderWag(1)}
         {this.renderWag(2)}

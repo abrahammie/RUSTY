@@ -7,6 +7,7 @@ import BusinessProfile from './BusinessProfile.jsx';
 import PetOwnerProfile from './PetOwnerProfile.jsx';
 import PrimaryHeader from './PrimaryHeader.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 class App extends React.Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class App extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.submitData = this.submitData.bind(this);
     this.authenticateLogin = this.authenticateLogin.bind(this);
+    this.onLogOut = this.onLogOut.bind(this);
   }
 
   onChange(e) {
@@ -137,6 +139,7 @@ class App extends React.Component {
   }
 
   onLogOut() {
+    console.log('ON_LOGOUT_FIRED!');
     localStorage.setItem('user', 'null');
     localStorage.setItem('status', 'null');
     this.setState({user: null, isLoggedIn: false});
@@ -150,13 +153,12 @@ class App extends React.Component {
         );
     } else {
       return (
-        <div className="primary-layout">
-          <div>
-            <PrimaryHeader />
+          <MuiThemeProvider>
+           <div>
+            <PrimaryHeader onLogOut={this.onLogOut} />
           </div>
           <div>
             <BrowserRouter>
-              <MuiThemeProvider>
                 <div>
                   <NavLink to="/login" activeClassName="active">Login</NavLink><br></br>
                   <NavLink to="/signup" activeClassName="active">Sign up</NavLink><br></br>
@@ -165,10 +167,9 @@ class App extends React.Component {
                     <Route path="/signup" render={() => (<Signup app={this} test="eeeeee" />)} />
                   </Switch>
                 </div>
-              </MuiThemeProvider>
             </BrowserRouter>
           </div>
-        </div>
+          </MuiThemeProvider>
       );
     }
   }

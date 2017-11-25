@@ -21,13 +21,13 @@ const styles = {
   },
 };
 
-const PrimaryHeader = ({ onLogOut }) => (
+const PrimaryHeader = (props) => (
   <AppBar
     title={<span style={styles.title}>RUSTY</span>}
     onTitleTouchTap={handleTouchTap}
-    iconElementLeft={<IconButton></IconButton>}
-    iconElementRight={<FlatButton label="log out" onClick={onLogOut} />}
+    iconElementLeft={}
+    iconElementRight={<FlatButton label="log out" onClick={(event) => props.onLogOut()} />}
   />
 );
 
-export default PrimaryHeader;
+export default ProfileHeader;
