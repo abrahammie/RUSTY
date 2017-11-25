@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import RustyIcon from './RustyIcon.jsx'
@@ -14,13 +14,13 @@ const styles = {
   },
 };
 
-const PrimaryHeader = () => (
+const AppBarExampleIconButton = () => (
   <AppBar
     title={<span style={styles.title}>RUSTY</span>}
     onTitleTouchTap={handleTouchTap}
-    iconElementLeft={<IconButton></IconButton>}
+    iconElementLeft={<IconButton><RustyIcon /></IconButton>}
     iconElementRight={<FlatButton label="log out" />}
   />
 );
 
-export default PrimaryHeader;
+export default ProfileHeader;
