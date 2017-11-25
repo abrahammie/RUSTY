@@ -109,16 +109,12 @@ app.get('/api/businessListings', (req, res) => {
     then(() => {
       res.send(output);
     });
-  // var storage = [];
-  // var cursor = db.Business.find({}).cursor();
-  // cursor.on('data', (business) => {
-  //   // storage.push(business);
-  //   storage.push(db.Rating.find({ businessId: business._id }));
+
+  // // this is cleaner but does not work for some reason
+  // helpers.fetchBusinessListings((businessTuples) => {
+  //   res.send(businessTuples);
   // });
-  // // cursor.on('close', () => res.send(output));
-  // cursor.on('close', () => {
-  //   storage.each()
-  // });
+
 });
 
 app.post('/api/rating', (req, res) => {
