@@ -21,6 +21,7 @@ class App extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.submitData = this.submitData.bind(this);
     this.authenticateLogin = this.authenticateLogin.bind(this);
+    this.onLogOut = this.onLogOut.bind(this);
   }
 
   onChange(e) {
@@ -138,6 +139,7 @@ class App extends React.Component {
   }
 
   onLogOut() {
+    console.log('ON_LOGOUT_FIRED!'');
     localStorage.setItem('user', 'null');
     localStorage.setItem('status', 'null');
     this.setState({user: null, isLoggedIn: false});
@@ -153,7 +155,7 @@ class App extends React.Component {
       return (
           <MuiThemeProvider>
            <div>
-            <PrimaryHeader />
+            <PrimaryHeader onLogOut={this.onLogOut} />
           </div>
           <div>
             <BrowserRouter>
