@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import PrimaryHeader from './PrimaryHeader.jsx';
+import Review from './Review.jsx'
 import Wag from './Wag.jsx';
 
 class BusinessMini extends React.Component {
@@ -51,12 +52,24 @@ class BusinessMini extends React.Component {
   }
 
   render() {
+
+    var sumWags = 0;
+    const reviews = this.props.reviews;
+    for (var i = 0; i < reviews.length; i++) {
+      sumWags += reviews[i].wags;
+    }
+    var avgWags = 'no reviews yet'
+    if (i > 0) {
+      avgWags = (sumWags / i).toString();
+    }
+
     return (
       <div>
         <PrimaryHeader />
         <h1>Business Mini Listing</h1>
         <p>{this.props.businessName}</p>
-        <p>{this.props.rating}</p>
+        {/* <p>{this.props.rating}</p> */}
+        <p>{avgWags}</p>
         <img src={this.props.profileImg} />
         {this.renderWag(0)}
         {this.renderWag(1)}
@@ -65,6 +78,9 @@ class BusinessMini extends React.Component {
         {this.renderWag(4)}
         <input value={this.state.reviewText} onChange={event => this.handleChange(event)}></input>
         <button onClick={() => this.handleSubmit()}>Submit review</button>
+        {reviews.map((review) => {
+           return <Review description={review.description} rating={review.wags} />
+        })}
       </div>
     );
   }

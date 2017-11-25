@@ -37,19 +37,20 @@ class SearchResults extends React.Component {
   render() {
     const callback = (businessTuple) => {
       var business = businessTuple[0];
-      var sumWags = 0;
-      for (var i = 0; i < businessTuple[1].length; i++) {
-        sumWags += businessTuple[1][i].wags;
-      }
-      var avgWags = 'no reviews yet'
-      if (i > 0) {
-        avgWags = (sumWags / i).toString();
-      }
+      var reviews = businessTuple[1];
+      /* var sumWags = 0;*/
+      /* for (var i = 0; i < businessTuple[1].length; i++) {*/
+      /* sumWags += businessTuple[1][i].wags;*/
+      /* }*/
+      /* var avgWags = 'no reviews yet'*/
+      /* if (i > 0) {*/
+      /* avgWags = (sumWags / i).toString();*/
+      /* }*/
       return (<BusinessMini
                 userId={this.props.userId}
                 business={business}
                 id={business._id}
-                rating={avgWags}
+                reviews={reviews}
                 businessName={business.businessName}
                 businessCategory={business.businessCategory}
                 profileImg={business.profileImg}
