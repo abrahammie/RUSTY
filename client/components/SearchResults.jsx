@@ -56,7 +56,7 @@ class SearchResults extends React.Component {
       var business = businessTuple[0];
       var reviews = businessTuple[1];
       return (<BusinessMini
-                userId={this.props.userId}
+                petOwnerId={this.props.petOwnerId}
                 business={business}
                 id={business._id}
                 reviews={reviews}

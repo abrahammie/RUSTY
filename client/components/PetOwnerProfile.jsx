@@ -14,7 +14,7 @@ const PetOwnerProfile = (props) => {
         <Divider />
         <div>
           <img alt="" src={props.user.profileImg} style={{ maxHeight: 300 }} />
-          <SearchResults userId={props.user._id} />
+          <SearchResults petOwnerId={props.user._id} />
         </div>
       </div>
     </MuiThemeProvider>

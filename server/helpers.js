@@ -49,7 +49,7 @@ const addReview = (data, callback) => {
   let review = new db.Review({
     wags: data.wags,
     description: data.description,
-    userId: data.userId,
+    petOwnerId: data.petOwnerId,
     businessId: data.businessId
   });
   writeToDatabase(review, callback);
@@ -130,7 +130,7 @@ const fetchPetOwnerProfileData = (callback) => {
 const getUserReviews = (petOwner) => {
   var output = [];
   return db.Review.
-    find({ userId: petOwner._id }).
+    find({ petOwnerId: petOwner._id }).
     then((reviews) => {
       output.push([petOwner, reviews]);
     });

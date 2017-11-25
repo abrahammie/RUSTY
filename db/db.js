@@ -47,7 +47,7 @@ let reviewSchema = mongoose.Schema({
   // _id: auto-gen
   wags: Number,
   description: String,
-  userId: String,
+  petOwnerId: String,
   businessId: String
 });
 
