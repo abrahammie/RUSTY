@@ -38,7 +38,7 @@ const addBusiness = (data, callback) => {
       street: data.street,
       city: data.city,
       state: data.state,
-      zip: data.zip,
+      zip: data.zip
     });
     writeToDatabase(business, callback);
   });

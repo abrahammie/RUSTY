@@ -65,7 +65,6 @@ class BusinessMini extends React.Component {
 
     return (
       <div>
-        <PrimaryHeader />
         <h1>Business Mini Listing</h1>
         <p>{this.props.businessName}</p>
         <p>{avgWags}</p>
