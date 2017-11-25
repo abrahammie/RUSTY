@@ -8,31 +8,18 @@ import PetOwnerProfile from './PetOwnerProfile.jsx';
 import PrimaryHeader from './PrimaryHeader.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: null,
+      isLoggedIn: localStorage.getItem('status'),
       userType: null,
-      user: {}
+      user: JSON.parse(localStorage.getItem('user'))
     };
 
     this.onChange = this.onChange.bind(this);
     this.submitData = this.submitData.bind(this);
     this.authenticateLogin = this.authenticateLogin.bind(this);
-  }
-
-  componentWillMount() {
-    // Check for session value
-    console.log('is logged in ', this.state.isLoggedIn)
-    axios.get('/api/checkSession')
-      .then(function (response) {
-        console.log('response on compwillmount:', response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
   }
 
   onChange(e) {
@@ -41,14 +28,6 @@ class App extends React.Component {
     tempState[e.target.name] = e.target.value;
     this.setState(tempState);
   }
-  /*
-  toggleView() {
-    //  console.log('in toggle View //  showProfile = ',this.state );
-    //  console.log('in toggle View //  showProfile = ',this.state.showProfile );
-    var newCondition = !this.state.showProfile;
-    this.setState({ showProfile : newCondition });
-  }
-  */
 
   fetchData() {
     console.log('inside fetch data');
@@ -100,6 +79,7 @@ class App extends React.Component {
       // alert error
       return console.error(error);
     });
+
     /*
     fetch('/api/dogowner/signup', {
       method: 'POST',
@@ -141,19 +121,25 @@ class App extends React.Component {
       password: `${pw}`,
       userType: `${userType}`
     })
-      .then((response) => {
-        console.log('login response from server', response.data);
-        // change this.state.isLoggedIn to true
-        this.setState({
-          user : response.data,
-          isLoggedIn: true
-        });
-      })
+      .then((response) => this.onLogIn(response.data))
       .catch((error) => {
         // alert error
         console.log('error is',error);
         alert('Incorrect login. Please log in or sign up.');
       });
+    }
+
+  onLogIn(user) {
+    // save user data in local storage
+    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('status', 'true');
+    this.setState({user: user, isLoggedIn: true});
+  }
+
+  onLogOut() {
+    localStorage.setItem('user', 'null');
+    localStorage.setItem('status', 'null');
+    this.setState({user: null, isLoggedIn: false});
   }
 
   render() {
