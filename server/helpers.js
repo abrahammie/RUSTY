@@ -37,6 +37,7 @@ const addBusiness = (data, callback) => {
       password: hash,
       phone: data.phone,
       businessCategory: data.businessCategory,
+      profileImg: data.profileImg,
       street: data.street,
       city: data.city,
       state: data.state,

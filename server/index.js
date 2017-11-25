@@ -14,15 +14,8 @@ app.use(bodyParser.json());
 // duplicate accordingly for user
 app.post('/api/business/signup', (req, res) => {
   helpers.addBusiness(req.body, (newBusiness) => {
-    req.session.regenerate(function (err) {
-      if (err) {
-        return console.error(err);
-      }
-      req.session.user = newBusiness;
-      console.log('hi');
       res.send('added business');
     });
-  });
 });
 app.post('/api/petOwner/signup', (req, res) => {
   helpers.addPetOwner(req.body, (newPetOwner) => {
@@ -32,7 +25,8 @@ app.post('/api/petOwner/signup', (req, res) => {
 });
 
 /*
-// run this to add test user
+// uncomment to seed test user and business data
+const businessData = require('../seeds/businesses.js');
 helpers.addPetOwner({
 pet: 'rusty',
 username: 'krista',
@@ -45,6 +39,8 @@ state: 'OR',
 zipcode: '97203'
 },
 (data) => console.log(data, 'added'));
+
+businessData.forEach((business) => helpers.addBusiness(business, () => console.log('done')));
 */
 
 app.post('/api/login', (req, res) => {
