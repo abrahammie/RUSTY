@@ -8,7 +8,7 @@ db.once('open', function () {
   console.log('Connected to database!');
 });
 
-let userSchema = mongoose.Schema({
+let petOwnerSchema = mongoose.Schema({
   // _id: auto-gen
   pet: String,
   username: String,
@@ -51,10 +51,10 @@ let reviewSchema = mongoose.Schema({
   businessId: String
 });
 
-let User = mongoose.model('User', userSchema);
+let PetOwner = mongoose.model('PetOwner', petOwnerSchema);
 let Business = mongoose.model('Business', businessSchema);
 let Review = mongoose.model('Review', reviewSchema);
 
-module.exports.User = User;
+module.exports.PetOwner = PetOwner;
 module.exports.Business = Business;
 module.exports.Review = Review;

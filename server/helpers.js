@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 // save petOwner to db and call callback on success
 const addPetOwner = (data, callback) => {
   bcrypt.hash(data.password, 10, (err, hash) => {
-    let petOwner = new db.User({
+    let petOwner = new db.PetOwner({
       pet: data.pet,
       username: data.username,
       profileImg: data.profileImg,
@@ -17,7 +17,7 @@ const addPetOwner = (data, callback) => {
     });
     // petOwner.save((err, document) => {
     //   if (err) {
-    //     console.log('User not saved, possible duplicate');
+    //     console.log('PetOwner not saved, possible duplicate');
     //     // console.log(err);
     //   } else {
     //     callback(document);
@@ -65,7 +65,7 @@ const writeToDatabase = (document, callback) => {
 };
 
 const isPetOwnerInDatabase = (petOwner, callback) => {
-  db.User.findOne({ email: petOwner.email }, (err, result) => {
+  db.PetOwner.findOne({ email: petOwner.email }, (err, result) => {
     if (err) {
       console.log('Error finding user in db:', err);
       callback();
@@ -87,7 +87,7 @@ const isBusinessInDatabase = (business, callback) => {
 };
 
 const findAndUpdatePetOwner = (petOwner, update, callback) => {
-  db.User.findOneAndUpdate({ email: petOwner.email }, update, (err, result) => {
+  db.PetOwner.findOneAndUpdate({ email: petOwner.email }, update, (err, result) => {
     if (err) {
       return console.error(err);
     }
