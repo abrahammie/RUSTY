@@ -1,8 +1,6 @@
 const bodyParser = require('body-parser');
-const db = require('../db/db');
 const express = require('express');
 const helpers = require('./helpers.js');
-const Promise = require('bluebird');
 
 const port = process.env.PORT || 3000;
 const app = express();

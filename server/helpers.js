@@ -97,6 +97,7 @@ const validateLogin = (attempt, stored, callback) => {
   });
 };
 
+// the eachAsync callback ought to be easily modularized...but i can't do that for some reason
 const fetchBusinessListings = (callback) => {
   var output = [];
   db.Business.
@@ -115,19 +116,14 @@ const fetchBusinessListings = (callback) => {
 };
 
 const fetchPetOwnerProfileData = (callback) => {
+};
+
+const getUserReviews = (petOwner) => {
   var output = [];
-  db.User.
-    find().
-    cursor().
-    eachAsync((petOwner) => {
-      return db.Review.
-        find({ userId: petOwner._id }).
-        then((reviews) => {
-          output.push([petOwner, reviews]);
-        });
-    }).
-    then(() => {
-      callback(output);
+  return db.Review.
+    find({ userId: petOwner._id }).
+    then((reviews) => {
+      output.push([petOwner, reviews]);
     });
 };
 
