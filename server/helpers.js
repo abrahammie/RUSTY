@@ -1,7 +1,5 @@
 const db = require('../db/db.js');
 const bcrypt = require('bcrypt');
-const session = require('express-session');
-
 
 // save petOwner to db and call callback on success
 const addPetOwner = (data, callback) => {
@@ -100,6 +98,19 @@ const validateLogin = (attempt, stored, callback) => {
   });
 };
 
+const fetchBusinessListings = (callback) => {
+  var output = [];
+  db.Business.
+    find({}).
+    cursor().
+    eachAsync((business) => {
+      return db.Rating.find({ businessId: business._id })
+        .then((ratings) => {
+          output.push([business, ratings]);
+        });
+    }).
+    then(callback(output));
+};
 
 const fetchProfileData = () => {
 };
@@ -110,5 +121,6 @@ module.exports.isPetOwnerInDatabase = isPetOwnerInDatabase;
 module.exports.isBusinessInDatabase = isBusinessInDatabase;
 module.exports.validateLogin = validateLogin;
 module.exports.fetchProfileData = fetchProfileData;
+module.exports.fetchBusinessListings = fetchBusinessListings;
 module.exports.addBusiness = addBusiness;
 module.exports.addRating = addRating;

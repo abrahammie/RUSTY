@@ -2,6 +2,7 @@ const bodyParser = require('body-parser');
 const db = require('../db/db');
 const express = require('express');
 const helpers = require('./helpers.js');
+const Promise = require('bluebird');
 
 const port = process.env.PORT || 3000;
 const app = express();
@@ -88,12 +89,36 @@ app.post('/api/login', (req, res) => {
 });
 
 app.get('/api/businessListings', (req, res) => {
-  db.Business.find({}, (err, businesses) => {
-    if (err) {
-      return console.error(err);
-    }
-    res.send(businesses);
-  });
+  // db.Business.find({}, (err, businesses) => {
+  //   if (err) {
+  //     return console.error(err);
+  //   }
+  //   res.send(businesses);
+  // });
+  var output = [];
+
+  db.Business.
+    find({}).
+    cursor().
+    eachAsync((business) => {
+      return db.Rating.find({ businessId: business._id })
+        .then((ratings) => {
+          output.push([business, ratings]);
+        });
+    }).
+    then(() => {
+      res.send(output);
+    });
+  // var storage = [];
+  // var cursor = db.Business.find({}).cursor();
+  // cursor.on('data', (business) => {
+  //   // storage.push(business);
+  //   storage.push(db.Rating.find({ businessId: business._id }));
+  // });
+  // // cursor.on('close', () => res.send(output));
+  // cursor.on('close', () => {
+  //   storage.each()
+  // });
 });
 
 app.post('/api/rating', (req, res) => {

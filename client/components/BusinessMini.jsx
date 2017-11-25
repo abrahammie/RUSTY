@@ -56,6 +56,7 @@ class BusinessMini extends React.Component {
         <PrimaryHeader />
         <h1>Business Mini Listing</h1>
         <p>{this.props.businessName}</p>
+        <p>{this.props.rating}</p>
         <img src={this.props.profileImg} />
         {this.renderWag(0)}
         {this.renderWag(1)}

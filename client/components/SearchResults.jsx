@@ -9,7 +9,7 @@ class SearchResults extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      businesses: [],
+      businessTuples: [],
       category: 1,
     };
   }
@@ -25,26 +25,37 @@ class SearchResults extends React.Component {
          });
   }
 
-  addBusinesses(businesses) {
-    this.setState({ businesses });
+  addBusinesses(businessTuples) {
+    this.setState({ businessTuples });
   }
 
   handleChange(event, index, value) {
     this.setState({ category: value });
   }
 
+  /* businessTuple is [{business}, [review 0, review 1, ...]] */
   render() {
-    const callback = (business) => {
+    const callback = (businessTuple) => {
+      var business = businessTuple[0];
+      var sumWags = 0;
+      for (var i = 0; i < businessTuple[1].length; i++) {
+        sumWags += businessTuple[1][i].wags;
+      }
+      var avgWags = 'no reviews yet'
+      if (i > 0) {
+        avgWags = (sumWags / i).toString();
+      }
       return (<BusinessMini
                 userId={this.props.userId}
                 business={business}
                 id={business._id}
+                rating={avgWags}
                 businessName={business.businessName}
                 businessCategory={business.businessCategory}
                 profileImg={business.profileImg}
       />);
     };
-    const businesses = this.state.businesses;
+    const businessTuples = this.state.businessTuples;
     const legend = {
       1: 'All Local Businesses',
       2: 'Bars/Restaurants',
@@ -61,10 +72,10 @@ class SearchResults extends React.Component {
         </DropDownMenu>
         <div>
           { this.state.category === 1 ? (
-              businesses.map(callback)
+              businessTuples.map(callback)
           ) : (
-              businesses.filter(business => business.businessCategory === legend[this.state.category])
-                        .map(callback)
+              businessTuples.filter(businessTuple => businessTuple[0].businessCategory === legend[this.state.category])
+                            .map(callback)
           )};
         </div>
       </div>
