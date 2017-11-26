@@ -3,7 +3,7 @@ import axios from 'axios';
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton'
 import FlatButton from 'material-ui/FlatButton';
-import {fullWhite} from 'material-ui/styles/colors';
+import {red500, blue500} from 'material-ui/styles/colors';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -11,15 +11,9 @@ import PrimaryHeader from './PrimaryHeader.jsx';
 import BusinessMini from './BusinessMini.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-
-const SearchButton = (props, { legend }) => (
-    <FlatButton
-      label="Browse Local Businesses"
-      labelPosition="after"
-      secondary={true}
-      icon={<ActionSearch />}
-    />
-);
+const iconStyles = {
+  marginRight: 24,
+};
 
 class SearchResults extends React.Component {
   constructor(props) {
@@ -75,16 +69,22 @@ class SearchResults extends React.Component {
     return (
       <MuiThemeProvider>
       <div>
-        <IconMenu
-          iconButtonElement={<FlatButton><SearchButton /></FlatButton>}
+        <DropDownMenu
+          iconButton={<ActionSearch
+                        tooltip="Browse Local Businesses!"
+                        tooltipPosition="top-center"
+                        style={iconStyles}
+                        color={red500}
+                        hoverColor={blue500}
+                      />}
           value={this.state.value}
-          onRequestChange={(event, index, value) => this.handleChange(event, index, value)}
+          onChange={(event, index, value) => this.handleChange(event, index, value)}
           >
           <MenuItem value={1} label="browse local businesses" primaryText={legend['1']} />
           <MenuItem value={2} label="browse local bars and restaurants" primaryText={legend['2']} />
           <MenuItem value={3} label="browse local cafes" primaryText={legend['3']} />
           <MenuItem value={4} label="browse local hotels"primaryText={legend['4']} />
-        </IconMenu>
+        </DropDownMenu>
       <div>
           { this.state.category === 1 ? (
               businessTuples.map(callback)
