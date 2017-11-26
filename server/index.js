@@ -43,7 +43,7 @@ businessData.forEach((business) => helpers.addBusiness(business, () => console.l
 */
 
 app.post('/api/login', (req, res) => {
-  if (req.body.userType === 'petOwner') {
+  if (req.body.userType === 'Pet Owner') {
     helpers.isPetOwnerInDatabase(req.body, (user) => {
       // if user found
       if (user) {

@@ -1,13 +1,13 @@
-  import React from 'react';
+import React from 'react';
 import axios from 'axios';
 import { BrowserRouter, Route, NavLink, Switch, Redirect } from 'react-router-dom';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 import BusinessProfile from './BusinessProfile.jsx';
 import PetOwnerProfile from './PetOwnerProfile.jsx';
 import PrimaryHeader from './PrimaryHeader.jsx';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 class App extends React.Component {
   constructor(props) {
@@ -148,9 +148,26 @@ class App extends React.Component {
   }
 
   render() {
+
+    const buttonStyle = {
+      fontFamily: 'Roboto, sans-serif',
+      marginTop: 30,
+      marginRight: 10,
+      marginLeft: 2,
+      backgroundColor: '#c2a500',
+      border: 'none',
+      color: 'white',
+      padding: 15,
+      textAlign: 'center',
+      textDecoration: 'none',
+      display: 'inline-block',
+      fontSize: 15,
+      boxShadow: '0 2px 4px 0 #dadcdb, 0 3px 5px 0 #dadcdb'
+    };
+
     if (this.state.isLoggedIn) {
       return (
-        this.state.userType === 'business' ?
+        this.state.userType === 'Business' ?
         <MuiThemeProvider><BusinessProfile user={this.state.user} onLogOut={this.onLogOut} />
         </MuiThemeProvider>
         :
@@ -166,8 +183,8 @@ class App extends React.Component {
           <div>
             <BrowserRouter>
                 <div>
-                  <NavLink to="/login" activeClassName="active">Login</NavLink><br></br>
-                  <NavLink to="/signup" activeClassName="active">Sign up</NavLink><br></br>
+                  <NavLink to="/login" style={buttonStyle} activeStyle={{ fontWeight: 'bold', boxShadow: '', textDecoration: 'underline' }}>LOGIN</NavLink>
+                  <NavLink to="/signup" style={buttonStyle} activeStyle={{ fontWeight: 'bold', boxShadow: '', textDecoration: 'underline' }}>SIGN UP</NavLink>
                   <Switch>
                     <Route path="/login" render={() => (<Login authenticateLogin={this.authenticateLogin} />)} />
                     <Route path="/signup" render={() => (<Signup app={this} test="eeeeee" />)} />
