@@ -5,17 +5,22 @@ import TextField from 'material-ui/TextField';
 import {green500, blue500} from 'material-ui/styles/colors';
 import FlatButton from 'material-ui/FlatButton';
 import PrimaryHeader from './PrimaryHeader.jsx';
+import Toggle from 'material-ui/Toggle';
 import Paper from 'material-ui/Paper';
 import Review from './Review.jsx'
 import Wag from './Wag.jsx';
 
 
 const paperStyle = {
-  width: 700,
+  width: 600,
   margin: 20,
   textAlign: 'left',
   display: 'inline-block',
 };
+
+const hintStyle = {
+  textAlign: 'center',
+}
 
 const styles = {
   errorStyle: {
@@ -39,8 +44,14 @@ class BusinessMini extends React.Component {
     this.state = {
       wags: Array(5).fill(null),
       reviewText: '',
+      expanded: false,
     };
+    this.handleExpandChange = this.handleExpandChange.bind(this);
   }
+
+  handleExpandChange(expanded) {
+     this.setState({expanded: expanded});
+  };
 
   /* state contains: selected number of wags; review description */
 
@@ -93,29 +104,39 @@ class BusinessMini extends React.Component {
     return (
       <div>
       <Paper style={paperStyle} zDepth={2}>
-      <Card>
+      <Card expanded={this.state.expanded} onExpandChange={this.handleExpandChange}>
         <CardHeader
-          title={this.props.businessCategory}
+          avatar={this.props.profileImg}
+          title={this.props.businessName}
+          subtitle={this.props.businessCategory}
+          actAsExpander={true}
+          showExpandableButton={true}
         />
         <CardMedia
+          expandable={true}
           overlay={<CardTitle title={this.props.businessName} />}
            >
           <img src={this.props.profileImg} />
         </CardMedia>
         <CardTitle subtitle={avgWags + ' wags!'} />
-        <CardText>
+        <CardText
+          expandable={true}>
           {reviews.map((review) => {
              return <Review description={review.description} />
           })}
         </CardText>
-        <CardActions>
+        <CardActions
+          expandable={true}
+        >
           {this.renderWag(0)}
           {this.renderWag(1)}
           {this.renderWag(2)}
           {this.renderWag(3)}
           {this.renderWag(4)}
            <TextField
-            hintText="your review goes here"
+            hintText="(<--) some wags, then (-->) a review. "
+            hintStyle={{hintStyle}}
+            multiLine={true}
             value={this.state.reviewText}
             onChange={event => this.handleChange(event)}
             />
