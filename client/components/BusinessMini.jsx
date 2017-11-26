@@ -5,8 +5,17 @@ import TextField from 'material-ui/TextField';
 import {green500, blue500} from 'material-ui/styles/colors';
 import FlatButton from 'material-ui/FlatButton';
 import PrimaryHeader from './PrimaryHeader.jsx';
+import Paper from 'material-ui/Paper';
 import Review from './Review.jsx'
 import Wag from './Wag.jsx';
+
+
+const paperStyle = {
+  width: 700,
+  margin: 20,
+  textAlign: 'left',
+  display: 'inline-block',
+};
 
 const styles = {
   errorStyle: {
@@ -82,6 +91,8 @@ class BusinessMini extends React.Component {
     }
 
     return (
+      <div>
+      <Paper style={paperStyle} zDepth={2}>
       <Card>
         <CardHeader
           title={this.props.businessCategory}
@@ -89,7 +100,7 @@ class BusinessMini extends React.Component {
         <CardMedia
           overlay={<CardTitle title={this.props.businessName} />}
            >
-          <img src={this.props.profileImg} style={{height:200, width:200}} />
+          <img src={this.props.profileImg} />
         </CardMedia>
         <CardTitle subtitle={avgWags + ' wags!'} />
         <CardText>
@@ -111,6 +122,9 @@ class BusinessMini extends React.Component {
           <FlatButton label="submit a review!" primary={true} onClick={() => this.handleSubmit()}></FlatButton>
         </CardActions>
       </Card>
+      </Paper>
+      <br />
+      </div>
     );
   }
 };
