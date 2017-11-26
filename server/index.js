@@ -66,7 +66,7 @@ app.post('/api/login', (req, res) => {
       res.sendStatus(400);
     }
   };
-  if (req.body.userType === 'petOwner') {
+  if (req.body.userType === 'Pet Owner') {
     helpers.isPetOwnerInDatabase(req.body, callback);
   } else {
     helpers.isBusinessInDatabase(req.body, callback);

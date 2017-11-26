@@ -3,31 +3,35 @@ import { BrowserRouter, Route, NavLink, Switch } from 'react-router-dom';
 import UserLogin from './UserLogin.jsx';
 
 const Login = ({ authenticateLogin }) => {
-  const buttonStyle = {
-    fontSize: '15px',
+  const linkTextStyle = {
+    fontFamily: 'Roboto, sans-serif',
+    display: 'inline'
   };
 
   return (
     <BrowserRouter>
-      <div>
-        <button style={buttonStyle}>
-          <NavLink
+      <div style={{whiteSpace: 'nowrap', marginTop: 15}}>
+
+        <h3 style={linkTextStyle}>Login as a </h3>
+        <NavLink
             to="/login/business"
+            style={linkTextStyle}
             activeStyle={{ fontWeight: 'bold' }}>
-            Business Owner Login
-          </NavLink>
-        </button>
-        <button style={buttonStyle}>
+            Business
+        </NavLink>
+        <h3 style={linkTextStyle}> or a </h3>
           <NavLink
             to="/login/petOwner"
+            style={linkTextStyle}
             activeStyle={{ fontWeight: 'bold' }}>
-            Pet Owner Login
+            Pet Owner
           </NavLink>
-        </button>
+       <h3 style={linkTextStyle}>?</h3>
         <Switch>
-          <Route path="/login/business" render={() => (<UserLogin loginType="business" authenticateLogin={authenticateLogin} />)} />
-          <Route path="/login/petOwner" render={() => (<UserLogin loginType="petOwner" authenticateLogin={authenticateLogin} />)} />
+          <Route path="/login/business" render={() => (<UserLogin userType="Business" authenticateLogin={authenticateLogin} />)} />
+          <Route path="/login/petOwner" render={() => (<UserLogin userType="Pet Owner" authenticateLogin={authenticateLogin} />)} />
         </Switch>
+
       </div>
     </BrowserRouter>
   );
