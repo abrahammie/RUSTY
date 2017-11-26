@@ -127,32 +127,13 @@ const fetchBusinessListings = (callback) => {
 const fetchPetOwnerProfileData = (callback) => {
 };
 
-const getUserReviews = (petOwner) => {
-  var output = [];
-  return db.Review.
-    find({ petOwnerId: petOwner._id }).
-    then((reviews) => {
-      output.push([petOwner, reviews]);
-    });
-};
-
-const getBusinessReviews = (business) => {
-  var output = [];
-  return db.Review.
-    find({ businessId: business._id }).
-    then((reviews) => {
-      output.push([business, reviews]);
-    });
-};
-
-// this prob doesn't work
-const getReviews = (doc) => {
-  var output = [];
-  const { userType } = doc;
+const getReviews = (doc, callback) => {
+  var output = [doc];
   return db.Review
-    .find({ [userType]: userType._id })
+    .find({ [doc.collection.name.slice(0, -1) + 'Id']: doc._id })
     .then((reviews) => {
-      output.push([doc, reviews]);
+      output.push(reviews);
+      callback(output);
     });
 };
 
@@ -165,6 +146,4 @@ module.exports.fetchBusinessListings = fetchBusinessListings;
 module.exports.addBusiness = addBusiness;
 module.exports.addReview = addReview;
 module.exports.findAndUpdatePetOwner = findAndUpdatePetOwner;
-module.exports.getBusinessReviews = getBusinessReviews;
-module.exports.getUserReviews = getUserReviews;
 module.exports.getReviews = getReviews;

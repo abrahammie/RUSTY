@@ -154,7 +154,7 @@ class App extends React.Component {
         <MuiThemeProvider><BusinessProfile user={this.state.user} onLogOut={this.onLogOut} />
         </MuiThemeProvider>
         :
-        <MuiThemeProvider><PetOwnerProfile user={this.state.user} onLogOut={this.onLogOut} />
+        <MuiThemeProvider><PetOwnerProfile user={this.state.user[0]} onLogOut={this.onLogOut} reviews={this.state.user[1]} />
         </MuiThemeProvider>
         );
     } else {

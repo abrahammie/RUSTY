@@ -23,7 +23,7 @@ let petOwnerSchema = mongoose.Schema({
   city: String,
   state: String,
   zip: String,
-});
+}, { collection: 'petOwners' });
 
 
 let businessSchema = mongoose.Schema({
@@ -41,7 +41,7 @@ let businessSchema = mongoose.Schema({
   city: String,
   state: String,
   zip: String,
-});
+}, { collection: 'businesses' });
 
 let reviewSchema = mongoose.Schema({
   // _id: auto-gen
@@ -49,7 +49,7 @@ let reviewSchema = mongoose.Schema({
   description: String,
   petOwnerId: String,
   businessId: String
-});
+}, { collection: 'reviews' });
 
 let PetOwner = mongoose.model('PetOwner', petOwnerSchema);
 let Business = mongoose.model('Business', businessSchema);

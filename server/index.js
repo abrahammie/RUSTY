@@ -50,7 +50,10 @@ app.post('/api/login', (req, res) => {
         // if password matched
         if (response) {
           // if all good, send user data back
-          res.json(user);
+          // res.json(user);
+          helpers.getReviews(user, (userTuple) => {
+            res.json(userTuple);
+          });
           // user found but password not matched
         } else {
           console.log('Password not matched');
