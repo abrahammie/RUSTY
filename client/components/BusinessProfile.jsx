@@ -23,22 +23,25 @@ const BusinessProfile = (props) => {
         <Paper
           style={paperStyle_2}
           zDepth={3}>
-        <Card>
-          <CardHeader
-            title={'Welcome, ' + props.user.businessName}
-          />
-          <img src={props.user.profileImg} style={{maxWidth: 500}} alt="" />
-          <CardMedia
-            overlay={<CardTitle title={props.user.businessName}/>}
-          />
-          <CardText >
-            What people are saying about you:
-         </CardText>
-        </Card>
+          <Card>
+            <CardHeader
+              title={'Welcome, ' + props.user.businessName}
+            />
+            <img src={props.user.profileImg} style={{maxWidth: 500}} alt="" />
+            <CardMedia
+              overlay={<CardTitle title={props.user.businessName}/>}
+            />
+            <CardText >
+              What people are saying about you:
+              {props.reviews.map((review) => {
+                 return <Review rating={review.wags} description={review.description} />
+              })}
+            </CardText>
+          </Card>
         </Paper>
-         <br />
-       </div>
-     </MuiThemeProvider>
+        <br />
+      </div>
+    </MuiThemeProvider>
   );
 };
 

@@ -47,11 +47,20 @@ const addReview = (data, callback) => {
   writeToDatabase(review, callback);
 };
 
+const addPromotion = (data, callback) => {
+  const promotion = new db.Promotion({
+    description: data.description,
+    businessId: data.businessId
+  });
+  writeToDatabase(review, callback);
+};
+
 const writeToDatabase = (document, callback) => {
   document.save()
     .then(function (newDocument) {
       callback(newDocument);
-    }).catch(function (err) {
+    })
+    .catch(function (err) {
       return console.error(err);
     });
 };
@@ -116,8 +125,16 @@ const fetchBusinessListings = (callback) => {
     });
 };
 
-const fetchPetOwnerProfileData = (callback) => {
+const fetchPetOwnerProfileData = (petOwnerEmail, callback) => {
+  db.PetOwner.findOne({ email: petOwnerEmail }, (err, stored) => {
+    if (err) {
+      return console.error(err);
+    } else {
+      getReviews(stored, callback);
+    }
+  });
 };
+
 
 const getReviews = (doc, callback) => {
   const output = [doc];
@@ -137,5 +154,6 @@ module.exports.fetchPetOwnerProfileData = fetchPetOwnerProfileData;
 module.exports.fetchBusinessListings = fetchBusinessListings;
 module.exports.addBusiness = addBusiness;
 module.exports.addReview = addReview;
+module.exports.addPromotion = addPromotion;
 module.exports.findAndUpdatePetOwner = findAndUpdatePetOwner;
 module.exports.getReviews = getReviews;

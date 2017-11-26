@@ -66,6 +66,16 @@ app.post('/api/review', (req, res) => {
   });
 });
 
+app.post('/api/addPromotion', (req, res) => {
+  helpers.addPromotion(req.body, () => {
+    res.send('added promotion');
+  });
+});
+
+app.get('/api/:userEmail', (req, res) => {
+
+});
+
 app.get('/*', (req, res) => {
   if (req.session && req.session.user) {
     res.redirect(`/profile/${req.session.user}`);

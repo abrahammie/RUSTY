@@ -41,7 +41,7 @@ let businessSchema = mongoose.Schema({
   city: String,
   state: String,
   zip: String,
-}, { collection: 'businesses' });
+}, { collection: 'businesss' }); // misspelling businesses lets us perform a certain string operation
 
 let reviewSchema = mongoose.Schema({
   // _id: auto-gen
@@ -51,10 +51,17 @@ let reviewSchema = mongoose.Schema({
   businessId: String
 }, { collection: 'reviews' });
 
+let promotionSchema = mongoose.Schema({
+  description: String,
+  businessId: String
+}, { collection: 'promotions' });
+
 let PetOwner = mongoose.model('PetOwner', petOwnerSchema);
 let Business = mongoose.model('Business', businessSchema);
 let Review = mongoose.model('Review', reviewSchema);
+let Promotion = mongoose.model('Promotion', reviewSchema);
 
 module.exports.PetOwner = PetOwner;
 module.exports.Business = Business;
 module.exports.Review = Review;
+module.exports.Promotion = Promotion;
