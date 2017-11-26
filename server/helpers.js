@@ -33,6 +33,7 @@ const addBusiness = (data, callback) => {
       businessName: data.businessName,
       email: data.email,
       password: hash,
+      profileImg: data.profileImg,
       phone: data.phone,
       businessCategory: data.businessCategory,
       street: data.street,

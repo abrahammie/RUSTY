@@ -168,7 +168,7 @@ class App extends React.Component {
     if (this.state.isLoggedIn) {
       return (
         this.state.userType === 'Business' ?
-        <MuiThemeProvider><BusinessProfile user={this.state.user} onLogOut={this.onLogOut} />
+        <MuiThemeProvider><BusinessProfile user={this.state.user[0]} onLogOut={this.onLogOut} />
         </MuiThemeProvider>
         :
         <MuiThemeProvider><PetOwnerProfile user={this.state.user[0]} onLogOut={this.onLogOut} reviews={this.state.user[1]} />
