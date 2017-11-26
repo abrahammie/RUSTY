@@ -16,6 +16,7 @@ app.post('/api/business/signup', (req, res) => {
       res.send('added business');
     });
 });
+
 app.post('/api/petOwner/signup', (req, res) => {
   helpers.addPetOwner(req.body, (newPetOwner) => {
     console.log('added new pet owner', newPetOwner);
@@ -50,7 +51,6 @@ app.post('/api/login', (req, res) => {
         // if password matched
         if (response) {
           // if all good, send user data back
-          // res.json(user);
           helpers.getReviews(user, (userTuple) => {
             res.json(userTuple);
           });

@@ -4,6 +4,7 @@ import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import ProfileHeader from './ProfileHeader.jsx';
 import SearchResults from './SearchResults.jsx';
+import Review from './Review.jsx';
 
 const PetOwnerProfile = (props) => {
   return (
@@ -14,6 +15,9 @@ const PetOwnerProfile = (props) => {
         <Divider />
         <div>
           <img alt="" src={props.user.profileImg} style={{ maxHeight: 300 }} />
+          {props.reviews.map((review) => {
+             return <Review rating={review.wags} description={review.description} />
+          })}
           <SearchResults petOwnerId={props.user._id} />
         </div>
       </div>
