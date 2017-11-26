@@ -34,6 +34,9 @@ const PetOwnerProfile = (props) => {
         </Card>
         </Paper>
         <br />
+        {props.reviews.map((review) => {
+          return <Review rating={review.wags} description={review.description} />
+        })}
         <SearchResults petOwnerId={props.user._id} />
       </div>
     </MuiThemeProvider>
