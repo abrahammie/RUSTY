@@ -1,8 +1,10 @@
 import React from 'react';
 import $ from 'jquery';
+
 import { Image, Video, Transformation, CloudinaryContext } from 'cloudinary-react';
 import cloudinary from 'cloudinary-core';
 import CloudinaryVideoPlayer from 'cloudinary-video-player';
+
 
 let BusinessSignup = (props) => {
 
