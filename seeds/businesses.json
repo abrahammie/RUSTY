@@ -118,17 +118,5 @@
     "city": "Portland",
     "state": "OR",
     "zip": "97213"
-  },
-  {
-    "pet": "Rufus",
-    "email": "a@gmail.com",
-    "password": "pet",
-    "phone": "503-288-6966",
-    "username": "aaa",
-    "profileImg": "https://scontent.fewr1-4.fna.fbcdn.net/v/t1.0-9/20525797_1631100906931223_7810553405300706876_n.jpg?oh=6ac9fa5215b08ce83db0f365f6a93af8&oe=5AA9F89E",
-    "street": "1438 NE Alberta St.",
-    "city": "Portland",
-    "state": "OR",
-    "zip": "97211"
-  },
+  }
 ]
