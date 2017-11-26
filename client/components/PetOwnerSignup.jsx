@@ -9,14 +9,13 @@ let PetOwnerSignup = (props) => {
 	}
 	return (
 		<div>
-			<h2> in Pet Owner sign upcomponent</h2>
-		
+		<h2>Welcome, new pet owner!</h2>
 			Email : <input type="text" name="signup-petowner-email" onChange={onChange}></input><br/>
 			Name : <input type="text" name="signup-petowner-name" onChange={onChange}></input><br/>
 			Zip : <input type="text" name="signup-petowner-zip" onChange={onChange} ></input><br/>
 			password : <input type="text" name="signup-petowner-password" onChange={onChange}></input><br/>
 			Pet : <input type="text" name="signup-petowner-pet" onChange={onChange}></input><br/>
-			<button type="button" onClick={onSubmit}> VALIDATE </button>
+			<button type="button" onClick={onSubmit}> Submit </button>
 		</div>
 	)
 }

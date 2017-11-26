@@ -10,14 +10,13 @@ let BusinessSignup = (props) => {
 	}
 	return (
 		<div>
-			<h2> in business sign upcomponent</h2>
-		
+		<h2>Welcome, new business owner!</h2>
 			Email : <input type="text" name="signup-business-email" onChange={onChange}></input><br/>
 			Name : <input type="text" name="signup-business-name" onChange={onChange}></input><br/>
 			Zip : <input type="text" name="signup-business-zip" onChange={onChange} ></input><br/>
 			password : <input type="text" name="signup-business-password" onChange={onChange}></input><br/>
 			Pet : <input type="text" name="signup-business-pet" onChange={onChange}></input><br/>
-			<button type="button" onClick={onSubmit}> VALIDATE </button>
+			<button type="button" onClick={onSubmit}> Submit </button>
 		</div>
 	)
 }
@@ -31,7 +30,7 @@ export default BusinessSignup;
 /*
  let onChange=this.props.parent.onChange
  //console.log('message in signup = ',this.props.message)
- return ( 
+ return (
  <div>
  	<h2> in sign up component</h2>
  	<h4> {this.props.message}</h4>

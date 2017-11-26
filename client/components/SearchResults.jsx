@@ -3,7 +3,7 @@ import axios from 'axios';
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
-import {red500, blue500} from 'material-ui/styles/colors';
+import {red500, greenA200, blue500} from 'material-ui/styles/colors';
 import ActionSearch from 'material-ui/svg-icons/action/search';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -70,13 +70,7 @@ class SearchResults extends React.Component {
       <MuiThemeProvider>
       <div>
         <DropDownMenu
-          iconButton={<ActionSearch
-                        tooltip="Browse Local Businesses!"
-                        tooltipPosition="top-center"
-                        style={iconStyles}
-                        color={red500}
-                        hoverColor={blue500}
-                      />}
+          iconButton={<ActionSearch color={blue500} hoverColor={greenA200} />}
           value={this.state.value}
           onChange={(event, index, value) => this.handleChange(event, index, value)}
           >

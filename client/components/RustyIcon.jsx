@@ -1,16 +1,21 @@
 import React from 'react';
-import {blue500, red500, greenA200} from 'material-ui/styles/colors';
-import SvgIcon from 'material-ui/SvgIcon';
+import iconPaths from '../assets/icomoon_1_icons/selection.js';// the file exported from IcoMoon
 
-const iconStyles = {
-  marginRight: 24,
-};
+function getPath(iconName) {
+  const icon = iconPaths.icons.find(icon => icon.properties.name === iconName);
 
+  if (icon) {
+    return icon.icon.paths.join(' ');
+  } else {
+    console.warn(`icon ${iconName} does not exist.`);
+    return '';
+  }
+}
 
-const RustyIcon = () => (
-  <div>
-    <Icon style={iconStyles} hoverColor={greenA200} />
-  </div>
+const RustyIcon = props => (
+  <svg width="22" height="22" viewBox="0 0 1024 1024">
+    <path d={getPath(props.icon)}></path>
+  </svg>
 );
 
-export default RustyIcon
+export default RustyIcon;

@@ -1,15 +1,44 @@
 import React from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {red500, blue500} from 'material-ui/styles/colors';
+import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
+import Paper from 'material-ui/Paper';
 import ProfileHeader from './ProfileHeader.jsx';
+import SearchResults from './SearchResults.jsx';
+import Review from './Review.jsx';
+
+const paperStyle_2 = {
+  width: 500,
+  margin: 10,
+  textAlign: 'left',
+};
+
 
 const BusinessProfile = (props) => {
   return (
-    <div>
-      <ProfileHeader onLogOut={props.onLogOut} />
+    <MuiThemeProvider>
       <div>
-        <h2>Welcome, {props.user.businessName}</h2>
-        <img src={props.user.profileImg} style={{ maxHeight: 500 }}></img>
-      </div>
-    </div>
+        <ProfileHeader onLogOut={props.onLogOut} />
+        <br />
+        <Paper
+          style={paperStyle_2}
+          zDepth={3}>
+        <Card>
+          <CardHeader
+            title={'Welcome, ' + props.user.businessName}
+          />
+          <img src={props.user.profileImg} style={{maxWidth: 500}} alt="" />
+          <CardMedia
+            overlay={<CardTitle title={props.user.businessName}/>}
+          />
+          <CardText >
+            What people are saying about you:
+         </CardText>
+        </Card>
+        </Paper>
+         <br />
+       </div>
+     </MuiThemeProvider>
   );
 };
 
@@ -21,6 +50,9 @@ export default BusinessProfile;
    class Profile extends React.Component {
 
 
+         {props.user[0].map((review) => {
+           return <Review reviews={props.user[0]} description={review.description} />
+         })
 
    render () {
    //console.log('in PRofile ')
