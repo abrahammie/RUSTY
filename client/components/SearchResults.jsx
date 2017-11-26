@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import IconMenu from 'material-ui/IconMenu';
-import IconButton from 'material-ui/IconButton'
+import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
 import {red500, blue500} from 'material-ui/styles/colors';
 import ActionSearch from 'material-ui/svg-icons/action/search';
@@ -50,7 +50,7 @@ class SearchResults extends React.Component {
       var business = businessTuple[0];
       var reviews = businessTuple[1];
       return (<BusinessMini
-                userId={this.props.userId}
+                petOwnerId={this.props.petOwnerId}
                 business={business}
                 id={business._id}
                 reviews={reviews}

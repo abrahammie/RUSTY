@@ -1,5 +1,4 @@
 import React from 'react';
-import PrimaryHeader from './PrimaryHeader.jsx';
 
 /* TODO: pass in links to other profiles */
 const Review = (props) => {
@@ -11,6 +10,6 @@ const Review = (props) => {
       </div>
     </div>
   );
-}
+};
 
 export default Review;

@@ -8,7 +8,7 @@ db.once('open', function () {
   console.log('Connected to database!');
 });
 
-let userSchema = mongoose.Schema({
+let petOwnerSchema = mongoose.Schema({
   // _id: auto-gen
   pet: String,
   username: String,
@@ -23,7 +23,7 @@ let userSchema = mongoose.Schema({
   city: String,
   state: String,
   zip: String,
-});
+}, { collection: 'petOwners' });
 
 
 let businessSchema = mongoose.Schema({
@@ -41,20 +41,20 @@ let businessSchema = mongoose.Schema({
   city: String,
   state: String,
   zip: String,
-});
+}, { collection: 'businesses' });
 
 let reviewSchema = mongoose.Schema({
   // _id: auto-gen
   wags: Number,
   description: String,
-  userId: String,
+  petOwnerId: String,
   businessId: String
-});
+}, { collection: 'reviews' });
 
-let User = mongoose.model('User', userSchema);
+let PetOwner = mongoose.model('PetOwner', petOwnerSchema);
 let Business = mongoose.model('Business', businessSchema);
 let Review = mongoose.model('Review', reviewSchema);
 
-module.exports.User = User;
+module.exports.PetOwner = PetOwner;
 module.exports.Business = Business;
 module.exports.Review = Review;

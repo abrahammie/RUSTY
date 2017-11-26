@@ -63,7 +63,7 @@ class BusinessMini extends React.Component {
     axios.post('/api/review', {
       wags: numWags,
       description: this.state.reviewText,
-      userId: this.props.userId,
+      petOwnerId: this.props.petOwnerId,
       businessId: this.props.id
     })
          .then((res) => {

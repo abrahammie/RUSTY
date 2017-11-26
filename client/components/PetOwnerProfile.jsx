@@ -6,6 +6,7 @@ import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'm
 import Paper from 'material-ui/Paper'
 import ProfileHeader from './ProfileHeader.jsx';
 import SearchResults from './SearchResults.jsx';
+import Review from './Review.jsx';
 
 const paperStyle_2 = {
   width: 370,
@@ -33,8 +34,10 @@ const PetOwnerProfile = (props) => {
         </Card>
         </Paper>
         <br />
-        <SearchResults userId={props.user._id} />
-
+        {props.reviews.map((review) => {
+          return <Review rating={review.wags} description={review.description} />
+        })}
+        <SearchResults petOwnerId={props.user._id} />
       </div>
     </MuiThemeProvider>
   );

@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 // save petOwner to db and call callback on success
 const addPetOwner = (data, callback) => {
   bcrypt.hash(data.password, 10, (err, hash) => {
-    let petOwner = new db.User({
+    let petOwner = new db.PetOwner({
       pet: data.pet,
       username: data.username,
       profileImg: data.profileImg,
@@ -17,7 +17,7 @@ const addPetOwner = (data, callback) => {
     });
     // petOwner.save((err, document) => {
     //   if (err) {
-    //     console.log('User not saved, possible duplicate');
+    //     console.log('PetOwner not saved, possible duplicate');
     //     // console.log(err);
     //   } else {
     //     callback(document);
@@ -49,7 +49,7 @@ const addReview = (data, callback) => {
   let review = new db.Review({
     wags: data.wags,
     description: data.description,
-    userId: data.userId,
+    petOwnerId: data.petOwnerId,
     businessId: data.businessId
   });
   writeToDatabase(review, callback);
@@ -65,7 +65,7 @@ const writeToDatabase = (document, callback) => {
 };
 
 const isPetOwnerInDatabase = (petOwner, callback) => {
-  db.User.findOne({ email: petOwner.email }, (err, result) => {
+  db.PetOwner.findOne({ email: petOwner.email }, (err, result) => {
     if (err) {
       console.log('Error finding user in db:', err);
       callback();
@@ -83,6 +83,15 @@ const isBusinessInDatabase = (business, callback) => {
     } else {
       callback(result);
     }
+  });
+};
+
+const findAndUpdatePetOwner = (petOwner, update, callback) => {
+  db.PetOwner.findOneAndUpdate({ email: petOwner.email }, update, (err, result) => {
+    if (err) {
+      return console.error(err);
+    }
+    callback(result);
   });
 };
 
@@ -118,12 +127,13 @@ const fetchBusinessListings = (callback) => {
 const fetchPetOwnerProfileData = (callback) => {
 };
 
-const getUserReviews = (petOwner) => {
-  var output = [];
-  return db.Review.
-    find({ userId: petOwner._id }).
-    then((reviews) => {
-      output.push([petOwner, reviews]);
+const getReviews = (doc, callback) => {
+  var output = [doc];
+  return db.Review
+    .find({ [doc.collection.name.slice(0, -1) + 'Id']: doc._id })
+    .then((reviews) => {
+      output.push(reviews);
+      callback(output);
     });
 };
 
@@ -135,3 +145,5 @@ module.exports.fetchPetOwnerProfileData = fetchPetOwnerProfileData;
 module.exports.fetchBusinessListings = fetchBusinessListings;
 module.exports.addBusiness = addBusiness;
 module.exports.addReview = addReview;
+module.exports.findAndUpdatePetOwner = findAndUpdatePetOwner;
+module.exports.getReviews = getReviews;

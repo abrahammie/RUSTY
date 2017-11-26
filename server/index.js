@@ -16,6 +16,7 @@ app.post('/api/business/signup', (req, res) => {
       res.send('added business');
     });
 });
+
 app.post('/api/petOwner/signup', (req, res) => {
   helpers.addPetOwner(req.body, (newPetOwner) => {
     console.log('added new pet owner', newPetOwner);
@@ -43,48 +44,32 @@ businessData.forEach((business) => helpers.addBusiness(business, () => console.l
 */
 
 app.post('/api/login', (req, res) => {
-  if (req.body.userType === 'Pet Owner') {
-    helpers.isPetOwnerInDatabase(req.body, (user) => {
-      // if user found
-      if (user) {
-        helpers.validateLogin(req.body, user, (response) => {
-          // if password matched
-          if (response) {
-            // if all good, send user data back
-            res.json(user);
-          // user found but password not matched
-          } else {
-            console.log('Password not matched');
-            res.sendStatus(401);
-          }
-        });
-      // user not found
-      } else {
-        console.log('Account not found');
-        res.sendStatus(400);
-      }
-    });
-  } else {
-    helpers.isBusinessInDatabase(req.body, (user) => {
-      // if user found
-      if (user) {
-        helpers.validateLogin(req.body, user, (response) => {
-          // if password matched
-          if (response) {
+  const callback = (user) => {
+    // if user found
+    if (user) {
+      helpers.validateLogin(req.body, user, (response) => {
+        // if password matched
+        if (response) {
           // if all good, send user data back
-            res.json(user);
+          helpers.getReviews(user, (userTuple) => {
+            res.json(userTuple);
+          });
           // user found but password not matched
-          } else {
-            console.log('Password not matched');
-            res.sendStatus(401);
-          }
-        });
+        } else {
+          console.log('Password not matched');
+          res.sendStatus(401);
+        }
+      });
       // user not found
-      } else {
-        console.log('Account not found');
-        res.sendStatus(400);
-      }
-    });
+    } else {
+      console.log('Account not found');
+      res.sendStatus(400);
+    }
+  };
+  if (req.body.userType === 'Pet Owner') {
+    helpers.isPetOwnerInDatabase(req.body, callback);
+  } else {
+    helpers.isBusinessInDatabase(req.body, callback);
   }
 });
 
