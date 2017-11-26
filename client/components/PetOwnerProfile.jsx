@@ -3,7 +3,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Subheader from 'material-ui/Subheader';
 import Divider from 'material-ui/Divider';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
-import Paper from 'material-ui/Paper'
+import Paper from 'material-ui/Paper';
 import ProfileHeader from './ProfileHeader.jsx';
 import SearchResults from './SearchResults.jsx';
 import Review from './Review.jsx';
