@@ -36,7 +36,7 @@ const PetOwnerProfile = (props) => {
             overlayStyle={overlayStyle}
           />
           <CardText>
-            Browse Local Businesses.
+            Browse Local pet-friendly businesses.
             Whistle for {props.user.pet} and Enjoy!
           </CardText>
         </Card>
