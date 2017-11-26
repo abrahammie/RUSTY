@@ -70,13 +70,7 @@ class SearchResults extends React.Component {
       <MuiThemeProvider>
       <div>
         <DropDownMenu
-          iconButton={<ActionSearch
-                        tooltip="Browse Local Businesses!"
-                        tooltipPosition="top-center"
-                        style={iconStyles}
-                        color={red500}
-                        hoverColor={blue500}
-                      />}
+          iconButton={<ActionSearch />}
           value={this.state.value}
           onChange={(event, index, value) => this.handleChange(event, index, value)}
           >

@@ -1,7 +1,6 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Subheader from 'material-ui/Subheader';
-import Divider from 'material-ui/Divider';
+import {red500, blue500} from 'material-ui/styles/colors';
 import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
 import Paper from 'material-ui/Paper';
 import ProfileHeader from './ProfileHeader.jsx';
@@ -13,6 +12,10 @@ const paperStyle_2 = {
   margin: 10,
   textAlign: 'left',
 };
+
+const overlayStyle = {
+  color: {red500}
+}
 
 const PetOwnerProfile = (props) => {
   return (
@@ -30,7 +33,12 @@ const PetOwnerProfile = (props) => {
           <img src={props.user.profileImg} style={{maxWidth: 370}} alt="" />
           <CardMedia
             overlay={<CardTitle title={props.user.pet}/>}
+            overlayStyle={overlayStyle}
           />
+          <CardText>
+            Browse Local Businesses.
+            Whistle for {props.user.pet} and Enjoy!
+          </CardText>
         </Card>
         </Paper>
         <br />
