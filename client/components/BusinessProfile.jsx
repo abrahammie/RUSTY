@@ -15,6 +15,7 @@ const paperStyle_2 = {
 
 
 const BusinessProfile = (props) => {
+  console.log('PROPS:', props.reviews)
   return (
     <MuiThemeProvider>
       <div>
@@ -33,11 +34,21 @@ const BusinessProfile = (props) => {
           />
           <CardText >
             What people are saying about you:
+            <br />
+            <ul>
+              {props.reviews.map((review) => {
+                return (
+                  <li>{review.description}</li>
+                )
+              })}
+            </ul>
          </CardText>
         </Card>
         </Paper>
-         <br />
+
+
        </div>
+
      </MuiThemeProvider>
   );
 };
@@ -50,9 +61,6 @@ export default BusinessProfile;
    class Profile extends React.Component {
 
 
-         {props.user[0].map((review) => {
-           return <Review reviews={props.user[0]} description={review.description} />
-         })
 
    render () {
    //console.log('in PRofile ')
