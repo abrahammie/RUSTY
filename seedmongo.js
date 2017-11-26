@@ -5,8 +5,7 @@ const Promise = require('bluebird');
 const bcrypt = require('bcrypt');
 
 // TODO: write review descriptions for dummy data
-const descriptions = [
-];
+const descriptions = [/*todo*/];
 
 db.PetOwner.remove()
   .then(() => {

@@ -8,14 +8,11 @@ import SearchResults from './SearchResults.jsx';
 import Review from './Review.jsx';
 
 const paperStyle_2 = {
-  width: 370,
+  width: 500,
   margin: 10,
   textAlign: 'left',
 };
 
-const overlayStyle = {
-  color: {red500}
-}
 
 const PetOwnerProfile = (props) => {
   return (
@@ -30,10 +27,9 @@ const PetOwnerProfile = (props) => {
           <CardHeader
             title={'Welcome back ' + props.user.username + ' and ' + props.user.pet + '!'}
           />
-          <img src={props.user.profileImg} style={{maxWidth: 370}} alt="" />
+          <img src={props.user.profileImg} style={{maxWidth: 500}} alt="" />
           <CardMedia
             overlay={<CardTitle title={props.user.pet}/>}
-            overlayStyle={overlayStyle}
           />
           <CardText>
             Browse Local pet-friendly businesses.

@@ -1,21 +1,8 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
-import Axios from 'axios';
 import IconButton from 'material-ui/IconButton';
 import FlatButton from 'material-ui/FlatButton';
-import RustyIcon from './RustyIcon.jsx';
-
-// function handleTouchTap() {
-//   Axios.get('/')
-//     .then((response) =>
-//       console.log('TITLE CLICK:', response)
-//     )
-//     .catch((error) =>
-//       console.log('TITLE CLICK ERROR:', error)
-//     )
-// }
-
-// onTitleTouchTap={handleTouchTap}
+import Pets from 'material-ui/svg-icons/action/pets';
 
 const styles = {
   title: {
@@ -27,7 +14,7 @@ const ProfileHeader = (props) => (
 
   <AppBar
     title={<span style={styles.title}>RUSTY</span>}
-    iconElementLeft={<IconButton />}
+    iconElementLeft={<IconButton><Pets /></IconButton>}
     iconElementRight={<FlatButton style={{ float: 'right' }} label="log out" onClick={props.onLogOut} />}
   />
 
