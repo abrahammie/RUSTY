@@ -135,6 +135,15 @@ const fetchPetOwnerProfileData = (petOwnerEmail, callback) => {
   });
 };
 
+const fetchBusinessProfileData = (businessEmail, callback) => {
+  db.Business.findOne({ email: businessEmail }, (err, stored) => {
+    if (err) {
+      return console.error(err);
+    } else {
+      getReviews(stored, callback);
+    }
+  });
+};
 
 const getReviews = (doc, callback) => {
   const output = [doc];
@@ -146,14 +155,26 @@ const getReviews = (doc, callback) => {
     });
 };
 
+
+const getPromotions = (promo, callback) => {
+  const output = [promo];
+  return db.Promotion
+    .find({ businessId: promo._id })
+    .then((reviews) => {
+      output.push(reviews);
+      callback(output);
+    });
+};
 module.exports.addPetOwner = addPetOwner;
 module.exports.isPetOwnerInDatabase = isPetOwnerInDatabase;
 module.exports.isBusinessInDatabase = isBusinessInDatabase;
 module.exports.validateLogin = validateLogin;
 module.exports.fetchPetOwnerProfileData = fetchPetOwnerProfileData;
+module.exports.fetchBusinessProfileData = fetchBusinessProfileData;
 module.exports.fetchBusinessListings = fetchBusinessListings;
 module.exports.addBusiness = addBusiness;
 module.exports.addReview = addReview;
 module.exports.addPromotion = addPromotion;
+module.exports.getPromotions = getPromotions;
 module.exports.findAndUpdatePetOwner = findAndUpdatePetOwner;
 module.exports.getReviews = getReviews;
