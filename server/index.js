@@ -72,10 +72,6 @@ app.post('/api/addPromotion', (req, res) => {
   });
 });
 
-app.get('/api/:userEmail', (req, res) => {
-
-});
-
 app.get('/*', (req, res) => {
   if (req.session && req.session.user) {
     res.redirect(`/profile/${req.session.user}`);
