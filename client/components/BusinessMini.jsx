@@ -103,20 +103,24 @@ class BusinessMini extends React.Component {
               expandable={true}
             >
               {reviews.map((review) => {
-                return <Review description={review.description} />
+                return <Review description={review.description} />;
               })}
             </CardText>
             <CardActions
               expandable={true}
             >
+              <ul>
+                <h2>Special promotional offers for rusty users:</h2>
+                {this.props.promotions.map((promotion) => {
+                   return <p>{promotion.description}</p>;
+                })}
+              </ul>
+              <br />
               {this.renderWag(0)}
               {this.renderWag(1)}
               {this.renderWag(2)}
               {this.renderWag(3)}
               {this.renderWag(4)}
-              {this.props.promotions.map((promotion) => {
-                 return <p>{promotion.description}</p>;
-              })}
               <TextField
                 hintText="(<--) some wags, then (-->) a review. "
                 hintStyle={{ hintStyle }}
