@@ -47,11 +47,20 @@ const addReview = (data, callback) => {
   writeToDatabase(review, callback);
 };
 
+const addPromotion = (data, callback) => {
+  const promotion = new db.Promotion({
+    description: data.promo,
+    businessId: data.businessId
+  });
+  writeToDatabase(promotion, callback);
+};
+
 const writeToDatabase = (document, callback) => {
   document.save()
     .then(function (newDocument) {
       callback(newDocument);
-    }).catch(function (err) {
+    })
+    .catch(function (err) {
       return console.error(err);
     });
 };
@@ -116,7 +125,24 @@ const fetchBusinessListings = (callback) => {
     });
 };
 
-const fetchPetOwnerProfileData = (callback) => {
+const fetchPetOwnerProfileData = (petOwnerEmail, callback) => {
+  db.PetOwner.findOne({ email: petOwnerEmail }, (err, stored) => {
+    if (err) {
+      return console.error(err);
+    } else {
+      getReviews(stored, callback);
+    }
+  });
+};
+
+const fetchBusinessProfileData = (businessEmail, callback) => {
+  db.Business.findOne({ email: businessEmail }, (err, stored) => {
+    if (err) {
+      return console.error(err);
+    } else {
+      getReviews(stored, callback);
+    }
+  });
 };
 
 const getReviews = (doc, callback) => {
@@ -129,13 +155,26 @@ const getReviews = (doc, callback) => {
     });
 };
 
+
+const getPromotions = (businessTuple, callback) => {
+  const output = [businessTuple];
+  return db.Promotion
+    .find({ businessId: businessTuple[0]._id })
+    .then((promotions) => {
+      businessTuple.push(promotions);
+      callback(businessTuple);
+    });
+};
 module.exports.addPetOwner = addPetOwner;
 module.exports.isPetOwnerInDatabase = isPetOwnerInDatabase;
 module.exports.isBusinessInDatabase = isBusinessInDatabase;
 module.exports.validateLogin = validateLogin;
 module.exports.fetchPetOwnerProfileData = fetchPetOwnerProfileData;
+module.exports.fetchBusinessProfileData = fetchBusinessProfileData;
 module.exports.fetchBusinessListings = fetchBusinessListings;
 module.exports.addBusiness = addBusiness;
 module.exports.addReview = addReview;
+module.exports.addPromotion = addPromotion;
+module.exports.getPromotions = getPromotions;
 module.exports.findAndUpdatePetOwner = findAndUpdatePetOwner;
 module.exports.getReviews = getReviews;

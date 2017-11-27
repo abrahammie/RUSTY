@@ -34,7 +34,7 @@ class BusinessProfile extends React.Component {
   handlePromo() {
     axios.post('/api/promo', {
       promo: this.state.promoText,
-      businessId: this.props.id,
+      businessId: this.props.user._id,
     })
       .then((res) => {
         console.log(res);
@@ -79,12 +79,12 @@ class BusinessProfile extends React.Component {
                   hintStyle={{ hintStyle }}
                   multiLine={true}
                   value={this.state.promoText}
-                  onChange={event => this.handlePromo(event)}
+                  onChange={event => this.handleChange(event)}
                 />
                 <FlatButton
                   label="make your offer"
                   primary={true}
-                  onClick={() => this.handleSubmit()}
+                  onClick={() => this.handlePromo()}
                 />
               </CardActions>
             </Card>

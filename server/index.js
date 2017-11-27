@@ -33,7 +33,15 @@ app.post('/api/login', (req, res) => {
         if (response) {
           // if all good, send user data back
           helpers.getReviews(user, (userTuple) => {
-            res.json(userTuple);
+            // if business
+            if (userTuple[0].collection.name.slice(0, -1) === 'business') {
+              helpers.getPromotions(userTuple, (businessTuple) => {
+                res.json(businessTuple);
+              });
+            } else {
+              // else if pet owner
+              res.json(userTuple);
+            }
           });
           // user found but password not matched
         } else {
@@ -63,6 +71,12 @@ app.get('/api/businessListings', (req, res) => {
 app.post('/api/review', (req, res) => {
   helpers.addReview(req.body, () => {
     res.send('added review');
+  });
+});
+
+app.post('/api/promo', (req, res) => {
+  helpers.addPromotion(req.body, () => {
+    res.send('added promotion');
   });
 });
 
