@@ -88,7 +88,7 @@ let BusinessSignup = (props) => {
 		});
 	}
 
-	
+
 
 	return (
 		<div>
@@ -114,7 +114,7 @@ let BusinessSignup = (props) => {
 
 			 <br/>
 
-			<button type="button" onClick={onSubmit}> VALIDATE </button>
+			<button type="button" onClick={onSubmit}> SUBMIT </button>
 		</div>
 	)
 
