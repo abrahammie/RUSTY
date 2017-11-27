@@ -37,7 +37,7 @@
     "username": "Nick",
     "profileImg": {
       "cloudinaryID": "aaaaaaaaa",
-      "cloudinaryURL": "http://res.cloudinary.com/du0wshurp/image/upload/v1511773791/aaaaaaaaa.jpg"
+      "cloudinaryURL": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/2012-bb-jackal-1.jpg/300px-2012-bb-jackal-1.jpg"
     },
     "street": "1438 NE Alberta St.",
     "city": "Portland",
@@ -49,10 +49,10 @@
     "email": "d@gmail.com",
     "password": "pet",
     "phone": "456-789-1144",
-    "username": "Krista, Floobits Ghost",
+    "username": "Krista",
     "profileImg": {
       "cloudinaryID": "aaaaaaaaa",
-      "cloudinaryURL": "http://res.cloudinary.com/du0wshurp/image/upload/v1511773791/aaaaaaaaa.jpg"
+      "cloudinaryURL": "https://scontent.fewr1-1.fna.fbcdn.net/v/t1.0-9/11898737_10152912694381150_8438824989009173766_n.jpg?oh=5552c729aef988b48a95fd9585f8d8db&oe=5A9CA597"
     },
     "street": "1438 NE Alberta St.",
     "city": "Portland",
