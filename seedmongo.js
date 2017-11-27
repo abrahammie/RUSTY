@@ -96,7 +96,7 @@ db.PetOwner.remove()
             .then((businesses) => {
               Promise.each(businesses, (business) => {
                 const review = new db.Review({
-                  wags: Math.floor(Math.random() * 4) + 1,
+                  wags: Math.floor(Math.random() * 5) + 1,
                   description: descriptionDummies[Math.floor(Math.random() * promotionDummies.length)],
                   petOwnerId: petOwner._id,
                   businessId: business._id
