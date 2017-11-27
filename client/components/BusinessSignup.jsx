@@ -97,17 +97,11 @@ let BusinessSignup = (props) => {
 	return (
 		<div>
 			<h2 className="test"> in business sign up component 2 </h2>
-
-			<CloudinaryContext cloudName="nicko" effect="art:aurora" width="300" >
-				<Image publicId="widgetdocs/jrlef2na1ilfknmgevig" />
-				<Image publicId="widgetdocs/jrlef2na1ilfknmgevig" />
-				<Image publicId="widgetdocs/jrlef2na1ilfknmgevig" />
-			</CloudinaryContext>
 			
-			Email : <input type="text" name="signup-business-email" onChange={onChange}></input><br/>
+			Email : <input type="email" name="signup-business-email" onChange={onChange}></input><br/>
 			Name : <input type="text" name="signup-business-name" onChange={onChange}></input><br/>
 			<button id="upload_widget_singleFromMultiple" type="button"> upload profile picture </button><br/>
-			password : <input type="text" name="signup-business-password" onChange={onChange}></input><br/>
+			password : <input type="password" name="signup-business-password" onChange={onChange}></input><br/>
 			Zip : <input type="text" name="signup-business-zip" onChange={onChange} ></input><br/>
 			Pet : <input type="text" name="signup-business-pet" onChange={onChange}></input><br/>
 			<button id="upload_widget_multiple" type="button"> Create image gallery !</button> <br/>
@@ -126,24 +120,14 @@ let BusinessSignup = (props) => {
 
 export default BusinessSignup;
 
-//  <Route path="/signup/business" component={BusinessSignup} />
-//  <Route path="/signup/petOwner" component={PetOwnerSignup} />
 
 /*
-   let onChange=this.props.parent.onChange
-   //console.log('message in signup = ',this.props.message)
-   return ( 
-   <div>
-   <h2> in sign up component</h2>
-   <h4> {this.props.message}</h4>
 
-   Email : <input type="text" name="email" onChange={onChange}></input><br/>
-   Name : <input type="text" name="name" onChange={onChange}></input><br/>
-   Zip : <input type="text" name="zip" onChange={onChange} ></input><br/>
-   password : <input type="text" name="password" onChange={onChange}></input><br/>
-   Pet : <input type="text" name="pet" onChange={onChange}></input><br/>
-   <button type="button" onClick={this.props.parent.submitData}> VALIDATE </button>
-   </div>
-   )
+	<CloudinaryContext cloudName="nicko" effect="art:aurora" width="300" >
+		<Image publicId="widgetdocs/jrlef2na1ilfknmgevig" />
+		<Image publicId="widgetdocs/jrlef2na1ilfknmgevig" />
+		<Image publicId="widgetdocs/jrlef2na1ilfknmgevig" />
+	</CloudinaryContext>
+
 
  */
