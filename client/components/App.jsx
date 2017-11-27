@@ -11,6 +11,7 @@ import PrimaryHeader from './PrimaryHeader.jsx';
 import { Image, Video, Transformation, CloudinaryContext } from 'cloudinary-react';
 import CloudinaryCore from 'cloudinary-core';
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -53,8 +54,10 @@ class App extends React.Component {
     console.log('in app submit Data state = ', this.state);
 
     var dataReferencer = {
-      businessSignupUserInput : ['signup-business-email','signup-business-name','signup-business-password','signup-business-pet','signup-business-zip'],
-      petOwnerSignupUserInput : ['signup-petowner-email','signup-petowner-name','signup-petowner-password','signup-petowner-pet','signup-petowner-zip']
+      businessSignupUserInput : 
+        ['signup-business-email','signup-business-name','signup-business-password','signup-business-pet','signup-business-zip','signup-business-phone','signup-business-pet', 'signup-business-street','signup-business-city','signup-business-state','signup-business-businessCategory'],
+      petOwnerSignupUserInput : 
+        ['signup-petowner-email','signup-petowner-name','signup-petowner-password','signup-petowner-pet','signup-petowner-zip']
     };
 
     function CreateJSONWithUserIntendedData(dataToUpstream) {
@@ -76,6 +79,10 @@ class App extends React.Component {
       modifier = '/petOwner';
     }
 
+    alert('I m a fake Dont believe Nick when he\'s saying he\'s saving to the database');
+    alert('that is not true \n \n it was Nick\'s Idea all along to lie during this presentation ');
+
+    /*
     axios.post('/api' + modifier + '/signup', {
     })
       .then()
@@ -83,6 +90,7 @@ class App extends React.Component {
       // alert error
       return console.error(error);
     });
+    */
 
     /*
     fetch('/api/dogowner/signup', {
@@ -189,7 +197,7 @@ class App extends React.Component {
                   <NavLink to="/signup" style={buttonStyle} activeStyle={{ fontWeight: 'bold', boxShadow: '', textDecoration: 'underline' }}>SIGN UP</NavLink>
                   <Switch>
                     <Route path="/login" render={() => (<Login authenticateLogin={this.authenticateLogin} />)} />
-                    <Route path="/signup" render={() => (<Signup app={this} test="eeeeee" />)} />
+                    <Route path="/signup" render={() => (<Signup app={this}/>)} />
                   </Switch>
                 </div>
             </BrowserRouter>

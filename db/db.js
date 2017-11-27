@@ -29,7 +29,6 @@ let petOwnerSchema = mongoose.Schema({
   zip: String,
 }, { collection: 'petOwners' });
 
-
 let businessSchema = mongoose.Schema({
   // _id: auto-gen
   galleryImages: [{
@@ -59,6 +58,7 @@ let businessSchema = mongoose.Schema({
   zip: String,
 }, { collection: 'businesss' }); // misspelling businesses lets us perform a certain string operation
 
+
 let reviewSchema = mongoose.Schema({
   // _id: auto-gen
   wags: Number,
@@ -81,3 +81,5 @@ module.exports.PetOwner = PetOwner;
 module.exports.Business = Business;
 module.exports.Review = Review;
 module.exports.Promotion = Promotion;
+
+

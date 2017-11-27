@@ -33,6 +33,7 @@ console.log("in sign up before return statement")
         <Switch>
           <Route path="/signup/business" render={()=> <BusinessSignup app={props.app}  />} />
           <Route path="/signup/petOwner" render={()=> <PetOwnerSignup app={props.app}  />} />
+          <Redirect from="/signup" exact to="/signup/business" />
         </Switch>
       </div>
     </BrowserRouter>
