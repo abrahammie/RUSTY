@@ -92,19 +92,21 @@ db.PetOwner.remove()
         .then((petOwner) => {
           const rand = Math.floor(Math.random() * businesses.length);
           db.Business
-            .findOne({ email: businesses[rand].email })
-            .then((business) => {
-              const review = new db.Review({
-                wags: Math.floor(Math.random() * promotionDummies.length),
-                description: descriptionDummies[Math.floor(Math.random() * promotionDummies.length)],
-                petOwnerId: petOwner._id,
-                businessId: business._id
-              });
-              return review.save((err) => {
-                if (err) {
-                  return console.error(err);
-                }
-              });
+            .find()
+            .then((businesses) => {
+              Promise.each(businesses, (business) => {
+                const review = new db.Review({
+                  wags: Math.floor(Math.random() * 4) + 1,
+                  description: descriptionDummies[Math.floor(Math.random() * promotionDummies.length)],
+                  petOwnerId: petOwner._id,
+                  businessId: business._id
+                });
+                return review.save((err) => {
+                  if (err) {
+                    return console.error(err);
+                  }
+                });
+              })
             })
         });
     });
