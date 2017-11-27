@@ -79,7 +79,7 @@ class BusinessProfile extends React.Component {
                   hintStyle={{ hintStyle }}
                   multiLine={true}
                   value={this.state.promoText}
-                  onChange={event => this.handleChange()}
+                  onChange={event => this.handleChange(event)}
                 />
                 <FlatButton
                   label="make your offer"
