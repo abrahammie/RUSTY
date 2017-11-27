@@ -19,6 +19,13 @@ const addPetOwner = (data, callback) => {
   });
 };
 
+const seedGallery = function (images) { // **************
+  images.map(image=> {
+    businessSchema.galleryImages.push(image)
+  })
+} // **************
+
+
 const addBusiness = (data, callback) => {
   bcrypt.hash(data.password, 10, (err, hash) => {
     const business = new db.Business({
@@ -38,6 +45,8 @@ const addBusiness = (data, callback) => {
     writeToDatabase(business, callback);
   });
 };
+
+
 
 const addReview = (data, callback) => {
   const review = new db.Review({

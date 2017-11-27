@@ -11,6 +11,7 @@ import PrimaryHeader from './PrimaryHeader.jsx';
 import { Image, Video, Transformation, CloudinaryContext } from 'cloudinary-react';
 import CloudinaryCore from 'cloudinary-core';
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
