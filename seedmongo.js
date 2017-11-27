@@ -1,6 +1,6 @@
 const db = require('./db/db.js');
-const businesses = require('./seeds/businesses.json');
-const petOwners = require('./seeds/petOwners.json');
+const businesses = require('./seeds/businessesCloudinary.json');
+const petOwners = require('./seeds/petOwnersCloudinary.json');
 const Promise = require('bluebird');
 const bcrypt = require('bcrypt');
 

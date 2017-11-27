@@ -22,10 +22,12 @@ const addPetOwner = (data, callback) => {
 const addBusiness = (data, callback) => {
   bcrypt.hash(data.password, 10, (err, hash) => {
     const business = new db.Business({
+      galleryImages: data.gallery,
       businessName: data.businessName,
       email: data.email,
       password: hash,
       profileImg: data.profileImg,
+      profileVideo: data.profileVideo,
       phone: data.phone,
       businessCategory: data.businessCategory,
       street: data.street,

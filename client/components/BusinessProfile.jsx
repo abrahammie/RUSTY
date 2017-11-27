@@ -58,7 +58,7 @@ class BusinessProfile extends React.Component {
               <CardHeader
                 title={`Welcome, ${this.props.user.businessName}!`}
               />
-              <img src={this.props.user.profileImg} style={{maxWidth: 500}} alt="" />
+              <img src={this.props.user.profileImg.cloudinaryURL} style={{maxWidth: 500}} alt="" />
               <CardMedia
                 overlay={<CardTitle title={this.props.user.businessName}/>}
               />

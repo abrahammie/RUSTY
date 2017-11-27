@@ -56,7 +56,7 @@ class SearchResults extends React.Component {
                 reviews={reviews}
                 businessName={business.businessName}
                 businessCategory={business.businessCategory}
-                profileImg={business.profileImg}
+                profileImg={business.profileImg.cloudinaryURL}
       />);
     };
     const businessTuples = this.state.businessTuples;
