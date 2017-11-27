@@ -41,7 +41,7 @@ let businessSchema = mongoose.Schema({
   city: String,
   state: String,
   zip: String,
-}, { collection: 'businesses' });
+}, { collection: 'businesss' });
 
 let reviewSchema = mongoose.Schema({
   // _id: auto-gen
