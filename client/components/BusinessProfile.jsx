@@ -72,6 +72,13 @@ class BusinessProfile extends React.Component {
                     );
                   })}
                 </ul>
+                <ul>
+                  {this.props.promotions.map((promotion) => {
+                    return (
+                      <li>{promotion.description}</li>
+                    );
+                  })}
+                </ul>
               </CardText>
               <CardActions>
                 <TextField

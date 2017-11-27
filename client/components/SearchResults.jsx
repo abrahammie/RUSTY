@@ -49,11 +49,13 @@ class SearchResults extends React.Component {
     const callback = (businessTuple) => {
       var business = businessTuple[0];
       var reviews = businessTuple[1];
+      var promotions = businessTuple[2];
       return (<BusinessMini
                 petOwnerId={this.props.petOwnerId}
                 business={business}
                 id={business._id}
                 reviews={reviews}
+                promotions={promotions}
                 businessName={business.businessName}
                 businessCategory={business.businessCategory}
                 profileImg={business.profileImg.cloudinaryURL}
