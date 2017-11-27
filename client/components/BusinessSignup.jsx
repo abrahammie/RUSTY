@@ -4,9 +4,6 @@ import { Image, Video, Transformation, CloudinaryContext } from 'cloudinary-reac
 import cloudinary from 'cloudinary-core';
 import CloudinaryVideoPlayer from 'cloudinary-video-player';
 
-import { Image, Video, Transformation, CloudinaryContext } from 'cloudinary-react';
-import cloudinary from 'cloudinary-core';
-import CloudinaryVideoPlayer from 'cloudinary-video-player';
 
 
 let BusinessSignup = (props) => {
@@ -17,14 +14,13 @@ let BusinessSignup = (props) => {
 
 	$( document ).ready(function() {
 
-	    console.log('in BSU !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ')
 
 	    const displayVideo = function  (public_id) {
 	    	$(document ).ready(function() {
 	    	    console.log( "in ready!" );    
 	    	    //$( ".player" ).append( $.cloudinary.video( public_id,{cloud_name:"nicko"}) );
 
-	    	    demoplayer.source({ "publicId" : public_id })
+	    	   // demoplayer.source({ "publicId" : public_id })
 	    	    // widgetdocs/ycls6ongxof0cogajr5l
 	    	});
 	    }
@@ -92,18 +88,25 @@ let BusinessSignup = (props) => {
 		});
 	}
 
-
+	
 
 	return (
 		<div>
-			<h2 className="test"> in business sign up component 2 </h2>
+
+			<h4 className="test"> Do your Business a favor, fill out that form  </h4>
+
 			
 			Email : <input type="email" name="signup-business-email" onChange={onChange}></input><br/>
 			Name : <input type="text" name="signup-business-name" onChange={onChange}></input><br/>
 			<button id="upload_widget_singleFromMultiple" type="button"> upload profile picture </button><br/>
-			password : <input type="password" name="signup-business-password" onChange={onChange}></input><br/>
-			Zip : <input type="text" name="signup-business-zip" onChange={onChange} ></input><br/>
+			Password : <input type="password" name="signup-business-password" onChange={onChange}></input><br/>
+			Zip code : <input type="text" name="signup-business-zip" onChange={onChange} ></input><br/>
+			Phone : <input type="text" name="signup-business-phone" onChange={onChange} ></input><br/>
 			Pet : <input type="text" name="signup-business-pet" onChange={onChange}></input><br/>
+			Street : <input type="text" name="signup-business-street" onChange={onChange}></input><br/>
+			City : <input type="text" name="signup-business-city" onChange={onChange}></input><br/>
+			State : <input type="text" name="signup-business-state" onChange={onChange}></input><br/>
+			Business category: <input type="text" name="signup-business-businessCategory" onChange={onChange}></input><br/>
 			<button id="upload_widget_multiple" type="button"> Create image gallery !</button> <br/>
 			<button id="upload_widget_video" type="button"> upload profile video!</button> <br/>
 
