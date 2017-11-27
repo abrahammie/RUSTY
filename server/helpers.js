@@ -117,7 +117,12 @@ const fetchBusinessListings = (callback) => {
       return db.Review
         .find({ businessId: business._id })
         .then((reviews) => {
-          output.push([business, reviews]);
+          // output.push([business, reviews]);
+          return db.Promotions
+            .find({ businessId: business._id })
+            .then((promotions) => {
+              output.push([business, reviews, promotions]);
+            });
         });
     })
     .then(() => {
