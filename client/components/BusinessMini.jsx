@@ -4,6 +4,7 @@ import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'm
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import Paper from 'material-ui/Paper';
+import Pets from 'material-ui/svg-icons/action/pets';
 import Review from './Review.jsx';
 import Wag from './Wag.jsx';
 
@@ -61,7 +62,7 @@ class BusinessMini extends React.Component {
 
   handleClick(i) {
     const wags = this.state.wags.map((wag, index) => {
-      return index <= i ? 'X' : null;
+      return index <= i ? <Pets /> : null;
     });
     this.setState({ wags });
   }
@@ -102,6 +103,7 @@ class BusinessMini extends React.Component {
             <CardText
               expandable={true}
             >
+              <h3>What rusty users are saying about {this.props.businessName}:</h3>
               {reviews.map((review) => {
                 return <Review description={review.description} />;
               })}

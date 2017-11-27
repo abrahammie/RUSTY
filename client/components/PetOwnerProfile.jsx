@@ -31,8 +31,8 @@ const PetOwnerProfile = (props) => {
               overlay={<CardTitle title={props.user.pet} />}
             />
             <CardText>
-              Browse Local pet-friendly businesses.
-              Whistle for {props.user.pet} and Enjoy!
+              <h4>Browse local pet-friendly businesses.
+              Whistle for {props.user.pet} and Enjoy!</h4>
             </CardText>
           </Card>
         </Paper>
