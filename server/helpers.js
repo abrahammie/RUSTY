@@ -49,10 +49,10 @@ const addReview = (data, callback) => {
 
 const addPromotion = (data, callback) => {
   const promotion = new db.Promotion({
-    description: data.description,
+    description: data.promo,
     businessId: data.businessId
   });
-  writeToDatabase(review, callback);
+  writeToDatabase(promotion, callback);
 };
 
 const writeToDatabase = (document, callback) => {
@@ -156,13 +156,13 @@ const getReviews = (doc, callback) => {
 };
 
 
-const getPromotions = (promo, callback) => {
-  const output = [promo];
+const getPromotions = (businessTuple, callback) => {
+  const output = [businessTuple];
   return db.Promotion
-    .find({ businessId: promo._id })
-    .then((reviews) => {
-      output.push(reviews);
-      callback(output);
+    .find({ businessId: businessTuple[0]._id })
+    .then((promotions) => {
+      businessTuple.push(promotions);
+      callback(businessTuple);
     });
 };
 module.exports.addPetOwner = addPetOwner;

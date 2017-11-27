@@ -59,7 +59,7 @@ let promotionSchema = mongoose.Schema({
 let PetOwner = mongoose.model('PetOwner', petOwnerSchema);
 let Business = mongoose.model('Business', businessSchema);
 let Review = mongoose.model('Review', reviewSchema);
-let Promotion = mongoose.model('Promotion', reviewSchema);
+let Promotion = mongoose.model('Promotion', promotionSchema);
 
 module.exports.PetOwner = PetOwner;
 module.exports.Business = Business;
