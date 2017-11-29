@@ -4,26 +4,28 @@ import { Image, Video, Transformation, CloudinaryContext } from 'cloudinary-reac
 import cloudinary from 'cloudinary-core';
 import CloudinaryVideoPlayer from 'cloudinary-video-player';
 import VideoContainer from './businessSignup/video.jsx'; 
+import ImageProfileContainer from './businessSignup/imageProfile.jsx'; 
 
 //  set video source to be the uploaded video
 //  make video visually closable
-
 //  send video to db object on submit
 //  remove video from db object on close
 //  refactor video to a stateless comp  
-
 // make an image component in the same fashion
  // quid doing an high order container
 
-// make a gallerry component that holds images components
+
+
+// make a gallery component that holds images components
 
 // make pet owner profile
 
 // connect the object to db
 
 // make the environment var app for any legacy
+// fix multiple successive upload of videos
 
-// improvements
+// ***************** improvements
 
 // 	position video , image and gallery better
 
@@ -52,6 +54,9 @@ class BusinessSignup extends React.Component {
 		}
 	this.turnOff= this.turnOff.bind(this);
 	this.turnOn= this.turnOn.bind(this);
+	this.uploadVideo = this.uploadVideo.bind(this);
+	this.uploadImageProfile = this.uploadImageProfile.bind(this);
+	this.category = 'business';
 
 	}
 
@@ -61,15 +66,60 @@ class BusinessSignup extends React.Component {
 			state[media].source=null
 			return state;
 		})
+		this.props.app.setState( (state) => {
+			var appStateKey = 'signup-'+this.category+'-'+media 
+			state[appStateKey] = null;
+			return state;
+		})
 	}
 
-	turnOn (media, source) {
-		console.log('trunOn called @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+	turnOn (media, source, url) {
+		console.log('turnOn called @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+		console.log('media = ', media);
+		console.log('source = ', source);
 		this.setState((state)=> {
+			console.log('inside local setState')
 			state[media].visible=true;
 			state[media].source= source;
+			state[media].url = url;
+			return state;
 		})
+		var localState=this.state
+		this.props.app.setState( (state) => {
+			var appStateKey = 'signup-'+this.category+'-'+media 
+			state[appStateKey] = localState[media];
+			return state;
+		})
+	}
 
+	uploadVideo () {
+		console.log('in uploadVideo @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+		var that=this;
+		window.cloudinary.openUploadWidget({ cloud_name:'nicko', upload_preset: 'zahnf2xg', folder: 'widgetdocs', form: '.upload_multiple_images_holder', sources: ['local'], thumbnails: '.upload_multiple_images_holder', multiple : false, google_api_key: 'AIzaSyDaQj7FO1IQtp9DSB5YNP5jjG6f_mItEQ4', max_files :1, show_powered_by :false, client_allowed_formats: ['mp4'],keep_widget_open : false  }, 
+		function(error, result) { 
+		  if ( error) {
+		    console.log(error, result) 
+		    return;
+		  } 
+		  //console.log('result .public_id = ',result[0].public_id)
+		  //console.log('result thumnail = ',result[0].thumbnail_url)
+		  console.log('result  = ',result)
+		  //displayVideo(result[0].public_id)
+		  that.turnOn('video',result[0].public_id,result[0].url);
+		});
+	}
+
+	uploadImageProfile () {
+		var that = this;
+		window.cloudinary.openUploadWidget({ cloud_name:'nicko', upload_preset: 'avqjuqpq', folder: 'widgetdocs', form: '.upload_multiple_images_holder', sources: ['local', 'image_search','facebook','instagram', 'google_photos'], thumbnails: '.upload_multiple_images_holder', cropping: 'server',multiple : false, google_api_key: 'AIzaSyDaQj7FO1IQtp9DSB5YNP5jjG6f_mItEQ4', max_files :1, show_powered_by :false, client_allowed_formats: ['jpg', 'jpeg', 'png', 'gif', 'svg'],keep_widget_open : false  }, 
+		function(error, result) { 
+		  if ( error) {
+		    console.log(error, result) 
+		    return;
+		  } 
+		  console.log('result  = ',result)
+		  that.turnOn('imageProfile',result[0].public_id,result[0].url);
+		});
 	}
 
 	render () {
@@ -77,9 +127,9 @@ class BusinessSignup extends React.Component {
 		let onChange= this.props.app.onChange;
 
 		var that = this;
-
 		$( document ).ready(function() {
 
+/*
 		    const displayVideo = function  (public_id) {
 		    	$(document ).ready(function() { 
 		    	   that.setState({ 
@@ -90,6 +140,7 @@ class BusinessSignup extends React.Component {
 		    		})
 		    	});
 		    }
+*/
 
 		    // comp 2
 		    $('#upload_widget_multiple').click(function(e) {
@@ -106,7 +157,7 @@ class BusinessSignup extends React.Component {
 		      });
 		    });
 
-
+/*		  
 		    // comp 1
 		    $('#upload_widget_singleFromMultiple').click(function(e) {
 		      e.preventDefault();
@@ -134,36 +185,59 @@ class BusinessSignup extends React.Component {
 		        } 
 		        //console.log('result .public_id = ',result[0].public_id)
 		        //console.log('result thumnail = ',result[0].thumbnail_url)
-		        //console.log('result  = ',result)
+		        console.log('result  = ',result)
 		        //displayVideo(result[0].public_id)
-		        that.turnOn('video',result[0].public_id);
+		        that.turnOn('video',result[0].public_id,result[0].url);
 		      });
 		    });
+*/
 		});
 
 		let onSubmit= () => {
-			props.app.submitData('businessSignupUserInput');
+			this.props.app.submitData('businessSignupUserInput');
 		}
 
 		return (
 			<div>
 
-				<h4 className="test"> Do your Business a favor, fill out that form 2 </h4>
+				<h4 className="test"> Do your Business a favor, fill out that form </h4>
 
 				
 				Email : <input type="email" name="signup-business-email" onChange={onChange}></input><br/>
+
 				Name : <input type="text" name="signup-business-name" onChange={onChange}></input><br/>
-				<button id="upload_widget_singleFromMultiple" type="button"> upload profile picture </button><br/>
+
+				<button id="upload_widget_singleFromMultiple" type="button" onClick={this.uploadImageProfile}> upload profile picture </button><br/>
+
+				{this.state.imageProfile.visible ? 
+					<div>
+						<br/>
+						<br/>
+							<ImageProfileContainer publicId={this.state.imageProfile.source} turnOff={this.turnOff} />
+						<br/>
+						<br/>
+					</div> : null
+				}
+				
 				Password : <input type="password" name="signup-business-password" onChange={onChange}></input><br/>
+
 				Zip code : <input type="text" name="signup-business-zip" onChange={onChange} ></input><br/>
+
 				Phone : <input type="text" name="signup-business-phone" onChange={onChange} ></input><br/>
+
 				Pet : <input type="text" name="signup-business-pet" onChange={onChange}></input><br/>
+
 				Street : <input type="text" name="signup-business-street" onChange={onChange}></input><br/>
+
 				City : <input type="text" name="signup-business-city" onChange={onChange}></input><br/>
+
 				State : <input type="text" name="signup-business-state" onChange={onChange}></input><br/>
+
 				Business category: <input type="text" name="signup-business-businessCategory" onChange={onChange}></input><br/>
+
 				<button id="upload_widget_multiple" type="button"> Create image gallery !</button> <br/>
-				<button id="upload_widget_video" type="button"> upload profile video!</button> <br/>
+
+				<button id="upload_widget_video" type="button" onClick={this.uploadVideo}> upload profile video!</button> <br/>
 
 				 <br/>
 
@@ -174,10 +248,10 @@ class BusinessSignup extends React.Component {
 				<button type="button" onClick={onSubmit}> SUBMIT </button>
 
 				<br/>
-				<br/>
+
 				<br/>
 
-
+				<br/>
 
 			</div>
 		)
@@ -187,14 +261,3 @@ class BusinessSignup extends React.Component {
 
 export default BusinessSignup;
 
-
-/*
-
-	<CloudinaryContext cloudName="nicko" effect="art:aurora" width="300" >
-		<Image publicId="widgetdocs/jrlef2na1ilfknmgevig" />
-		<Image publicId="widgetdocs/jrlef2na1ilfknmgevig" />
-		<Image publicId="widgetdocs/jrlef2na1ilfknmgevig" />
-	</CloudinaryContext>
-
-
- */

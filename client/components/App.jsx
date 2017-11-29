@@ -55,7 +55,7 @@ class App extends React.Component {
 
     var dataReferencer = {
       businessSignupUserInput : 
-        ['signup-business-email','signup-business-name','signup-business-password','signup-business-pet','signup-business-zip','signup-business-phone','signup-business-pet', 'signup-business-street','signup-business-city','signup-business-state','signup-business-businessCategory'],
+        ['signup-business-email','signup-business-name','signup-business-password','signup-business-pet','signup-business-zip','signup-business-phone','signup-business-pet', 'signup-business-street','signup-business-city','signup-business-state','signup-business-businessCategory', 'signup-business-video', 'signup-business-imageProfile', 'signup-business-gallery'],
       petOwnerSignupUserInput : 
         ['signup-petowner-email','signup-petowner-name','signup-petowner-password','signup-petowner-pet','signup-petowner-zip']
     };
@@ -65,12 +65,27 @@ class App extends React.Component {
       var userIntendedData = {};
       dataReferencer[dataToUpstream].map((userInputedPropKey) => {
         // why are we loosing contect of this here
-        userIntendedData[userInputedPropKey] = that.state[userInputedPropKey]
+        userIntendedData[userInputedPropKey] = that.state[userInputedPropKey] || null;
       });
+
       return JSON.stringify(userIntendedData);
     }
 
     console.log(CreateJSONWithUserIntendedData(dataToUpstream));
+
+/*
+    if ( that.state.video !== undefined ) {
+       userIntendedData.video = that.state.video;
+    } 
+
+    if ( that.state.ImageProfile !== undefined ) {
+       userIntendedData.ImageProfile = that.state.ImageProfile;
+    } 
+
+    if ( that.state.gallery !== undefined ) {
+       userIntendedData.gallery = that.state.gallery;
+    } 
+*/
 
     var modifier = '';
     if (dataToUpstream === 'businessSignupUserInput') {
@@ -79,8 +94,8 @@ class App extends React.Component {
       modifier = '/petOwner';
     }
 
-    alert('I m a fake Dont believe Nick when he\'s saying he\'s saving to the database');
-    alert('that is not true \n \n it was Nick\'s Idea all along to lie during this presentation ');
+    //alert('I m a fake Dont believe Nick when he\'s saying he\'s saving to the database');
+    //alert('that is not true \n \n it was Nick\'s Idea all along to lie during this presentation ');
 
     /*
     axios.post('/api' + modifier + '/signup', {

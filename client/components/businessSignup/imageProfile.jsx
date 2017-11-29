@@ -3,7 +3,7 @@ import { Image, Video, Transformation, CloudinaryContext } from 'cloudinary-reac
 import CloudinaryVideoPlayer from 'cloudinary-video-player';
 
 
-class VideoContainer extends React.Component {
+class ImageProfileContainer extends React.Component {
 
 	constructor (props) {
 		super(props);
@@ -14,22 +14,18 @@ class VideoContainer extends React.Component {
 	}
 
 	onClose () {
-		this.props.turnOff('video')
+		this.props.turnOff('imageProfile')
 	}
 
 	render () {
-		console.log('props in video.jsx = ',this.props)
+		console.log('props in imageProfile.jsx = ',this.props)
 		return (
 			<div>
 				<p onClick={this.onClose}> <a href="#" > undo </a> </p>
-				<Video cloudName="nicko" publicId={this.props.publicId} width="400" controls />
+				<Image cloudName="nicko" publicId={this.props.publicId} width="150" crop="scale" />
 			</div>
 		)
 	}
 }
 
-export default VideoContainer;
-
-	/*
-
-	*/
+export default ImageProfileContainer;
