@@ -1,5 +1,7 @@
 import React from 'react';
 import { BrowserRouter,  Route, NavLink, Switch, Redirect } from 'react-router-dom';
+import Paper from 'material-ui/Paper';
+import TextField from 'material-ui/TextField';
 import BusinessSignup from './BusinessSignup.jsx';
 import PetOwnerSignup from './PetOwnerSignup.jsx';
 
@@ -8,13 +10,21 @@ const Signup = (props) => {
     fontFamily: 'Roboto, sans-serif',
     display: 'inline'
   };
+  const style = {
+    height: 'auto',
+    width: 'auto',
+    padding: 25,
+    margin: 20,
+    textAlign: 'left',
+    display: 'inline-block',
+  };
 
-console.log('test retrieving data from app =',props.test)
-console.log('propsfrom app =',props)
-console.log("in sign up before return statement")
   return (
+    <div>
+    <Paper style={style} zDepth={5}>
     <BrowserRouter>
-      <div style={{whiteSpace: 'nowrap', marginTop: 15}}>
+      <div style={{ whiteSpace: 'nowrap', marginTop: 15, backgroundColor: 'white' }}>
+
         <h3 style={linkTextStyle}>Sign up as a </h3>
         <NavLink
             to="/signup/business"
@@ -30,13 +40,17 @@ console.log("in sign up before return statement")
             Pet Owner
           </NavLink>
        <h3 style={linkTextStyle}>?</h3>
+       <br/>
+       <br/>
         <Switch>
-          <Route path="/signup/business" render={()=> <BusinessSignup app={props.app}  />} />
-          <Route path="/signup/petOwner" render={()=> <PetOwnerSignup app={props.app}  />} />
-          <Redirect from="/signup" exact to="/signup/business" />
+          <Route path="/signup/business" render={() => (<BusinessSignup app={props.app} userType="Business" />)} />
+          <Route path="/signup/petOwner" render={() => (<PetOwnerSignup app={props.app} userType="Pet Owner" />)} />
         </Switch>
+
       </div>
     </BrowserRouter>
+    </Paper>
+    </div>
   )
 };
 
