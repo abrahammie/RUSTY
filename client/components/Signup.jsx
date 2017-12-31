@@ -68,8 +68,8 @@ class Signup extends React.Component {
             <br />
             {
           this.state.selected === 'business' ?
-          (<BusinessSignup app={this.props.app} userType="business" />) :
-          (<PetOwnerSignup app={this.props.app} userType="petOwner" />)
+          (<BusinessSignup app={this.props.app} userType="Business" />) :
+          (<PetOwnerSignup app={this.props.app} userType="Pet Owner" />)
             }
           </div>
         </Paper>

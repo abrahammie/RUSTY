@@ -1,4 +1,6 @@
 import React from 'react';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
 
 
 const UserLogin = ({ userType, authenticateLogin }) => {
@@ -7,15 +9,36 @@ const UserLogin = ({ userType, authenticateLogin }) => {
     const email = ev.target.elements.email.value;
     const password = ev.target.elements.password.value;
     authenticateLogin(email, password, userType);
-    document.getElementById("loginForm").reset();
+    document.getElementById('loginForm').reset();
+  };
+
+  const style = {
+    button: {
+      fontFamily: 'Roboto, sans-serif',
+      backgroundColor: '#7CB342',
+      color: 'white',
+    },
   };
 
   return (
-    <form id="loginForm" onSubmit={onSubmit}>
-      <p>{userType} Email: <input name="email" type="email" /></p>
-      <p>Password: <input name="password" type="password" /></p>
-      <button type="submit">Submit</button>
-    </form>
+    <div>
+      <form id="loginForm" onSubmit={onSubmit}>
+        <TextField
+          id="email"
+          hintText="Email"
+          type="email"
+        />
+        <br />
+        <TextField
+          id="pasword"
+          hintText="Password"
+          type="password"
+        />
+        <br />
+        <br />
+        <RaisedButton buttonStyle={style.button} type="submit">SUBMIT</RaisedButton>
+      </form>
+    </div>
   );
 };
 
