@@ -1,57 +1,74 @@
 import React from 'react';
-import { BrowserRouter,  Route, NavLink, Switch, Redirect } from 'react-router-dom';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
+import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import BusinessSignup from './BusinessSignup.jsx';
 import PetOwnerSignup from './PetOwnerSignup.jsx';
 
-const Signup = (props) => {
-  const linkTextStyle = {
-    fontFamily: 'Roboto, sans-serif',
-    display: 'inline'
-  };
-  const style = {
-    height: 'auto',
-    width: 'auto',
-    padding: 25,
-    margin: 20,
-    textAlign: 'left',
-    display: 'inline-block',
-  };
+class Signup extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selected: 'petOwner',
+    };
+    this.onChange = this.onChange.bind(this);
+  }
 
-  return (
-    <div>
-    <Paper style={style} zDepth={5}>
-    <BrowserRouter>
-      <div style={{ whiteSpace: 'nowrap', marginTop: 15, backgroundColor: 'white' }}>
+  onChange(e, value) {
+    this.setState({ selected: value }, () => console.log('changed selection'));
+  }
 
-        <h3 style={linkTextStyle}>Sign up as a </h3>
-        <NavLink
-            to="/signup/business"
-            style={linkTextStyle}
-            activeStyle={{ fontWeight: 'bold' }}>
-            Business
-        </NavLink>
-        <h3 style={linkTextStyle}> or a </h3>
-          <NavLink
-            to="/signup/petOwner"
-            style={linkTextStyle}
-            activeStyle={{ fontWeight: 'bold' }}>
-            Pet Owner
-          </NavLink>
-       <h3 style={linkTextStyle}>?</h3>
-       <br/>
-       <br/>
-        <Switch>
-          <Route path="/signup/business" render={() => (<BusinessSignup app={props.app} userType="Business" />)} />
-          <Route path="/signup/petOwner" render={() => (<PetOwnerSignup app={props.app} userType="Pet Owner" />)} />
-        </Switch>
-
+  render() {
+    const style = {
+      paper: {
+        height: 'auto',
+        width: 'auto',
+        padding: 25,
+        margin: 20,
+        textAlign: 'left',
+        display: 'inline-block',
+      },
+      linkText: {
+        fontFamily: 'Roboto, sans-serif',
+        display: 'inline'
+      },
+      radioButton: {
+        marginBottom: 16,
+      },
+    };
+    return (
+      <div>
+      <Paper style={style.paper} zDepth={5}>
+        <div style={{ whiteSpace: 'nowrap', marginTop: 15, backgroundColor: 'white' }}>
+        <RadioButtonGroup
+          name="signUpType"
+          defaultSelected="petOwner"
+          onChange={this.onChange}
+          >
+          <RadioButton
+            iconStyle={{ fill: '#7CB342' }}
+            value="business"
+            label="Business"
+            style={style.radioButton}
+          />
+          <RadioButton
+            iconStyle={{ fill: '#7CB342' }}
+            value="petOwner"
+            label="Pet Owner"
+            style={style.radioButton}
+          />
+        </RadioButtonGroup>
+         <br/>
+         {
+          this.state.selected === 'business' ?
+          (<BusinessSignup app={this.props.app} userType="business"/>) :
+          (<PetOwnerSignup app={this.props.app} userType="petOwner"/>)
+         }
+        </div>
+      </Paper>
       </div>
-    </BrowserRouter>
-    </Paper>
-    </div>
-  )
+    )
+  }
 };
 
 export default Signup;

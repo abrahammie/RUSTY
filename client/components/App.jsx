@@ -90,7 +90,7 @@ class App extends React.Component {
            <div>
             <PrimaryHeader />
           </div>
-          <div style={{ background: 'url(https://images.unsplash.com/photo-1506993708131-b0bf29d16b76?auto=format&fit=crop&w=1500&q=80) no-repeat center center fixed', minHeight: 650 }}>
+          <div style={{ background: 'url(https://images.unsplash.com/photo-1506993708131-b0bf29d16b76?auto=format&fit=crop&w=1500&q=80) no-repeat center center fixed', height: '100vh', backgroundSize: 'cover' }}>
           <br/>
           <br/>
             <BrowserRouter>

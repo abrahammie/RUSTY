@@ -1,35 +1,40 @@
 import React from 'react';
+import TextField from "material-ui/TextField";
+import RaisedButton from 'material-ui/RaisedButton';
 
 let PetOwnerSignup = (props) => {
-	console.log('propsfrom app =',props);
-	console.log("in sign up before return statement");
 	let onChange=props.app.onChange;
 	let onSubmit= () => {
 		props.app.submitData('petOwnerSignupUserInput');
 	}
+	const style = {
+      button: {
+        fontFamily: 'Roboto, sans-serif',
+        backgroundColor: '#7CB342',
+        color: 'white',
+      }
+    };
+
 	return (
 		<div>
-		<h2>Welcome, new pet owner!</h2>
-			Email : <input type="text" name="signup-petowner-email" onChange={onChange}></input><br/>
-			Name : <input type="text" name="signup-petowner-name" onChange={onChange}></input><br/>
-			Zip : <input type="text" name="signup-petowner-zip" onChange={onChange} ></input><br/>
-			password : <input type="text" name="signup-petowner-password" onChange={onChange}></input><br/>
-			Pet : <input type="text" name="signup-petowner-pet" onChange={onChange}></input><br/>
-			<button type="button" onClick={onSubmit}> Submit </button>
+			<TextField id="email" onChange={onChange} hintText="Email" />
+			<br />
+			<TextField id="name" onChange={onChange} hintText="Name" />
+			<br />
+			<TextField id="zipCode" onChange={onChange} hintText="Zip Code" />
+			<br />
+			<TextField id="petName" onChange={onChange} hintText="Pet Name" />
+			<br/>
+			<TextField id="password" onChange={onChange} hintText="Password" />
+			<br/>
+	    <RaisedButton
+	      containerElement="label"
+	      style={{ margin: 12 }}
+	      buttonStyle={style.button}
+				onClick={onSubmit}
+	    >SUBMIT</RaisedButton>
 		</div>
-	)
+	);
 }
 
 export default PetOwnerSignup;
-
-
-
-
-      //  <Route path="/signup/business" component={BusinessSignup} />
-      //  <Route path="/signup/petOwner" component={PetOwnerSignup} />
-
-      	/*
-		<div>
-			 <h2> IN Pet Owner S U </h2>
-		</div>
-	*/
