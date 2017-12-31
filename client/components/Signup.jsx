@@ -1,7 +1,6 @@
 import React from 'react';
 import Paper from 'material-ui/Paper';
-import TextField from 'material-ui/TextField';
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 import BusinessSignup from './BusinessSignup.jsx';
 import PetOwnerSignup from './PetOwnerSignup.jsx';
 
@@ -15,7 +14,7 @@ class Signup extends React.Component {
   }
 
   onChange(e, value) {
-    this.setState({ selected: value }, () => console.log('changed selection'));
+    this.setState({ selected: value });
   }
 
   render() {
@@ -30,46 +29,54 @@ class Signup extends React.Component {
       },
       linkText: {
         fontFamily: 'Roboto, sans-serif',
-        display: 'inline'
+        display: 'inline',
       },
       radioButton: {
         marginBottom: 16,
       },
+      icon: {
+        fill: '#33691E',
+      },
+      paperContents: {
+        whiteSpace: 'nowrap',
+        marginTop: 15,
+        backgroundColor: 'white',
+      },
     };
     return (
       <div>
-      <Paper style={style.paper} zDepth={5}>
-        <div style={{ whiteSpace: 'nowrap', marginTop: 15, backgroundColor: 'white' }}>
-        <RadioButtonGroup
-          name="signUpType"
-          defaultSelected="petOwner"
-          onChange={this.onChange}
-          >
-          <RadioButton
-            iconStyle={{ fill: '#7CB342' }}
-            value="business"
-            label="Business"
-            style={style.radioButton}
-          />
-          <RadioButton
-            iconStyle={{ fill: '#7CB342' }}
-            value="petOwner"
-            label="Pet Owner"
-            style={style.radioButton}
-          />
-        </RadioButtonGroup>
-         <br/>
-         {
+        <Paper style={style.paper} zDepth={5}>
+          <div style={style.paperContents}>
+            <RadioButtonGroup
+              name="signUpType"
+              defaultSelected="petOwner"
+              onChange={this.onChange}
+            >
+              <RadioButton
+                iconStyle={style.icon}
+                value="business"
+                label="Business"
+                style={style.radioButton}
+              />
+              <RadioButton
+                iconStyle={style.icon}
+                value="petOwner"
+                label="Pet Owner"
+                style={style.radioButton}
+              />
+            </RadioButtonGroup>
+            <br />
+            {
           this.state.selected === 'business' ?
-          (<BusinessSignup app={this.props.app} userType="business"/>) :
-          (<PetOwnerSignup app={this.props.app} userType="petOwner"/>)
-         }
-        </div>
-      </Paper>
+          (<BusinessSignup app={this.props.app} userType="business" />) :
+          (<PetOwnerSignup app={this.props.app} userType="petOwner" />)
+            }
+          </div>
+        </Paper>
       </div>
-    )
+    );
   }
-};
+}
 
 export default Signup;
 

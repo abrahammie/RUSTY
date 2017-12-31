@@ -178,8 +178,6 @@ class BusinessSignup extends React.Component {
 				<br />
 				<TextField id="businessName" onChange={onChange} hintText="Business Name" />
 				<br />
-				<TextField id="password" onChange={onChange} hintText="Password" />
-				<br />
 				<TextField id="zipCode" onChange={onChange} hintText="Zip Code" />
 				<br />
 				<TextField id="phone" onChange={onChange} hintText="Phone" />
@@ -188,6 +186,8 @@ class BusinessSignup extends React.Component {
 				<br/>
 				<TextField id="businessCategory" onChange={onChange} hintText="Business Category" />
 				<br/>
+				<TextField id="password" onChange={onChange} hintText="Password" />
+				<br />
 		    <RaisedButton
 					id="upload_widget_singleFromMultiple"
 		      label="Choose an Image"
