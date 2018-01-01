@@ -4,13 +4,13 @@ import { BrowserRouter, Route, NavLink, Switch, Redirect } from 'react-router-do
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import RaisedButton from 'material-ui/RaisedButton';
+import { Image, Video, Transformation, CloudinaryContext } from 'cloudinary-react';
+import CloudinaryCore from 'cloudinary-core';
 import Login from './Login.jsx';
 import Signup from './Signup.jsx';
 import BusinessProfile from './BusinessProfile.jsx';
 import PetOwnerProfile from './PetOwnerProfile.jsx';
 import PrimaryHeader from './PrimaryHeader.jsx';
-import { Image, Video, Transformation, CloudinaryContext } from 'cloudinary-react';
-import CloudinaryCore from 'cloudinary-core';
 
 
 class App extends React.Component {
@@ -21,18 +21,31 @@ class App extends React.Component {
       userType: localStorage.getItem('type'),
       user: JSON.parse(localStorage.getItem('user')),
     };
-    this.onChange = this.onChange.bind(this);
+    this.signUp = this.signUp.bind(this);
     this.authenticateLogin = this.authenticateLogin.bind(this);
     this.onLogOut = this.onLogOut.bind(this);
   }
 
-  onChange(e) {
-    let tempState = {};
-    tempState[e.target.name] = e.target.value;
-    this.setState(tempState);
+  signUp(user, userType) {
+    console.log('signup called', user)
+    if (userType ==='Business') {
+      axios.post('/api/business/signup', user)
+        .then((res) => {
+          this.onLogIn(res.data.name, 'Business');
+        })
+        .catch((err) => console.log(err));
+    } else {
+      axios.post('/api/petOwner/signup', user)
+        .then((res) => {
+          console.log('res.data',res.data)
+          this.onLogIn(res.data[0], 'Pet Owner');
+        })
+        .catch((err) => console.log(err));
+    }
   }
 
   authenticateLogin(email, pw, userType) {
+    console.log('auth login called', arguments)
     // set userType
     this.setState({userType: `${userType}`});
     // check login
@@ -48,6 +61,7 @@ class App extends React.Component {
     }
 
   onLogIn(user, userType) {
+    console.log('login user', user)
     // save user data in local storage
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('status', 'true');
@@ -99,7 +113,7 @@ class App extends React.Component {
                   <NavLink to="/signup" style={style.navButton} activeStyle={{ fontWeight: 'bold', textDecoration: 'underline' }}><RaisedButton buttonStyle={style.button}>SIGN UP</RaisedButton></NavLink>
                   <Switch>
                     <Route path="/login" render={() => (<Login authenticateLogin={this.authenticateLogin} />)} />
-                    <Route path="/signup" render={() => (<Signup app={this}/>)} />
+                    <Route path="/signup" render={() => (<Signup onChange={this.onChange} signUp={this.signUp}/>)} />
                   </Switch>
                 </div>
             </BrowserRouter>

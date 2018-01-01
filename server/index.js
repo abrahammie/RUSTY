@@ -12,15 +12,22 @@ app.use(bodyParser.json());
 
 // duplicate accordingly for user
 app.post('/api/business/signup', (req, res) => {
+  console.log('businesss signup called', req.body)
   helpers.addBusiness(req.body, (newBusiness) => {
       res.send('added business');
     });
 });
 
 app.post('/api/petOwner/signup', (req, res) => {
-  helpers.addPetOwner(req.body, (newPetOwner) => {
-    console.log('added new pet owner', newPetOwner);
-    res.send('added new pet owner');
+  helpers.addPetOwner(req.body, (err, newPetOwner) => {
+    if (err) {
+      console.log(err);
+      res.send(500);
+    } else {
+      console.log('new petOwner added');
+      console.log(newPetOwner)
+      res.json([[newPetOwner],[]]);
+    }
   });
 });
 
