@@ -1,12 +1,12 @@
-import React from "react";
-import $ from "jquery";
-import TextField from "material-ui/TextField";
-import { Image, Video, Transformation, CloudinaryContext } from "cloudinary-react";
-import cloudinary from "cloudinary-core";
+import React from 'react';
+import $ from 'jquery';
+import TextField from 'material-ui/TextField';
+import { Image, Video, Transformation, CloudinaryContext } from 'cloudinary-react';
+import cloudinary from 'cloudinary-core';
 import RaisedButton from 'material-ui/RaisedButton';
-import CloudinaryVideoPlayer from "cloudinary-video-player";
-import VideoContainer from "./businessSignup/video.jsx";
-import ImageProfileContainer from "./businessSignup/imageProfile.jsx";
+import CloudinaryVideoPlayer from 'cloudinary-video-player';
+import VideoContainer from './businessSignup/video.jsx';
+import ImageProfileContainer from './businessSignup/imageProfile.jsx';
 
 class BusinessSignup extends React.Component {
   constructor(props) {
@@ -22,14 +22,46 @@ class BusinessSignup extends React.Component {
 			},
 			imageProfile: {
 				visible: false,
-				source: null
-			}
+				source: null,
+        url: null,
+			},
+			name: '',
+			email: '',
+			zip: '',
+			phone: '',
+			street: '',
+			category: '',
+			password: '',
 		};
+		this.onChange = this.onChange.bind(this);
+		this.onSubmit = this.onSubmit.bind(this);
 		this.turnOff = this.turnOff.bind(this);
 		this.turnOn = this.turnOn.bind(this);
 		this.uploadVideo = this.uploadVideo.bind(this);
 		this.uploadImageProfile = this.uploadImageProfile.bind(this);
-		this.category = "business";
+		this.category = 'business';
+	}
+
+	onSubmit(ev) {
+		ev.preventDefault();
+		const obj = {};
+		obj.name = this.state.name;
+		obj.email = this.state.email;
+		obj.zip = this.state.zip;
+		obj.phone = this.state.phone;
+		obj.street = this.state.street;
+		obj.category = this.state.category;
+		obj.password = this.state.password;
+    obj.image = this.state.imageProfile.url;
+    obj.video = this.state.video.source;
+    obj.gallery = this.state.gallery.source;
+		this.props.signUp(obj, 'Business')
+	}
+
+	onChange(e) {
+		const obj = {};
+		obj[e.target.name] = e.target.value;
+		this.setState(obj);
 	}
 
 	turnOff(media) {
@@ -39,7 +71,7 @@ class BusinessSignup extends React.Component {
 			return state;
 		});
 		this.props.app.setState(state => {
-			var appStateKey = "signup-" + this.category + "-" + media;
+			var appStateKey = 'signup-' + this.category + '-' + media;
 			state[appStateKey] = null;
 			return state;
 		});
@@ -52,16 +84,15 @@ class BusinessSignup extends React.Component {
 			state[media].url = url;
 			return state;
 		});
-		var localState = this.state;
-		this.props.app.setState(state => {
-			var appStateKey = "signup-" + this.category + "-" + media;
-			state[appStateKey] = localState[media];
-			return state;
-		});
+		// var localState = this.state;
+		// this.props.app.setState(state => {
+		// 	var appStateKey = "signup-" + this.category + "-" + media;
+		// 	state[appStateKey] = localState[media];
+		// 	return state;
+		// });
 	}
 
 	uploadVideo() {
-		var that = this;
 		window.cloudinary.openUploadWidget(
 			{
 				cloud_name: "nicko",
@@ -77,18 +108,17 @@ class BusinessSignup extends React.Component {
 				client_allowed_formats: ["mp4"],
 				keep_widget_open: false
 			},
-			function(error, result) {
+			(error, result) => {
 				if (error) {
 					console.log(error, result);
 					return;
 				}
-				that.turnOn("video", result[0].public_id, result[0].url);
+				this.turnOn('video', result[0].public_id, result[0].url);
 			}
 		);
 	}
 
 	uploadImageProfile() {
-		var that = this;
 		window.cloudinary.openUploadWidget(
 			{
 				cloud_name: "nicko",
@@ -111,18 +141,17 @@ class BusinessSignup extends React.Component {
 				client_allowed_formats: ["jpg", "jpeg", "png", "gif", "svg"],
 				keep_widget_open: false
 			},
-			function(error, result) {
+			(error, result) => {
 				if (error) {
 					console.log(error, result);
 					return;
 				}
-				console.log("result  = ", result);
-				that.turnOn("imageProfile", result[0].public_id, result[0].url);
+				this.turnOn('imageProfile', result[0].public_id, result[0].url);
 			}
 		);
 	}
 
-	render() {
+  render() {
     const style = {
       button: {
         fontFamily: 'Roboto, sans-serif',
@@ -131,14 +160,11 @@ class BusinessSignup extends React.Component {
       }
     };
 
-		let onChange = this.props.app.onChange;
-		var that = this;
-		$(document).ready(function() {
-			// comp 2
-			$("#upload_widget_multiple").click(function(e) {
-				e.preventDefault();
-				window.cloudinary.openUploadWidget(
-					{
+    $(document).ready(function() {
+      $('#upload_widget_multiple').click(function(e) {
+        e.preventDefault();
+        window.cloudinary.openUploadWidget(
+        {
 						cloud_name: "nicko",
 						upload_preset: "avqjuqpq",
 						folder: "widgetdocs",
@@ -168,40 +194,36 @@ class BusinessSignup extends React.Component {
 			});
 		});
 
-		let onSubmit = () => {
-			this.props.app.submitData("businessSignupUserInput");
-		};
-
-		return (
-			<div>
-				<TextField id="email" onChange={onChange} hintText="Email" />
-				<br />
-				<TextField id="businessName" onChange={onChange} hintText="Business Name" />
-				<br />
-				<TextField id="zipCode" onChange={onChange} hintText="Zip Code" />
-				<br />
-				<TextField id="phone" onChange={onChange} hintText="Phone" />
-				<br/>
-				<TextField id="street" onChange={onChange} hintText="Street Address" />
-				<br/>
-				<TextField id="businessCategory" onChange={onChange} hintText="Business Category" />
-				<br/>
-				<TextField id="password" onChange={onChange} hintText="Password" />
-				<br />
-		    <RaisedButton
-					id="upload_widget_singleFromMultiple"
-		      label="Choose an Image"
-		      labelPosition="before"
-		      containerElement="label"
-		      style={{ margin: 12 }}
-					onClick={this.uploadImageProfile}
-		    />
-				<br />
-				{this.state.imageProfile.visible ? (
-					<div>
-						<br />
-						<br />
-						<ImageProfileContainer
+    return (
+      <form id="signupForm" onSubmit={this.onSubmit}>
+        <TextField name="email" onChange={this.onChange} hintText="Email" />
+        <br />
+        <TextField name="name" onChange={this.onChange} hintText="Business Name" />
+        <br />
+        <TextField name="zip" onChange={this.onChange} hintText="Zip Code" />
+        <br />
+        <TextField name="phone" onChange={this.onChange} hintText="Phone" />
+        <br />
+        <TextField name="street" onChange={this.onChange} hintText="Street Address" />
+        <br />
+        <TextField name="category" onChange={this.onChange} hintText="Business Category" />
+        <br />
+        <TextField name="password" onChange={this.onChange} hintText="Password" />
+        <br />
+        <RaisedButton
+          id="upload_widget_singleFromMultiple"
+          label="Choose an Image"
+          labelPosition="before"
+          containerElement="label"
+          style={{ margin: 12 }}
+          onClick={this.uploadImageProfile}
+        />
+        <br />
+          {this.state.imageProfile.visible ? (
+        <div>
+        <br />
+          	<br />
+          	<ImageProfileContainer
 							publicId={this.state.imageProfile.source}
 							turnOff={this.turnOff}
 						/>
@@ -228,10 +250,10 @@ class BusinessSignup extends React.Component {
 		      containerElement="label"
 		      style={{ margin: 12 }}
 		      buttonStyle={style.button}
-					onClick={onSubmit}
+					type="submit"
+					onClick={this.onSubmit}
 		    >SUBMIT</RaisedButton>
-
-			</div>
+			</form>
 		);
 	}
 }

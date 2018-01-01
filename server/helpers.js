@@ -28,14 +28,20 @@ const seedGallery = function (images) {
 const addBusiness = (data, callback) => {
   bcrypt.hash(data.password, 10, (err, hash) => {
     const business = new db.Business({
-      galleryImages: data.gallery,
-      businessName: data.businessName,
+      galleryImages: {
+        cloudinaryURL: data.gallery,
+      },
+      businessName: data.name,
       email: data.email,
       password: hash,
-      profileImg: data.profileImg,
-      profileVideo: data.profileVideo,
+      profileImg: {
+        cloudinaryURL: data.image,
+      },
+      profileVideo: {
+        cloudinaryURL: data.video,
+      },
       phone: data.phone,
-      businessCategory: data.businessCategory,
+      businessCategory: data.category,
       street: data.street,
       city: data.city,
       state: data.state,

@@ -27,17 +27,15 @@ class App extends React.Component {
   }
 
   signUp(user, userType) {
-    console.log('signup called', user)
     if (userType ==='Business') {
       axios.post('/api/business/signup', user)
         .then((res) => {
-          this.onLogIn(res.data.name, 'Business');
+          this.onLogIn(res.data[0], 'Business');
         })
         .catch((err) => console.log(err));
     } else {
       axios.post('/api/petOwner/signup', user)
         .then((res) => {
-          console.log('res.data',res.data)
           this.onLogIn(res.data[0], 'Pet Owner');
         })
         .catch((err) => console.log(err));
@@ -45,7 +43,6 @@ class App extends React.Component {
   }
 
   authenticateLogin(email, pw, userType) {
-    console.log('auth login called', arguments)
     // set userType
     this.setState({userType: `${userType}`});
     // check login
@@ -61,7 +58,6 @@ class App extends React.Component {
     }
 
   onLogIn(user, userType) {
-    console.log('login user', user)
     // save user data in local storage
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('status', 'true');
@@ -104,7 +100,7 @@ class App extends React.Component {
            <div>
             <PrimaryHeader />
           </div>
-          <div style={{ background: 'url(https://images.unsplash.com/photo-1506993708131-b0bf29d16b76?auto=format&fit=crop&w=1500&q=80) no-repeat center center fixed', height: '100vh', backgroundSize: 'cover' }}>
+          <div style={{ background: 'url(https://images.unsplash.com/photo-1506993708131-b0bf29d16b76?auto=format&fit=crop&w=1500&q=80) no-repeat center center fixed', minHeight: '100vh', backgroundSize: 'cover' }}>
           <br/>
           <br/>
             <BrowserRouter>
