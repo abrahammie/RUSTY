@@ -103,7 +103,7 @@ class BusinessMini extends React.Component {
             <CardText
               expandable={true}
             >
-              <h3>What rusty users are saying about {this.props.businessName}:</h3>
+              <h3>What RUSTY users are saying about {this.props.businessName}:</h3>
               {reviews.map((review) => {
                 return <Review description={review.description} />;
               })}
