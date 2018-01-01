@@ -105,7 +105,7 @@ class App extends React.Component {
           <br/>
             <BrowserRouter>
                 <div>
-                  <NavLink to="/login" style={style.navButton} activeStyle={{ fontWeight: 'bold', textDecoration: 'underline' }}><RaisedButton buttonStyle={style.button}>LOGIN</RaisedButton></NavLink>
+                  <NavLink to="/login" style={style.navButton} activeStyle={{ fontWeight: 'bold', textDecoration: 'underline' }}><RaisedButton buttonStyle={style.button}>LOG IN</RaisedButton></NavLink>
                   <NavLink to="/signup" style={style.navButton} activeStyle={{ fontWeight: 'bold', textDecoration: 'underline' }}><RaisedButton buttonStyle={style.button}>SIGN UP</RaisedButton></NavLink>
                   <Switch>
                     <Route path="/login" render={() => (<Login authenticateLogin={this.authenticateLogin} />)} />

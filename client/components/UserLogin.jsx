@@ -50,7 +50,7 @@ class UserLogin extends React.Component {
           />
           <br />
           <br />
-          <RaisedButton onClick={this.onSubmit} buttonStyle={style.button} type="submit">SUBMIT</RaisedButton>
+          <RaisedButton onClick={this.onSubmit} buttonStyle={style.button} type="submit">LOG IN</RaisedButton>
         </form>
       </div>
     );

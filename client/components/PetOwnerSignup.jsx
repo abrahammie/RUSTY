@@ -64,7 +64,7 @@ class PetOwnerSignup extends React.Component {
 	        buttonStyle={style.button}
 	        onClick={this.onSubmit}
 	      >
-	        SUBMIT
+	        SIGN UP
 	      </RaisedButton>
 	      </form>
 	    </div>

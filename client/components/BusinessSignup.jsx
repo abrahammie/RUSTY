@@ -252,7 +252,7 @@ class BusinessSignup extends React.Component {
 		      buttonStyle={style.button}
 					type="submit"
 					onClick={this.onSubmit}
-		    >SUBMIT</RaisedButton>
+		    >SIGN UP</RaisedButton>
 			</form>
 		);
 	}
