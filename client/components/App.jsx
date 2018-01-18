@@ -81,7 +81,7 @@ class App extends React.Component {
         color: 'white',
       },
       navButtonLeft: {
-        margin: 20,
+        margin: 22,
       },
       bg: {
         background: 'url(https://images.unsplash.com/photo-1506993708131-b0bf29d16b76?auto=format&fit=crop&w=1500&q=80) no-repeat center center fixed',
