@@ -1,6 +1,10 @@
 import React from 'react';
+import $ from 'jquery';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
+import { Image, Video, Transformation, CloudinaryContext } from 'cloudinary-react';
+import cloudinary from 'cloudinary-core';
+import ImageProfileContainer from './businessSignup/imageProfile.jsx';
 
 class PetOwnerSignup extends React.Component {
 	constructor(props) {
@@ -11,10 +15,17 @@ class PetOwnerSignup extends React.Component {
 			petName: '',
 			zip: '',
 			password: '',
-			image:'',
+      imageProfile: {
+        visible: false,
+        source: null,
+        url: null,
+      },
 		};
 		this.onChange = this.onChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
+    this.uploadImageProfile = this.uploadImageProfile.bind(this);
+    this.turnOn = this.turnOn.bind(this);
+    this.turnOff = this.turnOff.bind(this);
 	}
 
   onSubmit(ev) {
@@ -24,7 +35,7 @@ class PetOwnerSignup extends React.Component {
   	obj.email = this.state.email;
   	obj.petName = this.state.petName;
   	obj.zip = this.state.zip;
-  	obj.image = this.state.image;
+  	obj.image = this.state.imageProfile.url;
   	obj.password = this.state.password;
   	this.props.signUp(obj);
   }
@@ -35,6 +46,67 @@ class PetOwnerSignup extends React.Component {
   	this.setState(obj);
   }
 
+  turnOff(media) {
+    this.setState(state => {
+      state[media].visible = false;
+      state[media].source = null;
+      return state;
+    });
+    this.props.app.setState(state => {
+      var appStateKey = 'signup-' + this.category + '-' + media;
+      state[appStateKey] = null;
+      return state;
+    });
+  }
+
+  turnOn(media, source, url) {
+    this.setState(state => {
+      state[media].visible = true;
+      state[media].source = source;
+      state[media].url = url;
+      return state;
+    });
+    // var localState = this.state;
+    // this.props.app.setState(state => {
+    //  var appStateKey = "signup-" + this.category + "-" + media;
+    //  state[appStateKey] = localState[media];
+    //  return state;
+    // });
+  }
+
+  uploadImageProfile() {
+    window.cloudinary.openUploadWidget(
+      {
+        cloud_name: "nicko",
+        upload_preset: "avqjuqpq",
+        folder: "widgetdocs",
+        form: ".upload_multiple_images_holder",
+        sources: [
+          "local",
+          "image_search",
+          "facebook",
+          "instagram",
+          "google_photos"
+        ],
+        thumbnails: ".upload_multiple_images_holder",
+        cropping: "server",
+        multiple: false,
+        google_api_key: "AIzaSyDaQj7FO1IQtp9DSB5YNP5jjG6f_mItEQ4",
+        max_files: 1,
+        show_powered_by: false,
+        client_allowed_formats: ["jpg", "jpeg", "png", "gif", "svg"],
+        keep_widget_open: false
+      },
+      (error, result) => {
+        if (error) {
+          console.log(error, result);
+          return;
+        }
+        this.turnOn('imageProfile', result[0].public_id, result[0].url);
+      }
+    );
+  }
+
   render() {
 	  const style = {
 	    button: {
@@ -43,6 +115,40 @@ class PetOwnerSignup extends React.Component {
 	      color: 'white',
 	    },
 	  };
+
+    $(document).ready(function() {
+      $('#upload_widget_multiple').click(function(e) {
+        e.preventDefault();
+        window.cloudinary.openUploadWidget(
+        {
+            cloud_name: "nicko",
+            upload_preset: "avqjuqpq",
+            folder: "widgetdocs",
+            form: ".upload_multiple_images_holder",
+            sources: [
+              "local",
+              "image_search",
+              "facebook",
+              "instagram",
+              "google_photos"
+            ],
+            thumbnails: ".upload_multiple_images_holder",
+            multiple: true,
+            google_api_key: "AIzaSyDaQj7FO1IQtp9DSB5YNP5jjG6f_mItEQ4",
+            max_files: 10,
+            show_powered_by: false,
+            client_allowed_formats: ["jpg", "jpeg", "png", "gif", "svg"],
+            keep_widget_open: true
+          },
+          function(error, result) {
+            if (error) {
+              console.log(error, result);
+              return;
+            }
+          });
+      });
+    });
+
 	  return (
 	    <div>
 	    <form id="signupForm" onSubmit={this.onSubmit}>
@@ -54,10 +160,29 @@ class PetOwnerSignup extends React.Component {
 	      <br />
 	      <TextField name="petName" onChange={this.onChange} hintText="Pet Name" />
 	      <br />
-	      <TextField name="image" onChange={this.onChange} hintText="Profile Image Url" />
-	      <br />
 	      <TextField name="password" onChange={this.onChange} hintText="Password" />
-	      <br />
+        <br />
+        <RaisedButton
+          id="upload_widget_singleFromMultiple"
+          label="Choose an Image"
+          labelPosition="before"
+          containerElement="label"
+          style={{ margin: 12 }}
+          onClick={this.uploadImageProfile}
+        />
+        <br />
+          {this.state.imageProfile.visible ? (
+        <div>
+        <br />
+            <br />
+            <ImageProfileContainer
+              publicId={this.state.imageProfile.source}
+              turnOff={this.turnOff}
+            />
+            <br />
+            <br />
+          </div>
+        ) : null}
 	      <RaisedButton
 	        containerElement="label"
 	        style={{ margin: 12 }}

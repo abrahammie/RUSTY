@@ -80,9 +80,14 @@ class App extends React.Component {
         backgroundColor: '#7CB342',
         color: 'white',
       },
-      navButton: {
-        margin: 30,
-      }
+      navButtonLeft: {
+        margin: 20,
+      },
+      bg: {
+        background: 'url(https://images.unsplash.com/photo-1506993708131-b0bf29d16b76?auto=format&fit=crop&w=1500&q=80) no-repeat center center fixed',
+        minHeight: '100vh',
+        backgroundSize: 'cover',
+      },
     };
 
     if (this.state.isLoggedIn) {
@@ -100,13 +105,13 @@ class App extends React.Component {
            <div>
             <PrimaryHeader />
           </div>
-          <div style={{ background: 'url(https://images.unsplash.com/photo-1506993708131-b0bf29d16b76?auto=format&fit=crop&w=1500&q=80) no-repeat center center fixed', minHeight: '100vh', backgroundSize: 'cover' }}>
+          <div style={style.bg}>
           <br/>
           <br/>
             <BrowserRouter>
                 <div>
-                  <NavLink to="/login" style={style.navButton} activeStyle={{ fontWeight: 'bold', textDecoration: 'underline' }}><RaisedButton buttonStyle={style.button}>LOG IN</RaisedButton></NavLink>
-                  <NavLink to="/signup" style={style.navButton} activeStyle={{ fontWeight: 'bold', textDecoration: 'underline' }}><RaisedButton buttonStyle={style.button}>SIGN UP</RaisedButton></NavLink>
+                  <NavLink to="/login" style={style.navButtonLeft}><RaisedButton buttonStyle={style.button}>LOG IN</RaisedButton></NavLink>
+                  <NavLink to="/signup"><RaisedButton buttonStyle={style.button}>SIGN UP</RaisedButton></NavLink>
                   <Switch>
                     <Route path="/login" render={() => (<Login authenticateLogin={this.authenticateLogin} />)} />
                     <Route path="/signup" render={() => (<Signup onChange={this.onChange} signUp={this.signUp}/>)} />
