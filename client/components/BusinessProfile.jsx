@@ -7,14 +7,20 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import ProfileHeader from './ProfileHeader.jsx';
 
-const paperStyle = {
-  width: 500,
-  margin: 10,
-  textAlign: 'left',
-};
-
-const hintStyle = {
-  textAlign: 'center',
+const style = {
+  paperStyle: {
+    maxWidth: 600,
+    margin: '0 auto',
+  },
+  profileContent: {
+    background: 'url(swirl.png)',
+  },
+  image: {
+    maxWidth: 600,
+  },
+  hintStyle: {
+    textAlign: 'center',
+  },
 };
 
 class BusinessProfile extends React.Component {
@@ -49,55 +55,57 @@ class BusinessProfile extends React.Component {
       <MuiThemeProvider>
         <div>
           <ProfileHeader onLogOut={this.props.onLogOut} />
-          <br />
-          <Paper
-            style={paperStyle}
-            zDepth={3}
-          >
-            <Card>
-              <CardHeader
-                title={`Welcome, ${this.props.user.businessName}!`}
-              />
-              <img src={this.props.user.profileImg.cloudinaryURL} style={{ maxWidth: 500 }} alt="" />
-              <CardMedia
-                overlay={<CardTitle title={this.props.user.businessName} />}
-              />
-              <CardText >
-                What Rusty users are saying about you:
-                <br />
-                <ul>
-                  {this.props.reviews.map((review) => {
-                    return (
-                      <li>{review.description}</li>
-                    );
-                  })}
-                </ul>
-                <br />
-                <h3>Your special promotions:</h3>
-                <ul>
-                  {this.props.promotions.map((promotion) => {
-                    return (
-                      <li>{promotion.description}</li>
-                    );
-                  })}
-                </ul>
-              </CardText>
-              <CardActions>
-                <TextField
-                  hintText="Enter a new promotion here!"
-                  hintStyle={{ hintStyle }}
-                  multiLine={true}
-                  value={this.state.promoText}
-                  onChange={event => this.handleChange(event)}
+            <div style={style.profileContent}>
+            <br />
+            <Paper
+              style={style.paperStyle}
+              zDepth={3}
+            >
+              <Card>
+                <CardHeader
+                  title={`Welcome, ${this.props.user.businessName}!`}
                 />
-                <FlatButton
-                  label="make your offer"
-                  primary={true}
-                  onClick={() => this.handlePromo()}
+                <img src={this.props.user.profileImg.cloudinaryURL} style={style.image} alt="" />
+                <CardMedia
+                  overlay={<CardTitle title={this.props.user.businessName} />}
                 />
-              </CardActions>
-            </Card>
-          </Paper>
+                <CardText >
+                  What Rusty users are saying about you:
+                  <br />
+                  <ul>
+                    {this.props.reviews.map((review) => {
+                      return (
+                        <li>{review.description}</li>
+                      );
+                    })}
+                  </ul>
+                  <br />
+                  <h3>Your special promotions:</h3>
+                  <ul>
+                    {this.props.promotions.map((promotion) => {
+                      return (
+                        <li>{promotion.description}</li>
+                      );
+                    })}
+                  </ul>
+                </CardText>
+                <CardActions>
+                  <TextField
+                    hintText="Enter a new promotion here!"
+                    hintStyle={style.hintStyle}
+                    multiLine={true}
+                    value={this.state.promoText}
+                    onChange={event => this.handleChange(event)}
+                  />
+                  <FlatButton
+                    label="make your offer"
+                    primary={true}
+                    onClick={() => this.handlePromo()}
+                  />
+                </CardActions>
+              </Card>
+            </Paper>
+          </div>
         </div>
       </MuiThemeProvider>
     );
