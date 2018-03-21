@@ -5,10 +5,17 @@ import Paper from 'material-ui/Paper';
 import ProfileHeader from './ProfileHeader.jsx';
 import SearchResults from './SearchResults.jsx';
 
-const paperStyle = {
-  width: 500,
-  margin: 10,
-  textAlign: 'left',
+const style = {
+  paperStyle: {
+    maxWidth: 500,
+    margin: '0 auto',
+  },
+  profileContent: {
+    // add background here
+  },
+  image: {
+    maxWidth: 500,
+  },
 };
 
 
@@ -16,28 +23,32 @@ const PetOwnerProfile = (props) => {
   return (
     <MuiThemeProvider>
       <div>
-        <ProfileHeader onLogOut={props.onLogOut} />
-        <br />
-        <Paper
-          style={paperStyle}
-          zDepth={3}
-        >
-          <Card>
-            <CardHeader
-              title={'Welcome back ' + props.user.username + ' and ' + props.user.pet + '!'}
-            />
-            <img src={props.user.profileImg.cloudinaryURL} style={{ maxWidth: 500 }} alt="" />
-            <CardMedia
-              overlay={<CardTitle title={props.user.pet} />}
-            />
-            <CardText>
-              <h4>Browse local pet-friendly businesses.
-              Whistle for {props.user.pet} and Enjoy!</h4>
-            </CardText>
-          </Card>
-        </Paper>
-        <SearchResults petOwnerId={props.user._id} />
-      </div>
+
+          <ProfileHeader onLogOut={props.onLogOut} />
+            <div id="content" style={style.profileContent}>
+            <br />
+            <Paper
+              style={style.paperStyle}
+              zDepth={3}
+            >
+              <Card>
+                <CardHeader
+                  title={'Welcome ' + props.user.username + ' and ' + props.user.pet + '!'}
+                />
+                <img src={props.user.profileImg.cloudinaryURL} style={style.image} alt="" />
+                <CardMedia
+                  overlay={<CardTitle title={props.user.pet} />}
+                />
+                <CardText>
+                  <h4>Browse local pet-friendly businesses.
+                  Whistle for {props.user.pet} and Enjoy!</h4>
+                </CardText>
+              </Card>
+            </Paper>
+            <SearchResults petOwnerId={props.user._id} />
+          </div>
+        </div>
+
     </MuiThemeProvider>
   );
 };
