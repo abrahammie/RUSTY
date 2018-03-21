@@ -10,7 +10,7 @@ import BusinessMini from './BusinessMini.jsx';
 const style = {
   list: {
     margin: '0 auto',
-    maxWidth: 500,
+    maxWidth: 600,
   },
 };
 
@@ -91,6 +91,5 @@ class SearchResults extends React.Component {
     );
   }
 }
-
 
 export default SearchResults;

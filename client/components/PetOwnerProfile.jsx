@@ -7,14 +7,14 @@ import SearchResults from './SearchResults.jsx';
 
 const style = {
   paperStyle: {
-    maxWidth: 500,
+    maxWidth: 600,
     margin: '0 auto',
   },
   profileContent: {
     background: 'url(swirl.png)',
   },
   image: {
-    maxWidth: 500,
+    maxWidth: 600,
   },
 };
 
@@ -43,6 +43,7 @@ const PetOwnerProfile = (props) => {
               </CardText>
             </Card>
           </Paper>
+          <br/>
           <SearchResults petOwnerId={props.user._id} />
         </div>
       </div>

@@ -10,7 +10,7 @@ import Wag from './Wag.jsx';
 
 const paperStyle = {
   width: 600,
-  marginBottom: 20,
+  margin: '20px 0px',
   textAlign: 'left',
   display: 'inline-block',
 };
