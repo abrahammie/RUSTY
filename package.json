@@ -10,7 +10,7 @@
     "start": "nodemon --inspect server/index.js",
     "heroku-postbuild": "webpack",
     "dev": "webpack-dev-server",
-    "build": "webpack -d --hot",
+    "build": "webpack -d --hot --watch",
     "test": "mocha"
   },
   "author": "all that",
