@@ -8,10 +8,9 @@ import Pets from 'material-ui/svg-icons/action/pets';
 import Review from './Review.jsx';
 import Wag from './Wag.jsx';
 
-
 const paperStyle = {
   width: 600,
-  margin: 20,
+  marginBottom: 20,
   textAlign: 'left',
   display: 'inline-block',
 };

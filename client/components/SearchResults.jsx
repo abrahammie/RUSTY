@@ -7,6 +7,13 @@ import MenuItem from 'material-ui/MenuItem';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import BusinessMini from './BusinessMini.jsx';
 
+const style = {
+  list: {
+    margin: '0 auto',
+    maxWidth: 500,
+  },
+};
+
 class SearchResults extends React.Component {
   constructor(props) {
     super(props);
@@ -15,7 +22,6 @@ class SearchResults extends React.Component {
       category: 1,
     };
   }
-
 
   componentDidMount() {
     axios.get('/api/businessListings')
@@ -61,7 +67,7 @@ class SearchResults extends React.Component {
     };
     return (
       <MuiThemeProvider>
-        <div>
+        <div style={style.list}>
           <DropDownMenu
             iconButton={<ActionSearch color={blue500} hoverColor={greenA200} />}
             value={this.state.value}
