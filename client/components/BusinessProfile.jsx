@@ -16,7 +16,7 @@ const style = {
     background: 'url(swirl.png)',
   },
   image: {
-    maxWidth: 600,
+    width: 600,
   },
   hintStyle: {
     textAlign: 'center',
