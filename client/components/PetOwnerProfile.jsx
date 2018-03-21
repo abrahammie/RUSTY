@@ -12,6 +12,7 @@ const style = {
   },
   profileContent: {
     // add background here
+    background: 'url(swirl.png)',
   },
   image: {
     maxWidth: 500,
