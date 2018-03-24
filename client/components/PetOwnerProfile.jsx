@@ -14,7 +14,8 @@ const style = {
     background: 'url(swirl.png)',
   },
   image: {
-    maxWidth: 600,
+    maxWidth: '100%',
+    height: 'auto',
   },
 };
 
