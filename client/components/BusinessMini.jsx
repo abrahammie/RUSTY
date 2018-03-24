@@ -9,7 +9,8 @@ import Review from './Review.jsx';
 import Wag from './Wag.jsx';
 
 const paperStyle = {
-  width: 600,
+  width: '100%',
+  minWidth: 300,
   margin: '20px 0px',
   textAlign: 'left',
   display: 'inline-block',
